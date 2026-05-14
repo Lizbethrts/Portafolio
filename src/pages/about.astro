@@ -1,0 +1,847 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+	<main class="profile-screen" aria-labelledby="profile-title">
+		<a class="back-link" href="/" aria-label="Volver al menu principal">Back</a>
+
+		<header class="profile-header">
+			<img src="/img/menu/3.png" alt="" width="42" height="42" />
+			<h1 id="profile-title">Player Profile</h1>
+		</header>
+
+		<section class="profile-hero" aria-label="Player Profile intro">
+			<div class="card-zone" aria-hidden="true">
+				<img class="sprite sprite--bulbasaur" src="/img/profile/13.png" alt="" />
+				<img class="sprite sprite--pokeball-top" src="/img/profile/10.png" alt="" />
+				<img class="sprite sprite--cat" src="/img/profile/12.png" alt="" />
+				<img class="sprite sprite--pokeball-bottom" src="/img/profile/11.png" alt="" />
+				<img class="profile-card" src="/img/profile/lizbeth-card.png" alt="" />
+			</div>
+
+			<article class="intro-window">
+				<img class="sprite sprite--charmander" src="/img/profile/14.png" alt="" aria-hidden="true" />
+				<span class="window-dot" aria-hidden="true"></span>
+				<div class="intro-copy">
+					<p>
+						Hi, I&apos;m Liz, a designer, developer, and naturally curious person from Mexico
+						City who has always been drawn to creating things.
+					</p>
+					<p>
+						Long before I understood what UX/UI or interactive design even meant, I was
+						already fascinated by digital experiences through video games. I loved the
+						feeling of exploring worlds, discovering interfaces, interacting with systems,
+						and seeing how small details could completely shape an experience.
+					</p>
+					<p>
+						Even as a kid, I knew I wanted to create something. I just didn&apos;t know what
+						form that would take yet.
+					</p>
+				</div>
+				<img class="sprite sprite--grass" src="/img/profile/9.png" alt="" aria-hidden="true" />
+			</article>
+		</section>
+
+		<section class="ds-section" aria-label="Design journey">
+			<article class="ds-text-window">
+				<div class="ds-window-buttons" aria-hidden="true">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+				<div class="ds-copy">
+					<p>
+						What eventually led me to design was realizing that creativity and technology
+						never felt separate to me. I was naturally interested in both.
+					</p>
+					<p>
+						I loved imagining ideas visually, but I was equally curious about how things
+						actually worked underneath the surface. That&apos;s why interactive design felt so
+						right: it allowed me to combine storytelling, systems, visuals, logic, and human
+						behavior all in one place.
+					</p>
+					<p>
+						Today, I work across UX/UI, frontend development, and interactive experiences,
+						creating interfaces that aim to feel dynamic, intuitive, and accessible.
+						Accessibility is especially important to me because I believe good design should
+						work for everyone, not just look good.
+					</p>
+				</div>
+			</article>
+
+			<div class="ds-art" aria-hidden="true">
+				<span class="sparkle sparkle--one"></span>
+				<span class="sparkle sparkle--two"></span>
+				<span class="sparkle sparkle--three"></span>
+				<img class="ds-console" src="/img/profile/15.png" alt="" />
+				<img class="ds-deco ds-deco--controller" src="/img/profile/16.png" alt="" />
+				<img class="ds-deco ds-deco--tamagotchi" src="/img/profile/17.png" alt="" />
+			</div>
+		</section>
+
+		<section id="programming-background" class="programming-section" aria-label="Programming background">
+			<div class="pikmin-stage">
+				<div class="character-group">
+					<div class="pikmin-row" aria-label="Pikmin-inspired pixel characters">
+						<img src="/img/profile/18.png" alt="Red Pikmin-inspired pixel character" />
+						<img src="/img/profile/19.png" alt="Gray Pikmin-inspired pixel character" />
+						<img src="/img/profile/20.png" alt="Yellow Pikmin-inspired pixel character" />
+						<img src="/img/profile/21.png" alt="Blue Pikmin-inspired pixel character" />
+					</div>
+					<img
+						class="olimar-liz"
+						src="/img/profile/olimar-liz.png"
+						alt="Pixel-art Liz wearing an astronaut suit"
+					/>
+				</div>
+			</div>
+
+			<article class="code-window">
+				<div class="code-window-bar" aria-hidden="true">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+				<div class="code-window-body">
+					<p>
+						One thing that deeply shapes the way I design is my programming background. It
+						allows me to move comfortably between both worlds: understanding user needs and
+						creative direction while also understanding the technical side of how products
+						are built. I genuinely enjoy being able to speak both languages and help bridge
+						the gap between design and development.
+					</p>
+					<p>
+						I love researching competitors, analyzing interfaces, building prototypes, and
+						exploring how different products solve problems. For me, design is not only about
+						aesthetics — it&apos;s about curiosity, experimentation, and creating experiences
+						that feel alive.
+					</p>
+				</div>
+			</article>
+		</section>
+
+		<section class="lore-section" aria-label="Personal lore">
+			<article class="lore-window">
+				<div class="lore-window-bar" aria-hidden="true">
+					<span></span>
+				</div>
+				<div class="lore-window-body">
+					<p>
+						Outside of work, I spend a lot of time playing video games, listening to music,
+						collecting pins and postcards, and constantly learning new things just because
+						they spark my curiosity. I&apos;m the kind of person who gets excited about
+						discovering a clever interaction, a beautifully crafted interface, or a creative
+						concept executed thoughtfully.
+					</p>
+					<p>
+						At the core of everything I create is the same thing that inspired me when I was
+						younger: the idea that digital experiences can make people feel something.
+					</p>
+					<p>And honestly, that&apos;s still the part I love the most.</p>
+				</div>
+			</article>
+
+			<div class="lore-art">
+				<img
+					src="/img/profile/princess-castle-scene.png"
+					alt="Pixel-art princess beside a flag and pastel castle"
+				/>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style is:global>
+	@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Pixelify+Sans:wght@400..700&display=swap');
+
+	body {
+		overflow-x: hidden;
+		background: #ffffec;
+	}
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	.profile-screen {
+		position: relative;
+		min-height: 100svh;
+		padding: clamp(24px, 4vh, 34px) clamp(24px, 7vw, 108px) 72px;
+		background: #ffffec;
+		color: #2b2b33;
+		font-family: 'Comfortaa', 'Trebuchet MS', sans-serif;
+	}
+
+	.back-link {
+		position: fixed;
+		top: 24px;
+		left: 24px;
+		z-index: 5;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 92px;
+		min-height: 34px;
+		border-radius: 10px;
+		background: #f3a4ba;
+		color: #6b5260;
+		font-size: 0.78rem;
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	.profile-header {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		width: min(100%, 1160px);
+		margin: 0 auto;
+		padding-left: clamp(70px, 9vw, 116px);
+		color: #b8977a;
+	}
+
+	.profile-header img,
+	.sprite {
+		object-fit: contain;
+		image-rendering: pixelated;
+	}
+
+	.profile-header h1 {
+		margin: 0;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: clamp(2.6rem, 5vw, 4.35rem);
+		font-weight: 700;
+		letter-spacing: 0;
+		line-height: 1;
+	}
+
+	.profile-hero {
+		display: grid;
+		grid-template-columns: minmax(250px, 0.78fr) minmax(400px, 1.4fr);
+		align-items: center;
+		gap: clamp(24px, 5vw, 84px);
+		width: min(100%, 1160px);
+		margin: clamp(70px, 11vh, 112px) auto 0;
+	}
+
+	.card-zone {
+		position: relative;
+		min-height: 430px;
+		overflow: visible;
+	}
+
+	.profile-card {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: min(305px, 31vw);
+		max-width: 340px;
+		filter: drop-shadow(0 14px 0 rgba(52, 52, 90, 0.12));
+		transform: translate(-50%, -50%) rotate(-11deg);
+		transform-origin: center;
+	}
+
+	.intro-window {
+		position: relative;
+		min-height: 330px;
+		padding: 42px 10px 10px;
+		border-radius: 40px;
+		background: #f5acd1;
+	}
+
+	.intro-copy {
+		min-height: 100%;
+		padding: 20px 34px 22px;
+		background: #ffffff;
+		border-radius: 0 0 30px 30px;
+	}
+
+	.intro-copy p {
+		margin: 0 0 14px;
+		color: #2b2b33;
+		font-size: clamp(0.86rem, 1.1vw, 1rem);
+		line-height: 2.2;
+	}
+
+	.intro-copy p:last-child {
+		margin-bottom: 0;
+	}
+
+	.window-dot {
+		position: absolute;
+		top: 9px;
+		right: 54px;
+		width: 28px;
+		height: 28px;
+		border-radius: 999px;
+		background: #a9f37c;
+	}
+
+	.sprite {
+		position: absolute;
+		z-index: 2;
+		pointer-events: none;
+	}
+
+	.sprite--bulbasaur {
+		top: 52px;
+		left: -54px;
+		width: 58px;
+	}
+
+	.sprite--pokeball-top {
+		top: 8px;
+		right: -42px;
+		width: 64px;
+		transform: rotate(14deg);
+	}
+
+	.sprite--cat {
+		right: -58px;
+		bottom: 80px;
+		width: 66px;
+	}
+
+	.sprite--pokeball-bottom {
+		left: -40px;
+		bottom: 10px;
+		width: 58px;
+	}
+
+	.sprite--charmander {
+		top: -56px;
+		left: 72px;
+		width: 58px;
+	}
+
+	.sprite--grass {
+		right: -18px;
+		bottom: -38px;
+		width: 104px;
+	}
+
+	.ds-section {
+		display: grid;
+		grid-template-columns: minmax(420px, 1.05fr) minmax(360px, 0.95fr);
+		align-items: center;
+		gap: clamp(46px, 8vw, 104px);
+		width: min(100%, 1160px);
+		margin: clamp(90px, 16vh, 142px) auto 0;
+		padding-bottom: 58px;
+	}
+
+	.ds-text-window {
+		position: relative;
+		padding: 60px 22px 18px;
+		border-radius: 34px;
+		background: #b8d9f8;
+	}
+
+	.ds-window-buttons {
+		position: absolute;
+		top: 20px;
+		right: 28px;
+		display: flex;
+		gap: 24px;
+	}
+
+	.ds-window-buttons span {
+		width: 28px;
+		height: 28px;
+		border-radius: 999px;
+		background: #ffe28a;
+	}
+
+	.ds-window-buttons span:nth-child(2) {
+		background: #8beb6f;
+	}
+
+	.ds-window-buttons span:nth-child(3) {
+		background: #f7a4bf;
+	}
+
+	.ds-copy {
+		padding: 20px 18px;
+		border-radius: 0 0 28px 28px;
+		background: #ffffff;
+	}
+
+	.ds-copy p {
+		margin: 0 0 20px;
+		color: #2b2b33;
+		font-size: clamp(0.86rem, 1.05vw, 0.98rem);
+		line-height: 2.35;
+	}
+
+	.ds-copy p:last-child {
+		margin-bottom: 0;
+	}
+
+	.ds-art {
+		position: relative;
+		min-height: 460px;
+	}
+
+	.ds-console {
+		position: absolute;
+		top: 50%;
+		left: 52%;
+		width: min(420px, 38vw);
+		transform: translate(-50%, -50%);
+		image-rendering: pixelated;
+	}
+
+	.ds-deco {
+		position: absolute;
+		z-index: 2;
+		object-fit: contain;
+		image-rendering: pixelated;
+		pointer-events: none;
+	}
+
+	.ds-deco--controller {
+		left: 0;
+		bottom: 18px;
+		width: 118px;
+		transform: rotate(10deg);
+	}
+
+	.ds-deco--tamagotchi {
+		top: 8px;
+		right: 0;
+		width: 78px;
+		transform: rotate(12deg);
+	}
+
+	.sparkle {
+		position: absolute;
+		width: 24px;
+		height: 24px;
+		border: 4px solid #a98ee9;
+		transform: rotate(45deg);
+	}
+
+	.sparkle::before,
+	.sparkle::after {
+		position: absolute;
+		content: '';
+		background: #a98ee9;
+	}
+
+	.sparkle::before {
+		top: 8px;
+		left: -22px;
+		width: 14px;
+		height: 4px;
+		box-shadow: 54px 0 0 #a98ee9;
+	}
+
+	.sparkle::after {
+		top: -22px;
+		left: 8px;
+		width: 4px;
+		height: 14px;
+		box-shadow: 0 54px 0 #a98ee9;
+	}
+
+	.sparkle--one {
+		top: 78px;
+		left: 38px;
+	}
+
+	.sparkle--two {
+		top: 38px;
+		left: 86px;
+		width: 18px;
+		height: 18px;
+	}
+
+	.sparkle--three {
+		right: 28px;
+		bottom: 70px;
+		width: 18px;
+		height: 18px;
+	}
+
+	.programming-section {
+		display: grid;
+		grid-template-columns: minmax(300px, 0.36fr) minmax(620px, 0.64fr);
+		align-items: center;
+		gap: clamp(76px, 9vw, 128px);
+		width: min(100%, 1160px);
+		margin: clamp(86px, 14vh, 130px) auto 0;
+		padding: 34px 0 54px;
+	}
+
+	.pikmin-stage {
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		min-height: 300px;
+		padding-left: 24px;
+		overflow: visible;
+	}
+
+	.character-group {
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		gap: 18px;
+		overflow: visible;
+	}
+
+	.olimar-liz {
+		width: auto;
+		height: clamp(170px, 15vw, 220px);
+		object-fit: contain;
+		image-rendering: pixelated;
+	}
+
+	.pikmin-row {
+		display: flex;
+		align-items: flex-end;
+		gap: 12px;
+		padding-bottom: 0;
+		overflow: visible;
+	}
+
+	.pikmin-row img {
+		width: auto;
+		height: clamp(60px, 5.2vw, 80px);
+		object-fit: contain;
+		image-rendering: pixelated;
+	}
+
+	.pikmin-row img:nth-child(2) {
+		transform: none;
+	}
+
+	.pikmin-row img:nth-child(3) {
+		transform: none;
+	}
+
+	.pikmin-row img:nth-child(4) {
+		transform: none;
+	}
+
+	.code-window {
+		width: min(760px, 100%);
+		overflow: hidden;
+		border: 10px solid #cdb4f5;
+		border-radius: 28px;
+		background: #ffffff;
+		color: #4a403a;
+		outline: 0;
+		box-shadow: 0 18px 40px rgba(214, 198, 245, 0.22);
+		transition:
+			transform 180ms ease,
+			box-shadow 180ms ease;
+	}
+
+	.code-window:hover {
+		box-shadow: 0 20px 42px rgba(214, 198, 245, 0.26);
+		transform: translateY(-4px);
+	}
+
+	.code-window-bar {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 16px;
+		height: 40px;
+		padding: 0 24px;
+		background: #cdb4f5;
+	}
+
+	.code-window-bar span {
+		width: 18px;
+		height: 18px;
+		border-radius: 999px;
+		background: #f9e7a3;
+	}
+
+	.code-window-bar span:nth-child(2) {
+		background: #b8f2a3;
+	}
+
+	.code-window-bar span:nth-child(3) {
+		background: #f9c4d2;
+	}
+
+	.code-window-body {
+		padding: 24px 32px;
+		background: #ffffff;
+	}
+
+	.code-window-body p {
+		margin: 0 0 18px;
+		color: #4a403a;
+		font-size: clamp(0.88rem, 1vw, 0.94rem);
+		line-height: 1.8;
+	}
+
+	.code-window-body p:last-child {
+		margin-bottom: 0;
+		color: #6b625d;
+	}
+
+	.lore-section {
+		display: grid;
+		grid-template-columns: minmax(460px, 0.54fr) minmax(360px, 0.46fr);
+		align-items: center;
+		gap: clamp(56px, 8vw, 112px);
+		width: min(100%, 1160px);
+		margin: clamp(86px, 14vh, 132px) auto 0;
+		padding: 28px 0 70px;
+	}
+
+	.lore-window {
+		overflow: hidden;
+		border: 10px solid #a8d870;
+		border-radius: 28px;
+		background: #ffffff;
+		box-shadow: 0 18px 34px rgba(168, 216, 112, 0.16);
+	}
+
+	.lore-window-bar {
+		position: relative;
+		height: 42px;
+		background: #a8d870;
+	}
+
+	.lore-window-bar span {
+		position: absolute;
+		top: 50%;
+		right: 26px;
+		width: 20px;
+		height: 20px;
+		border-radius: 999px;
+		background: #f9e7a3;
+		transform: translateY(-50%);
+	}
+
+	.lore-window-body {
+		padding: 30px 34px 34px;
+		background: #f8f8f8;
+	}
+
+	.lore-window-body p {
+		margin: 0 0 22px;
+		color: #4a403a;
+		font-size: clamp(0.96rem, 1.15vw, 1.06rem);
+		line-height: 1.8;
+	}
+
+	.lore-window-body p:last-child {
+		margin-bottom: 0;
+		color: #6b625d;
+	}
+
+	.lore-art {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 390px;
+	}
+
+	.lore-art img {
+		width: min(500px, 43vw);
+		max-width: 100%;
+		object-fit: contain;
+		image-rendering: pixelated;
+	}
+
+	@media (max-width: 760px) {
+		.profile-screen {
+			padding: 80px 22px 64px;
+		}
+
+		.profile-header {
+			padding-left: 0;
+		}
+
+		.profile-hero {
+			grid-template-columns: 1fr;
+			margin-top: 56px;
+		}
+
+		.card-zone {
+			min-height: 390px;
+		}
+
+		.profile-card {
+			left: 50%;
+			width: min(290px, 72vw);
+		}
+
+		.sprite--bulbasaur {
+			left: 12%;
+		}
+
+		.sprite--pokeball-top {
+			right: 16%;
+		}
+
+		.sprite--cat {
+			right: 18%;
+		}
+
+		.intro-window {
+			min-height: auto;
+		}
+
+		.sprite--bulbasaur {
+			left: 8%;
+		}
+
+		.sprite--pokeball-top {
+			right: 10%;
+		}
+
+		.sprite--cat {
+			right: 12%;
+		}
+
+		.sprite--pokeball-bottom {
+			left: 12%;
+		}
+
+		.ds-section {
+			grid-template-columns: 1fr;
+			margin-top: 72px;
+		}
+
+		.ds-text-window {
+			padding: 56px 14px 14px;
+			border-radius: 26px;
+		}
+
+		.ds-window-buttons {
+			gap: 14px;
+		}
+
+		.ds-art {
+			min-height: 360px;
+			order: -1;
+		}
+
+		.ds-console {
+			width: min(360px, 88vw);
+		}
+
+		.ds-deco--controller {
+			left: 4%;
+		}
+
+		.ds-deco--tamagotchi {
+			right: 8%;
+		}
+
+		.programming-section {
+			grid-template-columns: 1fr;
+			gap: 32px;
+			margin-top: 72px;
+		}
+
+		.pikmin-stage {
+			min-height: 250px;
+			order: -1;
+			padding-left: 0;
+		}
+
+		.character-group {
+			transform: none;
+		}
+
+		.olimar-liz {
+			height: clamp(132px, 36vw, 170px);
+		}
+
+		.pikmin-row img {
+			height: clamp(46px, 12vw, 62px);
+		}
+
+		.lore-section {
+			grid-template-columns: 1fr;
+			gap: 38px;
+			margin-top: 72px;
+		}
+
+		.lore-window {
+			width: 100%;
+		}
+
+		.lore-art {
+			min-height: auto;
+		}
+
+		.lore-art img {
+			width: min(420px, 92vw);
+		}
+	}
+
+	@media (max-width: 560px) {
+		.profile-header h1 {
+			font-size: 2.9rem;
+		}
+
+		.intro-window {
+			border-width: 7px;
+			border-radius: 28px;
+		}
+
+		.intro-copy {
+			padding: 24px 18px;
+		}
+
+		.intro-copy p,
+		.ds-copy p {
+			font-size: 0.82rem;
+			line-height: 2;
+		}
+
+		.ds-copy {
+			padding: 18px 16px;
+		}
+
+		.code-window {
+			border-width: 8px;
+			border-radius: 24px;
+		}
+
+		.code-window-body {
+			padding: 26px 20px;
+		}
+
+		.code-window-body p {
+			font-size: 0.88rem;
+			line-height: 1.7;
+		}
+
+		.character-group {
+			gap: 8px;
+		}
+
+		.pikmin-row {
+			gap: 6px;
+		}
+
+		.lore-window {
+			border-width: 8px;
+			border-radius: 24px;
+		}
+
+		.lore-window-body {
+			padding: 26px 20px;
+		}
+
+		.lore-window-body p {
+			font-size: 0.9rem;
+			line-height: 1.72;
+		}
+	}
+
+</style>

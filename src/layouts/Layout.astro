@@ -1,3 +1,7 @@
+---
+const { title = 'Welcome To Lizzy World' } = Astro.props;
+---
+
 <!doctype html>
 <html lang="es">
 	<head>
@@ -7,10 +11,10 @@
 		<link rel="icon" href="/favicon.ico" />
 		<meta
 			name="description"
-			content="Portafolio personal creado con Astro para presentar proyectos, experiencia y formas de contacto."
+			content="Lizzy World, portafolio personal interactivo con proyectos, experiencia y contacto."
 		/>
 		<meta name="generator" content={Astro.generator} />
-		<title>Mi Portafolio | Astro</title>
+		<title>{title}</title>
 	</head>
 	<body>
 		<slot />
