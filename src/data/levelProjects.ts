@@ -237,6 +237,158 @@ export const levelProjects = [
 		],
 		achievement: 'Scalable Mobile UX + Flow Optimization',
 	},
+	{
+		level: 'LEVEL_03',
+		slug: 'ai-hiring-platform',
+		title: 'AI Hiring Platform',
+		intro:
+			'A gamified recruitment platform designed to connect companies with hidden talent through skills-based matching, interactive assessments, and a more efficient hiring experience.',
+		tags: [
+			'HR Tech',
+			'UI Design',
+			'UX Support',
+			'Gamified Recruitment',
+			'Screen Design',
+			'Platform UX',
+		],
+		metadata: [
+			{ label: 'Type', value: 'HR Tech / Gamified Recruitment UX' },
+			{ label: 'Role', value: 'UI Screen Design · UX Flow Support · Visual Consistency' },
+			{ label: 'Difficulty', value: '★★★☆☆' },
+			{ label: 'Contribution', value: 'Selected Screen Design + UI Iteration' },
+		],
+		contributionNote: [
+			'I joined this project after the initial discovery phase. My contribution focused on designing, varying, and refining selected screens across the platform, using the existing research, user personas, customer journey work, and product direction as a foundation.',
+		],
+		missionBrief: [
+			'The project focused on creating a digital platform that could simplify and accelerate the hiring process by connecting companies with suitable candidates through skills-based matching.',
+			'The broader product vision was to reduce friction in recruitment, improve candidate-company alignment, and create a more engaging experience through gamification, data, and technology.',
+			'Unlike projects where I participated from the initial discovery phase, my contribution in this level was focused on supporting the design process by creating and refining selected screens across the platform experience.',
+		],
+		problem: [
+			'Traditional hiring processes can be slow, stressful, and inefficient for both candidates and companies.',
+			'Candidates may struggle to find opportunities that match their real skills, while companies often need better tools to identify suitable talent, reduce hiring time, and make more informed decisions.',
+			'The platform needed to support both sides of the hiring journey: candidates looking for opportunities and companies searching for talent.',
+			'The challenge was to translate a complex recruitment ecosystem into screens that felt clear, intuitive, and visually consistent.',
+		],
+		projectContext: [
+			'At the beginning of the project, the team aligned around the goal of creating a platform that could connect companies and talent more efficiently through technology, gamification, and skills-based evaluation.',
+			'The product aimed to include an intuitive interface, skills-based hiring logic, interactive selection flows, real-time data, and transparency around the process.',
+			'The team also defined a collaborative workflow based on sprint planning, backlog follow-up, sprint reviews, incremental releases, and shared documentation.',
+		],
+		systemOverview: [
+			'Skills-based matching',
+			'Gamified hiring',
+			'Candidate profiles',
+			'Company dashboard',
+			'Data-driven decisions',
+		],
+		roleIntro:
+			'My role was focused on supporting the design execution of selected screens. I helped translate product requirements and existing UX artifacts into interface proposals that aligned with the broader product direction.',
+		role: [
+			'UI Screen Design',
+			'Screen Iteration',
+			'UX Flow Support',
+			'Visual Consistency',
+			'Platform Screen Exploration',
+			'Interface Layout Support',
+			'Design Handoff Support',
+		],
+		processTitle: 'Quest Progress',
+		process: [
+			{
+				title: 'Understanding the Product Direction',
+				body: [
+					'Before designing screens, I reviewed the general product context, including the platform goals, target users, expected flows, and main product features.',
+					'The platform was intended to support a more efficient hiring process through candidate-company matching, skills-based evaluation, gamified interactions, and data-driven decision-making.',
+				],
+			},
+			{
+				title: 'Reviewing UX Foundations',
+				body: [
+					'The project included workshops to define and validate user personas. These personas helped the team understand different user profiles, motivations, challenges, and behaviors in relation to the hiring process.',
+				],
+			},
+			{
+				title: 'Understanding the Customer Journey',
+				body: [
+					'The team also worked on Customer Journey Mapping to understand the experience from the perspective of both candidates and companies.',
+					'The CJM helped identify user emotions, challenges, expectations, touchpoints, friction points, and opportunities for improvement throughout the job search and hiring process.',
+				],
+			},
+			{
+				title: 'Screen Design Contribution',
+				body: [
+					'My main contribution was creating and refining selected screens that supported different moments of the platform experience.',
+					'The goal was to make the screens clearer, more usable, and visually aligned with the product concept.',
+				],
+			},
+			{
+				title: 'Visual Consistency',
+				body: [
+					'Because the platform had multiple flows and user types, consistency was important.',
+					'I worked on keeping interface patterns, spacing, hierarchy, and visual structure aligned so that the experience felt cohesive across different screens.',
+				],
+			},
+		],
+		artifactsIntro:
+			'Research and design artifacts that helped shape the platform experience.',
+		artifactPlaceholders: [
+			{
+				title: 'Product Kickoff',
+				description:
+					'The kickoff helped align the team around the platform vision, collaboration model, product goals, and main challenges of building a gamified hiring experience.',
+				alt: 'Project kickoff artifact for AI hiring platform',
+			},
+			{
+				title: 'User Personas',
+				description:
+					'The User Personas workshop helped validate user profiles, motivations, challenges, behaviors, and problem statements to better align the platform with real hiring needs.',
+				alt: 'User personas workshop artifact',
+			},
+			{
+				title: 'Customer Journey Map',
+				description:
+					'The Customer Journey Map helped identify emotions, touchpoints, friction points, and opportunities across the candidate and company hiring experience.',
+				alt: 'Customer journey map workshop artifact',
+			},
+			{
+				title: 'Selected Screen Contributions',
+				description:
+					'These screens represent the parts of the platform where I contributed through UI exploration, screen variation, and visual refinement.',
+				alt: 'Selected UI screen contribution',
+			},
+		],
+		designDecisions: [
+			'Support a clear and intuitive interface for both candidates and companies.',
+			'Create screen layouts that help simplify complex hiring flows.',
+			'Use visual hierarchy to make key actions easier to identify.',
+			'Keep the platform experience consistent across different modules.',
+			'Support gamified recruitment without making the experience feel confusing.',
+			'Design screens that could scale across candidate and company journeys.',
+			'Translate user research and journey insights into clearer interface decisions.',
+		],
+		keyFeaturesTitle: 'Features Supported',
+		keyFeatures: [
+			'Candidate profile screens',
+			'Company-facing screens',
+			'Registration or onboarding flows',
+			'Search or matching-related screens',
+			'Question / quiz-related flows',
+			'Candidate information screens',
+			'Dashboard or platform module screens',
+			'Gamified hiring interactions',
+			'Screen variations and UI iterations',
+		],
+		outcomeTitle: 'Level Complete',
+		outcome: [
+			'This project helped me understand how complex HR technology products require both strategic thinking and careful UI execution.',
+			'Even though I was not part of the project from the beginning, contributing to selected screens helped me practice adapting to an existing product direction, understanding previous research, and designing within a broader platform vision.',
+			'I learned the importance of maintaining visual consistency across complex flows and making sure each screen supports the user’s next step clearly.',
+			'This level also strengthened my ability to contribute to an ongoing design process, quickly understand product context, and turn requirements into usable interface proposals.',
+		],
+		achievement: 'HR Tech UX + Screen Design Contribution',
+	},
 ] as const;
 
 export type LevelProject = (typeof levelProjects)[number];

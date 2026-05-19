@@ -10,19 +10,58 @@ export function getStaticPaths() {
 }
 
 const { project } = Astro.props;
+const projectIndex = levelProjects.findIndex((item) => item.slug === project.slug);
+const previousProject = projectIndex > 0 ? levelProjects[projectIndex - 1] : null;
+const nextProject =
+	projectIndex >= 0 && projectIndex < levelProjects.length - 1
+		? levelProjects[projectIndex + 1]
+		: null;
+const metadata = 'metadata' in project ? project.metadata : null;
+const contributionNote = 'contributionNote' in project ? project.contributionNote : null;
+const projectContext = 'projectContext' in project ? project.projectContext : null;
+const systemOverview = 'systemOverview' in project ? project.systemOverview : null;
+const roleIntro = 'roleIntro' in project ? project.roleIntro : null;
+const processTitle = 'processTitle' in project ? project.processTitle : 'Process';
+const keyFeaturesTitle = 'keyFeaturesTitle' in project ? project.keyFeaturesTitle : 'Key Features';
+const outcomeTitle = 'outcomeTitle' in project ? project.outcomeTitle : 'Outcome / Level Complete';
+const artifactsIntro = 'artifactsIntro' in project ? project.artifactsIntro : null;
+const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifactPlaceholders : null;
 ---
 
 <Layout title={`${project.title} | Lizzy World`}>
 	<main class="level-detail-screen" aria-labelledby="project-title">
 		<a class="back-link" href="/levels" aria-label="Back to Levels map">Back</a>
 
-		<header class="project-hero">
-			<p class="level-label">{project.level}</p>
-			<h1 id="project-title">{project.title}</h1>
-			<p>{project.intro}</p>
-			<ul class="tag-list" aria-label="Project tags">
-				{project.tags.map((tag) => <li>{tag}</li>)}
-			</ul>
+		<header class:list={['project-hero', metadata && 'project-hero-grid']}>
+			<div>
+				<p class="level-label">{project.level}</p>
+				<h1 id="project-title">{project.title}</h1>
+				<p>{project.intro}</p>
+				<ul class="tag-list" aria-label="Project tags">
+					{project.tags.map((tag) => <li>{tag}</li>)}
+				</ul>
+				{
+					metadata && (
+						<div class="hero-actions" aria-label="Project actions">
+							<a href="#quest-artifacts-title">View Screens</a>
+							<a href="/levels">Back to Map</a>
+						</div>
+					)
+				}
+			</div>
+			{
+				metadata && (
+					<aside class="level-meta-card" aria-label="Level metadata">
+						<p class="unlock-badge">Level Unlocked</p>
+						{metadata.map((item) => (
+							<div>
+								<span>{item.label}</span>
+								<strong>{item.value}</strong>
+							</div>
+						))}
+					</aside>
+				)
+			}
 		</header>
 
 		<section class="quest-window">
@@ -33,6 +72,15 @@ const { project } = Astro.props;
 			</div>
 
 			<div class="window-body">
+				{
+					contributionNote && (
+						<section class="content-block contribution-note">
+							<h2>Contribution Note</h2>
+							{contributionNote.map((paragraph) => <p>{paragraph}</p>)}
+						</section>
+					)
+				}
+
 				<section class="content-block">
 					<h2>Mission Brief</h2>
 					{project.missionBrief.map((paragraph) => <p>{paragraph}</p>)}
@@ -43,9 +91,30 @@ const { project } = Astro.props;
 					{project.problem.map((paragraph) => <p>{paragraph}</p>)}
 				</section>
 
+				{
+					projectContext && (
+						<section class="content-block project-context-block">
+							<div>
+								<h2>Project Context</h2>
+								{projectContext.map((paragraph) => <p>{paragraph}</p>)}
+							</div>
+							{
+								systemOverview && (
+									<div class="system-overview-card" aria-label="Project system overview">
+										{systemOverview.map((item) => (
+											<span>{item}</span>
+										))}
+									</div>
+								)
+							}
+						</section>
+					)
+				}
+
 				<div class="two-column">
 					<section class="content-block">
 						<h2>My Role</h2>
+						{roleIntro && <p>{roleIntro}</p>}
 						<ul>
 							{project.role.map((item) => <li>{item}</li>)}
 						</ul>
@@ -58,7 +127,7 @@ const { project } = Astro.props;
 				</div>
 
 				<section class="content-block">
-					<h2>Process</h2>
+					<h2>{processTitle}</h2>
 					<div class="process-grid">
 						{
 							project.process.map((step, index) => (
@@ -72,6 +141,202 @@ const { project } = Astro.props;
 					</div>
 				</section>
 
+				{
+					project.slug === 'learning-path-platform' && (
+						<section class="content-block quest-artifacts" aria-labelledby="quest-artifacts-title">
+							<div class="artifacts-heading">
+								<p class="artifact-eyebrow">Evidence Collected</p>
+								<h2 id="quest-artifacts-title">Quest Artifacts</h2>
+								<p>
+									Research and design artifacts that shaped the learning experience.
+								</p>
+							</div>
+
+							<div class="artifact-feature-grid">
+								<article class="artifact-card">
+									<span class="artifact-label">Research Artifact</span>
+									<h3>User Personas</h3>
+									<p>
+										User personas helped identify educator profiles based on digital
+										confidence, motivation, access to technology, frustrations, and available
+										time.
+									</p>
+									<div class="persona-gallery" aria-label="User persona research artifacts">
+										<a
+											class="persona-preview persona-preview-maria"
+											href="/img/levels/learning-path/persona-maria.png"
+											target="_blank"
+											rel="noreferrer"
+											aria-label="Open Maria user persona artifact"
+										>
+											<img
+												src="/img/levels/learning-path/persona-maria.png"
+												alt="User persona research artifact for Maria, educator profile"
+												loading="lazy"
+											/>
+										</a>
+										<a
+											class="persona-preview persona-preview-alejandro"
+											href="/img/levels/learning-path/persona-alejandro.png"
+											target="_blank"
+											rel="noreferrer"
+											aria-label="Open Alejandro user persona artifact"
+										>
+											<img
+												src="/img/levels/learning-path/persona-alejandro.png"
+												alt="User persona research artifact for Alejandro, educator profile"
+												loading="lazy"
+											/>
+										</a>
+									</div>
+								</article>
+
+								<article class="artifact-card">
+									<span class="artifact-label">Research Artifact</span>
+									<h3>Customer Journey Map</h3>
+									<p>
+										The journey map helped identify moments of friction, motivation, and
+										support across the educator's learning experience.
+									</p>
+									<a
+										class="artifact-image-frame journey-frame"
+										href="/img/levels/learning-path/customer-journey-map.png"
+										target="_blank"
+										rel="noreferrer"
+										aria-label="Open full customer journey map"
+									>
+										<img
+											src="/img/levels/learning-path/customer-journey-map.png"
+											alt="Customer journey map for educator learning experience"
+											loading="lazy"
+										/>
+									</a>
+								</article>
+							</div>
+
+							<article class="artifact-card artifact-card-wide final-screens-card">
+								<span class="artifact-label">Final Evidence</span>
+								<h3>Final Screens</h3>
+								<p>
+									The mockups translated the research into a clearer, more accessible platform
+									experience focused on personalized routes, resources, and progress tracking.
+								</p>
+								<div class="mockup-showcase">
+									<a
+										class="mockup-frame phone-frame phone-left"
+										href="/img/levels/learning-path/final-screen-mobile-route.png"
+										target="_blank"
+										rel="noreferrer"
+										aria-label="Open final platform route mockup screen"
+									>
+										<img
+											src="/img/levels/learning-path/final-screen-mobile-route.png"
+											alt="Final platform mockup screen"
+											loading="lazy"
+										/>
+									</a>
+									<a
+										class="showcase-main"
+										href="/img/levels/learning-path/final-screen-tablet-resource.png"
+										target="_blank"
+										rel="noreferrer"
+										aria-label="Open final platform tablet mockup screen"
+									>
+										<img
+											src="/img/levels/learning-path/final-screen-tablet-resource.png"
+											alt="Final platform mockup screen"
+											loading="lazy"
+										/>
+									</a>
+									<a
+										class="mockup-frame phone-frame phone-right"
+										href="/img/levels/learning-path/final-screen-mobile-feedback.png"
+										target="_blank"
+										rel="noreferrer"
+										aria-label="Open final platform feedback mockup screen"
+									>
+										<img
+											src="/img/levels/learning-path/final-screen-mobile-feedback.png"
+											alt="Final platform mockup screen"
+											loading="lazy"
+										/>
+									</a>
+								</div>
+							</article>
+						</section>
+					)
+				}
+
+				{
+					project.slug === 'digital-entertainment-redesign' && (
+						<section class="content-block quest-artifacts entertainment-artifacts" aria-labelledby="entertainment-artifacts-title">
+							<div class="artifacts-heading">
+								<p class="artifact-eyebrow">Final Evidence</p>
+								<h2 id="entertainment-artifacts-title">Quest Artifacts</h2>
+								<p>
+									Mobile mockups showing how the redesign expanded discovery, wallet actions,
+									and casino cross-navigation without breaking the core purchase flow.
+								</p>
+							</div>
+
+							<div class="entertainment-mockup-grid" aria-label="Digital entertainment redesign mockups">
+								<a
+									class="entertainment-mockup entertainment-mockup-primary"
+									href="/img/levels/digital-entertainment/mockup-home-casino.png"
+									target="_blank"
+									rel="noreferrer"
+									aria-label="Open home and casino discovery mockup"
+								>
+									<img
+										src="/img/levels/digital-entertainment/mockup-home-casino.png"
+										alt="Mobile app redesign mockup showing home screen, casino discovery, and promotional modules"
+										loading="lazy"
+									/>
+								</a>
+								<a
+									class="entertainment-mockup entertainment-mockup-secondary"
+									href="/img/levels/digital-entertainment/mockup-purchase-wallet.png"
+									target="_blank"
+									rel="noreferrer"
+									aria-label="Open purchase confirmation and wallet mockup"
+								>
+									<img
+										src="/img/levels/digital-entertainment/mockup-purchase-wallet.png"
+										alt="Mobile app redesign mockup showing purchase confirmation, wallet, and casino entry points"
+										loading="lazy"
+									/>
+								</a>
+							</div>
+						</section>
+					)
+				}
+
+				{
+					artifactPlaceholders && (
+						<section class="content-block quest-artifacts hiring-artifacts" aria-labelledby="quest-artifacts-title">
+							<div class="artifacts-heading">
+								<p class="artifact-eyebrow">Evidence Collected</p>
+								<h2 id="quest-artifacts-title">Quest Artifacts</h2>
+								<p>{artifactsIntro}</p>
+							</div>
+
+							<div class="hiring-artifact-grid">
+								{artifactPlaceholders.map((artifact, index) => (
+									<article class="artifact-card hiring-artifact-card">
+										<span class="artifact-label">{index === 3 ? 'Screen Contribution' : 'Research Artifact'}</span>
+										<h3>{artifact.title}</h3>
+										<p>{artifact.description}</p>
+										<div class="artifact-placeholder" role="img" aria-label={artifact.alt}>
+											<span>{artifact.title}</span>
+											<small>Image slot ready</small>
+										</div>
+									</article>
+								))}
+							</div>
+						</section>
+					)
+				}
+
 				<div class="two-column">
 					<section class="content-block">
 						<h2>Design Decisions</h2>
@@ -81,7 +346,7 @@ const { project } = Astro.props;
 					</section>
 
 					<section class="content-block">
-						<h2>Key Features</h2>
+						<h2>{keyFeaturesTitle}</h2>
 						<ul>
 							{project.keyFeatures.map((item) => <li>{item}</li>)}
 						</ul>
@@ -89,9 +354,16 @@ const { project } = Astro.props;
 				</div>
 
 				<section class="content-block outcome">
-					<h2>Outcome / Level Complete</h2>
+					<h2>{outcomeTitle}</h2>
 					{project.outcome.map((paragraph) => <p>{paragraph}</p>)}
 				</section>
+
+				<nav class="level-nav" aria-label="Level navigation">
+					<a href="/levels">Back to Map</a>
+					{previousProject && <a href={`/levels/${previousProject.slug}`}>Previous Level</a>}
+					{nextProject && <a href={`/levels/${nextProject.slug}`}>Next Level</a>}
+					<a href="/contact">Contact Player</a>
+				</nav>
 			</div>
 		</section>
 	</main>
@@ -140,6 +412,13 @@ const { project } = Astro.props;
 		margin-bottom: 32px;
 	}
 
+	.project-hero-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+		gap: clamp(24px, 4vw, 48px);
+		align-items: end;
+	}
+
 	.level-label {
 		margin: 0 0 8px;
 		color: #f4a6bd;
@@ -156,7 +435,7 @@ const { project } = Astro.props;
 		line-height: 0.92;
 	}
 
-	.project-hero > p:not(.level-label) {
+	.project-hero p:not(.level-label):not(.unlock-badge) {
 		max-width: 760px;
 		margin: 16px 0 0;
 		color: #6b625d;
@@ -181,6 +460,84 @@ const { project } = Astro.props;
 		font-size: 0.78rem;
 		font-weight: 700;
 		padding: 8px 12px;
+	}
+
+	.hero-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin-top: 24px;
+	}
+
+	.hero-actions a,
+	.level-nav a {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 14px;
+		background: #f4a6bd;
+		color: #4a403a;
+		font-size: 0.82rem;
+		font-weight: 800;
+		padding: 11px 22px;
+		text-decoration: none;
+		transition:
+			box-shadow 180ms ease,
+			transform 180ms ease,
+			background 180ms ease;
+	}
+
+	.hero-actions a:hover,
+	.level-nav a:hover {
+		background: #f9e4e8;
+		box-shadow: 0 8px 20px rgba(244, 166, 189, 0.25);
+		transform: translateY(-2px);
+	}
+
+	.level-meta-card {
+		border: 6px solid #d6c6f5;
+		border-radius: 28px;
+		background:
+			radial-gradient(circle at 82% 14%, rgba(249, 231, 163, 0.8) 0 9%, transparent 10%),
+			linear-gradient(135deg, #ffffff, #fff7f1);
+		box-shadow: 0 18px 38px rgba(214, 198, 245, 0.22);
+		padding: 22px;
+	}
+
+	.unlock-badge {
+		width: fit-content;
+		margin: 0 0 18px;
+		border-radius: 999px;
+		background: #f9e4e8;
+		color: #4a403a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 1rem;
+		font-weight: 800;
+		padding: 8px 14px;
+	}
+
+	.level-meta-card div {
+		display: grid;
+		gap: 5px;
+		border-top: 2px dashed rgba(214, 198, 245, 0.75);
+		padding: 14px 0;
+	}
+
+	.level-meta-card div:last-child {
+		padding-bottom: 0;
+	}
+
+	.level-meta-card span {
+		color: #7b716c;
+		font-size: 0.72rem;
+		font-weight: 800;
+		text-transform: uppercase;
+	}
+
+	.level-meta-card strong {
+		color: #4a403a;
+		font-size: 0.95rem;
+		line-height: 1.45;
 	}
 
 	.quest-window {
@@ -264,6 +621,41 @@ const { project } = Astro.props;
 		gap: 26px;
 	}
 
+	.contribution-note {
+		border: 5px solid #f9e7a3;
+		border-radius: 24px;
+		background:
+			radial-gradient(circle at 96% 18%, rgba(168, 216, 112, 0.55) 0 8%, transparent 9%),
+			#fffdf3;
+		padding: 24px;
+	}
+
+	.project-context-block {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(240px, 330px);
+		gap: 24px;
+		align-items: start;
+	}
+
+	.system-overview-card {
+		display: grid;
+		gap: 12px;
+		border: 5px solid #bfd7ed;
+		border-radius: 24px;
+		background: #f7fbff;
+		padding: 20px;
+	}
+
+	.system-overview-card span {
+		border-radius: 999px;
+		background: #ffffff;
+		color: #4a403a;
+		font-size: 0.82rem;
+		font-weight: 800;
+		padding: 10px 12px;
+		box-shadow: inset 0 0 0 2px rgba(191, 215, 237, 0.75);
+	}
+
 	.achievement-card {
 		border: 6px solid #a8d870;
 		border-radius: 24px;
@@ -297,9 +689,380 @@ const { project } = Astro.props;
 		line-height: 1;
 	}
 
+	.quest-artifacts {
+		display: grid;
+		gap: 24px;
+		border-top: 2px dashed #d6c6f5;
+		padding-top: 30px;
+	}
+
+	.artifacts-heading {
+		max-width: 680px;
+	}
+
+	.artifact-eyebrow {
+		margin: 0 0 8px !important;
+		color: #f4a6bd !important;
+		font-size: 0.78rem !important;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	.artifacts-heading p:not(.artifact-eyebrow) {
+		margin: 0;
+		font-size: 0.96rem;
+		line-height: 1.7;
+	}
+
+	.artifact-feature-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+		gap: 22px;
+	}
+
+	.artifact-card {
+		display: grid;
+		align-content: start;
+		gap: 14px;
+		border: 2px solid #d6c6f5;
+		border-radius: 24px;
+		background: #fff7f1;
+		box-shadow: 0 12px 30px rgba(214, 198, 245, 0.18);
+		padding: clamp(18px, 2.5vw, 24px);
+		transition:
+			box-shadow 180ms ease,
+			transform 180ms ease;
+	}
+
+	.artifact-card:hover {
+		box-shadow: 0 18px 38px rgba(214, 198, 245, 0.24);
+		transform: translateY(-3px);
+	}
+
+	.artifact-card h3 {
+		margin: 0;
+		color: #4a403a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: clamp(1.55rem, 2.6vw, 2rem);
+		line-height: 1;
+	}
+
+	.artifact-card p {
+		margin: 0;
+		color: #6b625d;
+		font-size: 0.94rem;
+		line-height: 1.7;
+	}
+
+	.persona-gallery {
+		display: grid;
+		gap: 18px;
+		margin-top: 4px;
+	}
+
+	.persona-preview {
+		display: block;
+		overflow: hidden;
+		border: 2px solid rgba(214, 198, 245, 0.88);
+		border-radius: 22px;
+		background: #ffffff;
+		box-shadow: 0 14px 28px rgba(214, 198, 245, 0.18);
+		transition:
+			box-shadow 180ms ease,
+			transform 180ms ease;
+	}
+
+	.persona-preview:hover {
+		box-shadow: 0 18px 34px rgba(214, 198, 245, 0.26);
+		transform: translateY(-3px);
+	}
+
+	.persona-preview img {
+		display: block;
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+	}
+
+	.artifact-label {
+		width: fit-content;
+		border-radius: 999px;
+		background: #f9e4e8;
+		color: #4a403a;
+		font-size: 0.72rem;
+		font-weight: 800;
+		padding: 7px 12px;
+		text-transform: uppercase;
+	}
+
+	.artifact-image-frame,
+	.mockup-frame {
+		display: grid;
+		place-items: center;
+		overflow: hidden;
+		border-radius: 18px;
+		background: #ffffff;
+		box-shadow: inset 0 0 0 1px rgba(214, 198, 245, 0.45);
+		padding: 12px;
+	}
+
+	.artifact-image-frame img,
+	.mockup-frame img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+
+	.persona-frame {
+		min-height: 220px;
+	}
+
+	.journey-frame {
+		min-height: 250px;
+	}
+
+	.artifact-card-wide {
+		background: #fff7f1;
+	}
+
+	.final-screens-card {
+		position: relative;
+		overflow: hidden;
+		border-color: #cdb4f5;
+		background:
+			radial-gradient(circle at 12% 18%, rgba(249, 228, 232, 0.85) 0 11%, transparent 12%),
+			radial-gradient(circle at 86% 18%, rgba(184, 242, 163, 0.34) 0 9%, transparent 10%),
+			linear-gradient(135deg, #ffffff 0%, #fff7f1 44%, #f8f9dc 100%);
+	}
+
+	.final-screens-card::before {
+		content: "";
+		position: absolute;
+		inset: 18px;
+		border: 2px dashed rgba(214, 198, 245, 0.6);
+		border-radius: 22px;
+		pointer-events: none;
+	}
+
+	.mockup-showcase {
+		position: relative;
+		display: grid;
+		grid-template-columns: minmax(150px, 0.58fr) minmax(320px, 1.35fr) minmax(150px, 0.58fr);
+		gap: clamp(0px, 1.2vw, 14px);
+		align-items: end;
+		min-height: 540px;
+		padding: clamp(10px, 2vw, 18px) 0 0;
+		isolation: isolate;
+	}
+
+	.mockup-showcase::before {
+		content: "";
+		position: absolute;
+		left: 4%;
+		right: 4%;
+		bottom: 16px;
+		height: 34%;
+		border-radius: 999px 999px 28px 28px;
+		background:
+			linear-gradient(90deg, rgba(249, 228, 232, 0.72), rgba(214, 198, 245, 0.48)),
+			#fff0d6;
+		opacity: 0.72;
+		z-index: -1;
+	}
+
+	.showcase-main,
+	.mockup-frame {
+		position: relative;
+		display: grid;
+		place-items: center;
+		border-radius: 0;
+		background: transparent;
+		box-shadow: none;
+		padding: 0;
+		transition:
+			filter 180ms ease,
+			transform 180ms ease;
+	}
+
+	.showcase-main:hover,
+	.mockup-frame:hover {
+		filter: drop-shadow(0 24px 24px rgba(123, 113, 108, 0.15));
+	}
+
+	.showcase-main {
+		min-height: 500px;
+		overflow: visible;
+		z-index: 3;
+	}
+
+	.showcase-main img,
+	.mockup-frame img {
+		position: relative;
+		z-index: 1;
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+
+	.showcase-main img {
+		max-height: 500px;
+		transform: rotate(-1deg);
+		transform-origin: center;
+		filter: drop-shadow(0 26px 24px rgba(74, 64, 58, 0.18));
+	}
+
+	.phone-frame {
+		min-height: 0;
+		overflow: visible;
+		z-index: 2;
+		align-self: end;
+	}
+
+	.phone-frame img {
+		max-height: 390px;
+		filter: drop-shadow(0 20px 18px rgba(74, 64, 58, 0.18));
+	}
+
+	.phone-left {
+		justify-self: end;
+		transform: translate(32px, -18px) rotate(-4deg);
+	}
+
+	.phone-right {
+		justify-self: start;
+		transform: translate(-30px, -10px) rotate(4deg);
+	}
+
+	.entertainment-artifacts {
+		overflow: hidden;
+		border-color: #d6c6f5;
+		background:
+			radial-gradient(circle at 12% 18%, rgba(168, 216, 112, 0.24) 0 12%, transparent 13%),
+			radial-gradient(circle at 88% 16%, rgba(249, 228, 232, 0.72) 0 9%, transparent 10%),
+			linear-gradient(135deg, #ffffff 0%, #fff7f1 44%, #f8f9dc 100%);
+	}
+
+	.entertainment-mockup-grid {
+		position: relative;
+		display: grid;
+		grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+		gap: clamp(18px, 4vw, 42px);
+		align-items: center;
+		margin-top: 12px;
+		padding: clamp(8px, 2vw, 18px) 0;
+	}
+
+	.entertainment-mockup-grid::before {
+		content: "";
+		position: absolute;
+		left: 6%;
+		right: 6%;
+		bottom: 2%;
+		height: 36%;
+		border-radius: 999px;
+		background:
+			linear-gradient(90deg, rgba(214, 198, 245, 0.4), rgba(249, 228, 232, 0.44)),
+			#fff0d6;
+		opacity: 0.7;
+		z-index: 0;
+	}
+
+	.entertainment-mockup {
+		position: relative;
+		z-index: 1;
+		display: grid;
+		place-items: center;
+		min-height: 430px;
+		overflow: visible;
+		border-radius: 28px;
+		transition:
+			filter 180ms ease,
+			transform 180ms ease;
+	}
+
+	.entertainment-mockup:hover {
+		filter: drop-shadow(0 22px 26px rgba(74, 64, 58, 0.16));
+		transform: translateY(-4px);
+	}
+
+	.entertainment-mockup img {
+		display: block;
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+		filter: drop-shadow(0 22px 22px rgba(74, 64, 58, 0.16));
+	}
+
+	.entertainment-mockup-primary img {
+		max-height: 560px;
+		transform: rotate(-1deg);
+	}
+
+	.entertainment-mockup-secondary img {
+		max-height: 520px;
+		transform: translateY(14px) rotate(2deg);
+	}
+
+	.hiring-artifacts {
+		background:
+			radial-gradient(circle at 12% 12%, rgba(191, 215, 237, 0.55) 0 10%, transparent 11%),
+			radial-gradient(circle at 90% 10%, rgba(249, 231, 163, 0.65) 0 8%, transparent 9%),
+			#fff7f1;
+	}
+
+	.hiring-artifact-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 18px;
+	}
+
+	.hiring-artifact-card {
+		min-height: 100%;
+	}
+
+	.artifact-placeholder {
+		display: grid;
+		place-items: center;
+		gap: 8px;
+		min-height: 230px;
+		border: 3px dashed rgba(214, 198, 245, 0.82);
+		border-radius: 20px;
+		background:
+			linear-gradient(135deg, rgba(249, 228, 232, 0.72), rgba(191, 215, 237, 0.38)),
+			#ffffff;
+		color: #4a403a;
+		text-align: center;
+	}
+
+	.artifact-placeholder span {
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: clamp(1.6rem, 3vw, 2.2rem);
+		font-weight: 800;
+		line-height: 1;
+	}
+
+	.artifact-placeholder small {
+		color: #7b716c;
+		font-size: 0.78rem;
+		font-weight: 800;
+		text-transform: uppercase;
+	}
+
 	.outcome {
 		border-top: 2px dashed #d6c6f5;
 		padding-top: 28px;
+	}
+
+	.level-nav {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		justify-content: center;
+		border-top: 2px dashed #d6c6f5;
+		padding-top: 26px;
 	}
 
 	@media (max-width: 760px) {
@@ -307,14 +1070,59 @@ const { project } = Astro.props;
 			padding-inline: 14px;
 		}
 
+		.project-hero-grid,
+		.project-context-block,
+		.hiring-artifact-grid,
 		.two-column,
-		.process-grid {
+		.process-grid,
+		.artifact-feature-grid,
+		.mockup-showcase,
+		.entertainment-mockup-grid {
 			grid-template-columns: 1fr;
 		}
 
 		.quest-window {
 			border-width: 7px;
 			border-radius: 24px;
+		}
+
+		.hero-actions a,
+		.level-nav a {
+			width: 100%;
+		}
+
+		.persona-frame,
+		.journey-frame,
+		.mockup-frame,
+		.showcase-main {
+			min-height: 220px;
+			max-height: none;
+		}
+
+		.mockup-showcase {
+			min-height: 0;
+			padding: 4px;
+		}
+
+		.showcase-main img,
+		.phone-frame img {
+			max-height: 360px;
+			transform: none;
+		}
+
+		.phone-left,
+		.phone-right {
+			transform: none;
+		}
+
+		.entertainment-mockup {
+			min-height: 260px;
+		}
+
+		.entertainment-mockup-primary img,
+		.entertainment-mockup-secondary img {
+			max-height: 380px;
+			transform: none;
 		}
 	}
 </style>

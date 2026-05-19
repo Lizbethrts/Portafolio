@@ -24,7 +24,7 @@ import Layout from '../layouts/Layout.astro';
 
 				<div class="map-shell">
 					<canvas id="level-map" aria-label="Three.js project world map"></canvas>
-					<div class="floating-tip" id="floating-tip" aria-hidden="true"></div>
+					<div class="floating-tip" id="floating-tip" role="dialog" aria-label="Project preview"></div>
 				</div>
 			</div>
 
@@ -86,13 +86,19 @@ import Layout from '../layouts/Layout.astro';
 		{
 			id: 'level-3',
 			level: 'LEVEL_03',
-			title: 'Coming Soon',
-			type: 'Locked Project',
-			mission: 'This project level is waiting for its mission brief.',
-			role: 'New quest pending',
-			difficulty: '☆☆☆☆☆',
-			rewards: ['Coming Soon'],
-			href: '',
+			title: 'AI Hiring Platform',
+			type: 'HR Tech / Gamified Recruitment UX',
+			mission:
+				'Design and refine selected screens for a gamified recruitment platform focused on skills-based matching and clearer hiring flows.',
+			role: 'UI Screen Design / UX Flow Support / Visual Consistency',
+			difficulty: '★★★☆☆',
+			rewards: [
+				'Screen Iteration',
+				'HR Tech UX',
+				'Visual Consistency',
+				'Platform Flow Support',
+			],
+			href: '/levels/ai-hiring-platform',
 			flag: '/img/levels/flag-3.png',
 			position: [0.2, -0.8, 0],
 			color: 0xd6c6f5,
@@ -147,10 +153,18 @@ import Layout from '../layouts/Layout.astro';
 		const clock = new THREE.Clock();
 		const textureLoader = new THREE.TextureLoader();
 		let hovered = null;
+		let closeTimer = 0;
 		const defaultTip = tip.innerHTML;
+		let lastCanvasWidth = 0;
+		let lastCanvasHeight = 0;
 
 		const resize = () => {
 			const rect = canvas.getBoundingClientRect();
+			if (rect.width < 1 || rect.height < 1) {
+				return;
+			}
+			lastCanvasWidth = rect.width;
+			lastCanvasHeight = rect.height;
 			renderer.setSize(rect.width, rect.height, false);
 			const aspect = rect.width / Math.max(rect.height, 1);
 			const halfWorldWidth = 6.8;
@@ -274,7 +288,11 @@ import Layout from '../layouts/Layout.astro';
 						<dd>${project.rewards.map((reward) => `+ ${reward}`).join('<br>')}</dd>
 					</div>
 				</dl>
-				<span class="tip-enter ${project.href ? '' : 'is-disabled'}">${project.href ? 'Enter Level' : 'Locked'}</span>
+				${
+					project.href
+						? `<a class="tip-enter" href="${project.href}">Enter Level</a>`
+						: '<span class="tip-enter is-disabled">Locked</span>'
+				}
 			`;
 			floatingTip.classList.add('is-visible');
 		};
@@ -302,6 +320,7 @@ import Layout from '../layouts/Layout.astro';
 		};
 
 		const resetPreview = () => {
+			window.clearTimeout(closeTimer);
 			pointer.set(-10, -10);
 			hovered = null;
 			canvas.style.cursor = 'default';
@@ -309,22 +328,49 @@ import Layout from '../layouts/Layout.astro';
 			floatingTip.classList.remove('is-visible', 'is-left', 'is-above');
 		};
 
+		const cancelClose = () => {
+			window.clearTimeout(closeTimer);
+		};
+
+		const scheduleClose = () => {
+			window.clearTimeout(closeTimer);
+			closeTimer = window.setTimeout(resetPreview, 260);
+		};
+
 		canvas.addEventListener('pointermove', (event) => {
+			cancelClose();
 			updatePointer(event);
 		});
 
-		canvas.addEventListener('pointerleave', resetPreview);
+		floatingTip.addEventListener('pointerenter', cancelClose);
+		floatingTip.addEventListener('pointermove', cancelClose);
+		floatingTip.addEventListener('pointerleave', scheduleClose);
 
 		window.addEventListener('pointermove', (event) => {
 			const rect = canvas.getBoundingClientRect();
+			const tipRect = floatingTip.getBoundingClientRect();
 			const isOutsideCanvas =
 				event.clientX < rect.left ||
 				event.clientX > rect.right ||
 				event.clientY < rect.top ||
 				event.clientY > rect.bottom;
+			const isOutsideFloatingTip =
+				event.clientX < tipRect.left ||
+				event.clientX > tipRect.right ||
+				event.clientY < tipRect.top ||
+				event.clientY > tipRect.bottom;
+			let isOverLevel = false;
 
-			if (isOutsideCanvas && hovered) {
-				resetPreview();
+			if (!isOutsideCanvas) {
+				updatePointer(event);
+				raycaster.setFromCamera(pointer, camera);
+				isOverLevel = raycaster.intersectObjects(levelMeshes).length > 0;
+			}
+
+			if (isOutsideFloatingTip && !isOverLevel && hovered) {
+				scheduleClose();
+			} else if (hovered) {
+				cancelClose();
 			}
 		});
 
@@ -339,20 +385,26 @@ import Layout from '../layouts/Layout.astro';
 		});
 
 		const render = () => {
+			const rect = canvas.getBoundingClientRect();
+			if (
+				Math.abs(rect.width - lastCanvasWidth) > 1 ||
+				Math.abs(rect.height - lastCanvasHeight) > 1
+			) {
+				resize();
+			}
+
 			const elapsed = clock.getElapsedTime();
 			raycaster.setFromCamera(pointer, camera);
 			const hits = raycaster.intersectObjects(levelMeshes);
 			const nextHovered = hits[0]?.object ?? null;
 
-			if (nextHovered !== hovered) {
+			if (nextHovered && nextHovered !== hovered) {
+				cancelClose();
 				hovered = nextHovered;
-				canvas.style.cursor = hovered ? 'pointer' : 'default';
-				if (hovered) {
-					updateTip(hovered.userData.project);
-				} else {
-					tip.innerHTML = defaultTip;
-					floatingTip.classList.remove('is-visible', 'is-left', 'is-above');
-				}
+				canvas.style.cursor = 'pointer';
+				updateTip(hovered.userData.project);
+			} else if (!nextHovered) {
+				canvas.style.cursor = 'default';
 			}
 
 			levelMeshes.forEach((mesh, index) => {
@@ -376,6 +428,8 @@ import Layout from '../layouts/Layout.astro';
 		};
 
 		window.addEventListener('resize', resize);
+		new ResizeObserver(resize).observe(canvas);
+		requestAnimationFrame(resize);
 		resize();
 		render();
 	}
@@ -528,6 +582,7 @@ import Layout from '../layouts/Layout.astro';
 
 	.floating-tip.is-visible {
 		opacity: 1;
+		pointer-events: auto;
 		transform: translate(22px, -52%) scale(1);
 	}
 
