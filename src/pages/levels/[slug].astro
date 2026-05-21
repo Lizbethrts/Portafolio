@@ -20,6 +20,12 @@ const metadata = 'metadata' in project ? project.metadata : null;
 const contributionNote = 'contributionNote' in project ? project.contributionNote : null;
 const projectContext = 'projectContext' in project ? project.projectContext : null;
 const systemOverview = 'systemOverview' in project ? project.systemOverview : null;
+const impactMetrics = 'impactMetrics' in project ? project.impactMetrics : null;
+const clientContext = 'clientContext' in project ? project.clientContext : null;
+const useCase = 'useCase' in project ? project.useCase : null;
+const blockers = 'blockers' in project ? project.blockers : null;
+const deliveryScope = 'deliveryScope' in project ? project.deliveryScope : null;
+const whyMatters = 'whyMatters' in project ? project.whyMatters : null;
 const roleIntro = 'roleIntro' in project ? project.roleIntro : null;
 const processTitle = 'processTitle' in project ? project.processTitle : 'Process';
 const keyFeaturesTitle = 'keyFeaturesTitle' in project ? project.keyFeaturesTitle : 'Key Features';
@@ -92,6 +98,68 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 				</section>
 
 				{
+					impactMetrics && (
+						<section class="content-block impact-block" aria-labelledby="impact-title">
+							<div class="artifacts-heading">
+								<p class="artifact-eyebrow">Impact Snapshot</p>
+								<h2 id="impact-title">Product Impact</h2>
+							</div>
+							<div class="impact-grid">
+								{impactMetrics.map((metric) => (
+									<article>
+										<strong>{metric.value}</strong>
+										<span>{metric.label}</span>
+									</article>
+								))}
+							</div>
+							{clientContext && <p class="context-note">{clientContext}</p>}
+						</section>
+					)
+				}
+
+				{
+					useCase && (
+						<section class="content-block product-context-card">
+							<div class="product-context-copy">
+								<h2>Use Case</h2>
+								<p>{useCase}</p>
+								{whyMatters && (
+									<>
+										<h3>Why It Matters</h3>
+										<p>{whyMatters}</p>
+									</>
+								)}
+								<section class="inline-role-card" aria-labelledby="inline-role-title">
+									<h2 id="inline-role-title">My Role</h2>
+									{roleIntro && <p>{roleIntro}</p>}
+									<ul>
+										{project.role.map((item) => <li>{item}</li>)}
+									</ul>
+								</section>
+							</div>
+							<div class="scope-panels">
+								{blockers && (
+									<article>
+										<h3>What Was Slowing the Operation</h3>
+										<ul>
+											{blockers.map((item) => <li>{item}</li>)}
+										</ul>
+									</article>
+								)}
+								{deliveryScope && (
+									<article>
+										<h3>What Was Built</h3>
+										<ul>
+											{deliveryScope.map((item) => <li>{item}</li>)}
+										</ul>
+									</article>
+								)}
+							</div>
+						</section>
+					)
+				}
+
+				{
 					projectContext && (
 						<section class="content-block project-context-block">
 							<div>
@@ -111,14 +179,18 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 					)
 				}
 
-				<div class="two-column">
-					<section class="content-block">
-						<h2>My Role</h2>
-						{roleIntro && <p>{roleIntro}</p>}
-						<ul>
-							{project.role.map((item) => <li>{item}</li>)}
-						</ul>
-					</section>
+				<div class:list={['two-column', useCase && 'two-column-achievement-only']}>
+					{
+						!useCase && (
+							<section class="content-block">
+								<h2>My Role</h2>
+								{roleIntro && <p>{roleIntro}</p>}
+								<ul>
+									{project.role.map((item) => <li>{item}</li>)}
+								</ul>
+							</section>
+						)
+					}
 
 					<section class="content-block achievement-card">
 						<h2>Achievement Unlocked</h2>
@@ -127,8 +199,10 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 				</div>
 
 				<section class="content-block">
-					<h2>{processTitle}</h2>
-					<div class="process-grid">
+					<div class="section-heading-row">
+						<h2>{processTitle}</h2>
+					</div>
+					<div id="level-process-carousel" class="process-grid process-carousel" tabindex="0">
 						{
 							project.process.map((step, index) => (
 								<article>
@@ -138,6 +212,10 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 								</article>
 							))
 						}
+					</div>
+					<div class="carousel-controls" aria-label="Process carousel controls">
+						<button type="button" data-process-prev aria-label="Previous process step"></button>
+						<button type="button" data-process-next aria-label="Next process step"></button>
 					</div>
 				</section>
 
@@ -152,8 +230,43 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 								</p>
 							</div>
 
+							<div class="wireframe-gallery" aria-label="Learning path platform wireframe screens">
+								<div class="wireframe-heading">
+									<span class="artifact-label">Wireframe Screens</span>
+									<h3>Selected Learning Flow Screens</h3>
+								</div>
+								<div class="wireframe-strip">
+									<a
+										class="wireframe-preview"
+										href="/img/levels/learning-path/wireframe-home.png"
+										target="_blank"
+										rel="noreferrer"
+										aria-label="Open home wireframe"
+									>
+										<img
+											src="/img/levels/learning-path/wireframe-home.png"
+											alt="Home mobile wireframe for the learning path platform"
+											loading="lazy"
+										/>
+									</a>
+									<a
+										class="wireframe-preview"
+										href="/img/levels/learning-path/wireframe-onboarding.png"
+										target="_blank"
+										rel="noreferrer"
+										aria-label="Open onboarding wireframe"
+									>
+										<img
+											src="/img/levels/learning-path/wireframe-onboarding.png"
+											alt="Onboarding mobile wireframe for the learning path platform"
+											loading="lazy"
+										/>
+									</a>
+								</div>
+							</div>
+
 							<div class="artifact-feature-grid">
-								<article class="artifact-card">
+								<article class="artifact-card personas-artifact-card">
 									<span class="artifact-label">Research Artifact</span>
 									<h3>User Personas</h3>
 									<p>
@@ -191,7 +304,7 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 									</div>
 								</article>
 
-								<article class="artifact-card">
+								<article class="artifact-card journey-artifact-card">
 									<span class="artifact-label">Research Artifact</span>
 									<h3>Customer Journey Map</h3>
 									<p>
@@ -274,9 +387,85 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 								<p class="artifact-eyebrow">Final Evidence</p>
 								<h2 id="entertainment-artifacts-title">Quest Artifacts</h2>
 								<p>
-									Mobile mockups showing how the redesign expanded discovery, wallet actions,
-									and casino cross-navigation without breaking the core purchase flow.
+									Wireframes and mobile mockups showing how the redesign expanded discovery,
+									wallet actions, and casino cross-navigation without breaking the core
+									purchase flow.
 								</p>
+							</div>
+
+							<div class="journey-map-gallery" aria-label="Digital entertainment user journey maps">
+								<div class="journey-map-heading">
+									<span class="artifact-label">User Journey Maps</span>
+									<h3>Payment and Full App Flow</h3>
+									<p>
+										Two journey maps were used to compare the direct game-payment flow with the
+										full experience from opening the app, registering, playing, and needing to
+										load money.
+									</p>
+								</div>
+								<div class="journey-map-strip">
+									<a
+										class="journey-map-preview"
+										href="/img/levels/digital-entertainment/journey-map-pay-game.png"
+										target="_blank"
+										rel="noreferrer"
+										aria-label="Open game payment journey map"
+									>
+										<img
+											src="/img/levels/digital-entertainment/journey-map-pay-game.png"
+											alt="User journey map for selecting, playing, and paying for a game"
+											loading="lazy"
+										/>
+									</a>
+									<a
+										class="journey-map-preview"
+										href="/img/levels/digital-entertainment/journey-map-full-flow.png"
+										target="_blank"
+										rel="noreferrer"
+										aria-label="Open full app journey map"
+									>
+										<img
+											src="/img/levels/digital-entertainment/journey-map-full-flow.png"
+											alt="Complete user journey map from app entry and registration to play, wallet loading, and payment"
+											loading="lazy"
+										/>
+									</a>
+								</div>
+							</div>
+
+							<div class="wireframe-gallery" aria-label="Digital entertainment wireframes">
+								<div class="wireframe-heading">
+									<span class="artifact-label">Wireframe Screens</span>
+									<h3>Selected Flow Screens</h3>
+								</div>
+								<div class="wireframe-strip">
+									<a
+											class="wireframe-preview"
+											href="/img/levels/digital-entertainment/wireframe-tickets.png"
+											target="_blank"
+											rel="noreferrer"
+											aria-label="Open tickets wireframe"
+										>
+											<img
+												src="/img/levels/digital-entertainment/wireframe-tickets.png"
+												alt="Tickets mobile wireframe for digital entertainment app"
+												loading="lazy"
+											/>
+										</a>
+									<a
+											class="wireframe-preview"
+											href="/img/levels/digital-entertainment/wireframe-wallet.png"
+											target="_blank"
+											rel="noreferrer"
+											aria-label="Open wallet wireframe"
+										>
+											<img
+												src="/img/levels/digital-entertainment/wireframe-wallet.png"
+												alt="Wallet mobile wireframe for digital entertainment app"
+												loading="lazy"
+											/>
+										</a>
+								</div>
 							</div>
 
 							<div class="entertainment-mockup-grid" aria-label="Digital entertainment redesign mockups">
@@ -312,7 +501,7 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 				}
 
 				{
-					artifactPlaceholders && (
+					artifactPlaceholders && project.slug !== 'ai-hiring-platform' && (
 						<section class="content-block quest-artifacts hiring-artifacts" aria-labelledby="quest-artifacts-title">
 							<div class="artifacts-heading">
 								<p class="artifact-eyebrow">Evidence Collected</p>
@@ -337,17 +526,17 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 					)
 				}
 
-				<div class="two-column">
-					<section class="content-block">
+				<div class="two-column decision-feature-grid">
+					<section class="content-block decision-summary-card">
 						<h2>Design Decisions</h2>
-						<ul>
+						<ul class="decision-list">
 							{project.designDecisions.map((item) => <li>{item}</li>)}
 						</ul>
 					</section>
 
-					<section class="content-block">
+					<section class="content-block feature-summary-card">
 						<h2>{keyFeaturesTitle}</h2>
-						<ul>
+						<ul class="feature-chip-list">
 							{project.keyFeatures.map((item) => <li>{item}</li>)}
 						</ul>
 					</section>
@@ -360,14 +549,51 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 
 				<nav class="level-nav" aria-label="Level navigation">
 					<a href="/levels">Back to Map</a>
-					{previousProject && <a href={`/levels/${previousProject.slug}`}>Previous Level</a>}
-					{nextProject && <a href={`/levels/${nextProject.slug}`}>Next Level</a>}
+					{
+						previousProject && (
+							<a href={`/levels/${previousProject.slug}`}>
+								<span class="nav-arrow" aria-hidden="true">&lt;</span>
+								Previous Level
+							</a>
+						)
+					}
+					{
+						nextProject && (
+							<a href={`/levels/${nextProject.slug}`}>
+								Next Level
+								<span class="nav-arrow" aria-hidden="true">&gt;</span>
+							</a>
+						)
+					}
 					<a href="/contact">Contact Player</a>
 				</nav>
 			</div>
 		</section>
 	</main>
+
 </Layout>
+
+<script>
+	const processCarousel = document.getElementById('level-process-carousel');
+	const processPrevButton = document.querySelector('[data-process-prev]');
+	const processNextButton = document.querySelector('[data-process-next]');
+
+	const scrollProcessCarousel = (direction: number) => {
+		if (!(processCarousel instanceof HTMLElement)) return;
+
+		const firstCard = processCarousel.querySelector('article');
+		const cardWidth = firstCard instanceof HTMLElement ? firstCard.offsetWidth : 360;
+		const gap = parseFloat(getComputedStyle(processCarousel).columnGap || '0');
+
+		processCarousel.scrollBy({
+			left: direction * (cardWidth + gap),
+			behavior: 'smooth',
+		});
+	};
+
+	processPrevButton?.addEventListener('click', () => scrollProcessCarousel(-1));
+	processNextButton?.addEventListener('click', () => scrollProcessCarousel(1));
+</script>
 
 <style is:global>
 	@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Pixelify+Sans:wght@400..700&display=swap');
@@ -454,12 +680,24 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 
 	.tag-list li,
 	.content-block li {
+		border: 2px solid rgba(244, 166, 189, 0.72);
 		border-radius: 999px;
-		background: #fff0d6;
+		background: #ffffff;
 		color: #4a403a;
 		font-size: 0.78rem;
-		font-weight: 700;
+		font-weight: 800;
 		padding: 8px 12px;
+	}
+
+	.tag-list li {
+		box-shadow:
+			0 5px 0 rgba(214, 198, 245, 0.55),
+			0 10px 18px rgba(123, 113, 108, 0.08);
+	}
+
+	.content-block li {
+		background: #fff0d6;
+		border-color: transparent;
 	}
 
 	.hero-actions {
@@ -474,6 +712,7 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
+		gap: 8px;
 		border-radius: 14px;
 		background: #f4a6bd;
 		color: #4a403a;
@@ -494,12 +733,17 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		transform: translateY(-2px);
 	}
 
+	.nav-arrow {
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 1.15rem;
+		font-weight: 800;
+		line-height: 1;
+	}
+
 	.level-meta-card {
 		border: 6px solid #d6c6f5;
 		border-radius: 28px;
-		background:
-			radial-gradient(circle at 82% 14%, rgba(249, 231, 163, 0.8) 0 9%, transparent 10%),
-			linear-gradient(135deg, #ffffff, #fff7f1);
+		background: linear-gradient(135deg, #ffffff, #fff7f1);
 		box-shadow: 0 18px 38px rgba(214, 198, 245, 0.22);
 		padding: 22px;
 	}
@@ -581,6 +825,10 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		padding: clamp(24px, 4vw, 44px);
 	}
 
+	.content-block {
+		min-width: 0;
+	}
+
 	.content-block h2 {
 		margin: 0 0 14px;
 		color: #4a403a;
@@ -621,13 +869,169 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		gap: 26px;
 	}
 
+	.decision-feature-grid {
+		align-items: start;
+		gap: 18px;
+	}
+
+	.decision-summary-card,
+	.feature-summary-card {
+		border-top: 2px dashed rgba(214, 198, 245, 0.75);
+		padding-top: 22px;
+	}
+
+	.decision-list {
+		display: grid !important;
+		gap: 10px !important;
+	}
+
+	.decision-list li {
+		border: 0;
+		border-left: 4px solid #f4a6bd;
+		border-radius: 0;
+		background: transparent;
+		color: #6b625d;
+		font-size: 0.9rem;
+		font-weight: 700;
+		line-height: 1.55;
+		padding: 0 0 0 12px;
+	}
+
+	.feature-chip-list {
+		display: flex !important;
+		flex-wrap: wrap;
+		gap: 8px !important;
+	}
+
+	.feature-chip-list li {
+		border: 1px solid rgba(214, 198, 245, 0.9);
+		border-radius: 999px;
+		background: #ffffff;
+		color: #4a403a;
+		font-size: 0.72rem;
+		font-weight: 800;
+		line-height: 1.25;
+		padding: 7px 10px;
+		box-shadow: 0 5px 12px rgba(214, 198, 245, 0.12);
+	}
+
+	.two-column-achievement-only {
+		grid-template-columns: minmax(0, 1fr);
+		margin-top: -10px;
+	}
+
 	.contribution-note {
 		border: 5px solid #f9e7a3;
 		border-radius: 24px;
 		background:
-			radial-gradient(circle at 96% 18%, rgba(168, 216, 112, 0.55) 0 8%, transparent 9%),
+			radial-gradient(circle at 96% 18%, rgba(168, 216, 112, 0.22) 0 8%, rgba(168, 216, 112, 0.08) 12%, transparent 18%),
 			#fffdf3;
 		padding: 24px;
+	}
+
+	.impact-block {
+		border: 5px solid #bfd7ed;
+		border-radius: 26px;
+		background:
+			radial-gradient(circle at 94% 12%, rgba(249, 231, 163, 0.28) 0 8%, rgba(249, 231, 163, 0.1) 13%, transparent 20%),
+			linear-gradient(135deg, #ffffff 0%, #fff7f1 100%);
+		padding: 24px;
+	}
+
+	.impact-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 14px;
+		margin: 18px 0;
+	}
+
+	.impact-grid article {
+		border: 3px solid #f9e4e8;
+		border-radius: 20px;
+		background: #ffffff;
+		padding: 18px;
+		text-align: center;
+		box-shadow: 0 12px 28px rgba(214, 198, 245, 0.14);
+	}
+
+	.impact-grid strong {
+		display: block;
+		color: #b8977a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: clamp(1.9rem, 4vw, 3rem);
+		line-height: 0.95;
+	}
+
+	.impact-grid span {
+		display: block;
+		margin-top: 8px;
+		color: #4a403a;
+		font-size: 0.82rem;
+		font-weight: 800;
+	}
+
+	.context-note {
+		border-radius: 18px;
+		background: #fbfff5;
+		padding: 16px 18px;
+		color: #4a403a !important;
+		font-weight: 700;
+	}
+
+	.product-context-card {
+		display: grid;
+		grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+		gap: 24px;
+		align-items: start;
+	}
+
+	.product-context-copy {
+		display: grid;
+		align-content: start;
+		gap: 14px;
+	}
+
+	.product-context-copy h2,
+	.product-context-copy h3,
+	.product-context-copy p {
+		margin-bottom: 0;
+	}
+
+	.inline-role-card {
+		display: grid;
+		gap: 12px;
+		margin-top: 8px;
+		border: 4px solid #f9e4e8;
+		border-radius: 22px;
+		background: #fffdf8;
+		padding: 18px;
+	}
+
+	.inline-role-card h2 {
+		font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+	}
+
+	.scope-panels {
+		display: grid;
+		gap: 16px;
+	}
+
+	.scope-panels article {
+		border: 4px solid #d6c6f5;
+		border-radius: 22px;
+		background: #fffdf8;
+		padding: 18px;
+	}
+
+	.scope-panels ul {
+		display: grid;
+		gap: 8px;
+	}
+
+	.scope-panels li {
+		border-radius: 14px;
+		background: #fff0d6;
+		line-height: 1.55;
 	}
 
 	.project-context-block {
@@ -668,10 +1072,104 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		font-weight: 800;
 	}
 
+	.section-heading-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		margin-bottom: 14px;
+	}
+
+	.section-heading-row h2 {
+		margin-bottom: 0;
+	}
+
+	.carousel-controls {
+		display: flex;
+		justify-content: center;
+		gap: 10px;
+		margin-top: 18px;
+	}
+
+	.carousel-controls button {
+		display: inline-grid;
+		place-items: center;
+		width: 42px;
+		height: 42px;
+		border: 0;
+		border-radius: 14px;
+		background: #f4a6bd;
+		color: #4a403a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 0;
+		font-weight: 800;
+		line-height: 1;
+		cursor: pointer;
+		transition:
+			background 160ms ease,
+			box-shadow 160ms ease,
+			transform 160ms ease;
+	}
+
+	.carousel-controls button::before {
+		font-size: 1.5rem;
+		line-height: 1;
+	}
+
+	.carousel-controls button[data-process-prev]::before {
+		content: "<";
+	}
+
+	.carousel-controls button[data-process-next]::before {
+		content: ">";
+	}
+
+	.carousel-controls button:hover {
+		background: #f9e4e8;
+		box-shadow: 0 8px 18px rgba(244, 166, 189, 0.22);
+		transform: translateY(-2px);
+	}
+
 	.process-grid {
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 18px;
+		gap: 24px;
+	}
+
+	.process-carousel {
+		display: flex;
+		width: 100%;
+		box-sizing: border-box;
+		min-width: 0;
+		overflow-x: auto;
+		overflow-y: hidden;
+		scroll-behavior: smooth;
+		scroll-padding-inline: 18px;
+		scroll-snap-type: x mandatory;
+		padding: 4px 28px 16px 18px;
+		cursor: grab;
+		overscroll-behavior-inline: contain;
+		-webkit-overflow-scrolling: touch;
+		max-width: 100%;
+	}
+
+	.process-carousel::after {
+		content: "";
+		flex: 0 0 28px;
+	}
+
+	.process-carousel::-webkit-scrollbar {
+		height: 10px;
+	}
+
+	.process-carousel::-webkit-scrollbar-track {
+		border-radius: 999px;
+		background: #fff0d6;
+	}
+
+	.process-carousel::-webkit-scrollbar-thumb {
+		border-radius: 999px;
+		background: #d6c6f5;
 	}
 
 	.process-grid article {
@@ -679,6 +1177,13 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		border-radius: 22px;
 		padding: 20px;
 		background: #fffdf8;
+	}
+
+	.process-carousel article {
+		flex: 0 0 min(78vw, 410px);
+		max-width: 410px;
+		min-height: 315px;
+		scroll-snap-align: start;
 	}
 
 	.step-number {
@@ -721,6 +1226,28 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		gap: 22px;
 	}
 
+	.personas-artifact-card {
+		grid-column: 1 / -1;
+	}
+
+	.journey-artifact-card {
+		grid-column: 1 / -1;
+		grid-template-columns: minmax(220px, 0.36fr) minmax(0, 0.64fr);
+		align-items: center;
+		column-gap: clamp(20px, 4vw, 38px);
+	}
+
+	.journey-artifact-card .artifact-label,
+	.journey-artifact-card h3,
+	.journey-artifact-card p {
+		grid-column: 1;
+	}
+
+	.journey-artifact-card .journey-frame {
+		grid-column: 2;
+		grid-row: 1 / 4;
+	}
+
 	.artifact-card {
 		display: grid;
 		align-content: start;
@@ -757,17 +1284,21 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 
 	.persona-gallery {
 		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 18px;
 		margin-top: 4px;
+		align-items: start;
 	}
 
 	.persona-preview {
-		display: block;
+		display: grid;
+		place-items: center;
 		overflow: hidden;
 		border: 2px solid rgba(214, 198, 245, 0.88);
 		border-radius: 22px;
 		background: #ffffff;
 		box-shadow: 0 14px 28px rgba(214, 198, 245, 0.18);
+		padding: 10px;
 		transition:
 			box-shadow 180ms ease,
 			transform 180ms ease;
@@ -781,7 +1312,7 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 	.persona-preview img {
 		display: block;
 		width: 100%;
-		height: auto;
+		height: clamp(260px, 30vw, 390px);
 		object-fit: contain;
 	}
 
@@ -820,7 +1351,7 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 	}
 
 	.journey-frame {
-		min-height: 250px;
+		min-height: clamp(280px, 32vw, 420px);
 	}
 
 	.artifact-card-wide {
@@ -832,8 +1363,8 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		overflow: hidden;
 		border-color: #cdb4f5;
 		background:
-			radial-gradient(circle at 12% 18%, rgba(249, 228, 232, 0.85) 0 11%, transparent 12%),
-			radial-gradient(circle at 86% 18%, rgba(184, 242, 163, 0.34) 0 9%, transparent 10%),
+			radial-gradient(circle at 12% 18%, rgba(249, 228, 232, 0.28) 0 11%, rgba(249, 228, 232, 0.1) 17%, transparent 26%),
+			radial-gradient(circle at 86% 18%, rgba(184, 242, 163, 0.16) 0 9%, rgba(184, 242, 163, 0.06) 15%, transparent 24%),
 			linear-gradient(135deg, #ffffff 0%, #fff7f1 44%, #f8f9dc 100%);
 	}
 
@@ -940,9 +1471,116 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		overflow: hidden;
 		border-color: #d6c6f5;
 		background:
-			radial-gradient(circle at 12% 18%, rgba(168, 216, 112, 0.24) 0 12%, transparent 13%),
-			radial-gradient(circle at 88% 16%, rgba(249, 228, 232, 0.72) 0 9%, transparent 10%),
+			radial-gradient(circle at 12% 18%, rgba(168, 216, 112, 0.12) 0 12%, rgba(168, 216, 112, 0.04) 18%, transparent 28%),
+			radial-gradient(circle at 88% 16%, rgba(249, 228, 232, 0.24) 0 9%, rgba(249, 228, 232, 0.08) 15%, transparent 24%),
 			linear-gradient(135deg, #ffffff 0%, #fff7f1 44%, #f8f9dc 100%);
+	}
+
+	.journey-map-gallery {
+		display: grid;
+		gap: 16px;
+		margin-top: 8px;
+		border: 2px solid rgba(214, 198, 245, 0.82);
+		border-radius: 24px;
+		background: rgba(255, 255, 255, 0.72);
+		padding: clamp(16px, 2.4vw, 22px);
+	}
+
+	.journey-map-heading {
+		max-width: 760px;
+	}
+
+	.journey-map-heading h3 {
+		margin: 10px 0 8px;
+		color: #4a403a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+		line-height: 1;
+	}
+
+	.journey-map-heading p {
+		margin: 0;
+		color: #6b625d;
+		font-size: 0.9rem;
+		line-height: 1.65;
+	}
+
+	.journey-map-strip {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: clamp(12px, 2vw, 18px);
+	}
+
+	.journey-map-preview {
+		display: grid;
+		place-items: center;
+		overflow: hidden;
+		max-height: 360px;
+		border-radius: 18px;
+		background: #ffffff;
+		box-shadow:
+			inset 0 0 0 1px rgba(214, 198, 245, 0.52),
+			0 14px 28px rgba(123, 113, 108, 0.1);
+	}
+
+	.journey-map-preview img {
+		display: block;
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+	}
+
+	.wireframe-gallery {
+		display: grid;
+		grid-template-columns: minmax(180px, 0.34fr) minmax(0, 0.66fr);
+		gap: clamp(16px, 3vw, 28px);
+		align-items: center;
+		margin-top: 8px;
+		border: 2px solid rgba(214, 198, 245, 0.82);
+		border-radius: 24px;
+		background: rgba(255, 255, 255, 0.72);
+		padding: clamp(16px, 2.4vw, 22px);
+	}
+
+	.wireframe-heading {
+		display: grid;
+		align-content: center;
+		gap: 10px;
+	}
+
+	.wireframe-gallery h3 {
+		margin: 0;
+		color: #4a403a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+		line-height: 1;
+	}
+
+	.wireframe-strip {
+		display: flex;
+		justify-content: center;
+		gap: clamp(10px, 2vw, 18px);
+	}
+
+	.wireframe-preview {
+		display: grid;
+		place-items: start center;
+		overflow: hidden;
+		flex: 0 1 190px;
+		max-height: 430px;
+		border-radius: 18px;
+		background: #ffffff;
+		box-shadow:
+			inset 0 0 0 1px rgba(214, 198, 245, 0.52),
+			0 14px 28px rgba(123, 113, 108, 0.1);
+	}
+
+	.wireframe-preview img {
+		display: block;
+		width: 100%;
+		max-width: 190px;
+		height: auto;
+		object-fit: contain;
 	}
 
 	.entertainment-mockup-grid {
@@ -1008,8 +1646,8 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 
 	.hiring-artifacts {
 		background:
-			radial-gradient(circle at 12% 12%, rgba(191, 215, 237, 0.55) 0 10%, transparent 11%),
-			radial-gradient(circle at 90% 10%, rgba(249, 231, 163, 0.65) 0 8%, transparent 9%),
+			radial-gradient(circle at 12% 12%, rgba(191, 215, 237, 0.2) 0 10%, rgba(191, 215, 237, 0.08) 16%, transparent 25%),
+			radial-gradient(circle at 90% 10%, rgba(249, 231, 163, 0.22) 0 8%, rgba(249, 231, 163, 0.08) 14%, transparent 23%),
 			#fff7f1;
 	}
 
@@ -1072,6 +1710,8 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 
 		.project-hero-grid,
 		.project-context-block,
+		.product-context-card,
+		.impact-grid,
 		.hiring-artifact-grid,
 		.two-column,
 		.process-grid,
@@ -1079,6 +1719,51 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		.mockup-showcase,
 		.entertainment-mockup-grid {
 			grid-template-columns: 1fr;
+		}
+
+		.process-carousel {
+			display: flex;
+			grid-template-columns: none;
+		}
+
+		.process-carousel article {
+			flex-basis: min(84vw, 360px);
+			min-height: 0;
+		}
+
+		.process-carousel::after {
+			flex-basis: 28px;
+		}
+
+		.persona-gallery {
+			display: flex;
+			overflow-x: auto;
+			scroll-snap-type: x mandatory;
+			padding-bottom: 12px;
+		}
+
+		.persona-preview {
+			flex: 0 0 min(82vw, 440px);
+			scroll-snap-align: start;
+		}
+
+		.persona-preview img {
+			height: clamp(240px, 56vw, 360px);
+		}
+
+		.journey-artifact-card {
+			grid-template-columns: 1fr;
+		}
+
+		.journey-artifact-card .artifact-label,
+		.journey-artifact-card h3,
+		.journey-artifact-card p,
+		.journey-artifact-card .journey-frame {
+			grid-column: 1;
+		}
+
+		.journey-artifact-card .journey-frame {
+			grid-row: auto;
 		}
 
 		.quest-window {
@@ -1117,6 +1802,33 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 
 		.entertainment-mockup {
 			min-height: 260px;
+		}
+
+		.wireframe-gallery {
+			grid-template-columns: 1fr;
+		}
+
+		.journey-map-strip {
+			grid-template-columns: 1fr;
+		}
+
+		.journey-map-preview {
+			max-height: 320px;
+		}
+
+		.wireframe-strip {
+			overflow-x: auto;
+			justify-content: flex-start;
+			padding-bottom: 8px;
+		}
+
+		.wireframe-preview {
+			flex-basis: 170px;
+			max-height: 380px;
+		}
+
+		.wireframe-preview img {
+			max-width: 170px;
 		}
 
 		.entertainment-mockup-primary img,

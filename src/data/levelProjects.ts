@@ -12,6 +12,36 @@ export const levelProjects = [
 			'Learning Experience',
 			'Dashboard Design',
 		],
+		metadata: [
+			{ label: 'Type', value: 'EdTech / AI-Assisted Learning' },
+			{ label: 'Impact', value: '6,000+ active teachers' },
+			{ label: 'Recognition', value: '3rd Place · WISE 2025 Qatar' },
+			{ label: 'Platform', value: 'Web, iOS and Android' },
+		],
+		impactMetrics: [
+			{ value: '6,000+', label: 'Active Teachers' },
+			{ value: '3rd Place', label: 'WISE 2025 Qatar' },
+			{ value: 'Multi-platform', label: 'Web, iOS and Android' },
+		],
+		clientContext:
+			'Client profile: an educational innovation foundation focused on teacher training for STEM and AI.',
+		useCase:
+			'The platform brought learning materials, curriculum management, delivery, and progress tracking into one connected web and mobile ecosystem so teachers could organize specialized STEM and AI content without moving between fragmented resources.',
+		blockers: [
+			'Learning materials were distributed across isolated channels, making it difficult to measure adoption and real impact.',
+			'Teachers needed a centralized tool to organize their workflow without adding excessive administrative load.',
+			'Teaching complex topics such as AI required an intuitive experience that could support content delivery and progress monitoring.',
+			'There was limited visibility into curriculum progress and the effectiveness of STEM tool implementation in remote education contexts.',
+		],
+		deliveryScope: [
+			'Mobile applications for Android and iOS optimized for agile content consumption.',
+			'A web management portal for administrators to upload dynamic curricula and supervise program deployment.',
+			'Tracking modules for teachers to record group progress and monitor the implementation of AI and STEM lessons.',
+			'AI capabilities to support content organization and personalize the user experience.',
+			'Firebase as backend infrastructure for user management and synchronization.',
+		],
+		whyMatters:
+			'Teacher enablement works better when content, workflow, and access stay connected. This ecosystem combined custom software and AI-assisted capabilities into a multi-platform product used by 6,000+ active teachers and recognized globally at WISE 2025 Qatar.',
 		missionBrief: [
 			'The challenge was to design a digital platform that could support educators facing limited time, low access to updated resources, technology barriers, and professional isolation.',
 			'The goal was not only to provide educational content, but to create a flexible learning ecosystem with personalized routes, accessible resources, community interaction, and AI-assisted feedback.',

@@ -7,7 +7,9 @@ import Layout from '../layouts/Layout.astro';
 		<a class="back-link" href="/" aria-label="Volver al menu principal">Back</a>
 
 		<header class="profile-header">
-			<img src="/img/menu/3.png" alt="" width="42" height="42" />
+			<div class="screen-icon" aria-hidden="true">
+				<img src="/img/menu/3.png" alt="" width="46" height="46" />
+			</div>
 			<h1 id="profile-title">Player Profile</h1>
 		</header>
 
@@ -169,7 +171,7 @@ import Layout from '../layouts/Layout.astro';
 	.profile-screen {
 		position: relative;
 		min-height: 100svh;
-		padding: clamp(24px, 4vh, 34px) clamp(24px, 7vw, 108px) 72px;
+		padding: clamp(92px, 12vh, 124px) clamp(24px, 7vw, 108px) 72px;
 		background: #ffffec;
 		color: #2b2b33;
 		font-family: 'Comfortaa', 'Trebuchet MS', sans-serif;
@@ -196,14 +198,25 @@ import Layout from '../layouts/Layout.astro';
 	.profile-header {
 		display: flex;
 		align-items: center;
-		gap: 14px;
+		gap: 18px;
 		width: min(100%, 1160px);
 		margin: 0 auto;
-		padding-left: clamp(70px, 9vw, 116px);
+		padding-left: clamp(44px, 5vw, 72px);
 		color: #b8977a;
 	}
 
-	.profile-header img,
+	.screen-icon {
+		display: grid;
+		place-items: center;
+		width: 82px;
+		aspect-ratio: 1;
+		border: 4px solid #d6c6f5;
+		border-radius: 22px;
+		background: #ffffff;
+		box-shadow: 0 12px 26px rgba(214, 198, 245, 0.2);
+	}
+
+	.screen-icon img,
 	.sprite {
 		object-fit: contain;
 		image-rendering: pixelated;
@@ -656,11 +669,16 @@ import Layout from '../layouts/Layout.astro';
 
 	@media (max-width: 760px) {
 		.profile-screen {
-			padding: 80px 22px 64px;
+			padding: 96px 22px 64px;
 		}
 
 		.profile-header {
 			padding-left: 0;
+		}
+
+		.screen-icon {
+			width: 72px;
+			border-radius: 20px;
 		}
 
 		.profile-hero {
