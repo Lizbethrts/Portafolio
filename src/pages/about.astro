@@ -667,6 +667,92 @@ import Layout from '../layouts/Layout.astro';
 		image-rendering: pixelated;
 	}
 
+	@media (max-width: 980px) {
+		.profile-screen {
+			padding-inline: clamp(22px, 5vw, 42px);
+		}
+
+		.profile-header {
+			padding-left: 0;
+		}
+
+		.profile-hero,
+		.ds-section,
+		.programming-section,
+		.lore-section {
+			grid-template-columns: 1fr;
+			width: 100%;
+			max-width: 760px;
+		}
+
+		.profile-hero {
+			margin-top: clamp(54px, 8vh, 72px);
+		}
+
+		.card-zone {
+			min-height: 400px;
+		}
+
+		.profile-card {
+			width: min(300px, 48vw);
+		}
+
+		.sprite--bulbasaur {
+			left: 8%;
+		}
+
+		.sprite--pokeball-top {
+			right: 12%;
+		}
+
+		.sprite--cat {
+			right: 12%;
+		}
+
+		.sprite--pokeball-bottom {
+			left: 10%;
+		}
+
+		.ds-section,
+		.programming-section,
+		.lore-section {
+			gap: 42px;
+			margin-top: 76px;
+		}
+
+		.ds-art {
+			min-height: 380px;
+			order: -1;
+		}
+
+		.ds-console {
+			width: min(380px, 70vw);
+		}
+
+		.programming-section {
+			padding-top: 10px;
+		}
+
+		.pikmin-stage {
+			order: -1;
+			padding-left: 0;
+		}
+
+		.code-window,
+		.lore-window {
+			width: 100%;
+			max-width: 100%;
+		}
+
+		.lore-art {
+			min-height: auto;
+		}
+
+		.lore-art img {
+			width: min(440px, 82vw);
+		}
+	}
+
 	@media (max-width: 760px) {
 		.profile-screen {
 			padding: 96px 22px 64px;

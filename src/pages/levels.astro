@@ -16,6 +16,12 @@ import Layout from '../layouts/Layout.astro';
 			</div>
 		</header>
 
+		<section class="map-tip map-tip-top" id="map-tip" role="status" aria-live="polite">
+			<p class="tip-kicker">Hover a level</p>
+			<h2>Project preview</h2>
+			<p>Move over a level marker to see a quick summary.</p>
+		</section>
+
 		<section class="levels-playfield" aria-label="Interactive project map">
 			<div class="map-column">
 				<article class="level-help" aria-live="polite">
@@ -29,14 +35,6 @@ import Layout from '../layouts/Layout.astro';
 					<div class="floating-tip" id="floating-tip" role="dialog" aria-label="Project preview"></div>
 				</div>
 			</div>
-
-			<aside class="info-rail" aria-label="Level information">
-				<div class="map-tip" id="map-tip" role="status" aria-live="polite">
-					<p class="tip-kicker">Hover a level</p>
-					<h2>Project preview</h2>
-					<p>Move over a level marker to see a quick summary.</p>
-				</div>
-			</aside>
 		</section>
 	</main>
 </Layout>
@@ -526,11 +524,11 @@ import Layout from '../layouts/Layout.astro';
 
 	.levels-playfield {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+		grid-template-columns: minmax(0, 1fr);
 		gap: 22px;
 		align-items: start;
 		width: min(100%, 1320px);
-		margin: clamp(28px, 5vh, 48px) auto 0;
+		margin: 18px auto 0;
 	}
 
 	.map-column {
@@ -557,11 +555,6 @@ import Layout from '../layouts/Layout.astro';
 		min-height: 520px;
 	}
 
-	.info-rail {
-		display: grid;
-		gap: 18px;
-	}
-
 	.map-tip,
 	.level-help {
 		z-index: 3;
@@ -571,9 +564,13 @@ import Layout from '../layouts/Layout.astro';
 	}
 
 	.map-tip {
-		width: 100%;
+		width: min(100%, 1180px);
 		padding: 18px 20px;
 		border: 5px solid #a8d870;
+	}
+
+	.map-tip-top {
+		margin: clamp(28px, 5vh, 48px) auto 0;
 	}
 
 	.floating-tip {
@@ -716,10 +713,6 @@ import Layout from '../layouts/Layout.astro';
 	}
 
 	@media (max-width: 980px) {
-		.levels-playfield {
-			grid-template-columns: 1fr;
-		}
-
 		.map-tip {
 			max-height: none;
 		}

@@ -24,7 +24,7 @@ const menuItems = [
 		title: 'Secret Lab',
 		label: 'Experiment & Playground',
 		icon: '/img/menu/5.png',
-		href: '#lab',
+		href: '/secret-lab',
 	},
 	{
 		title: 'Talk to NPC',
@@ -83,13 +83,16 @@ const menuItems = [
 	.world-screen {
 		display: grid;
 		min-height: 100svh;
+		overflow-x: clip;
 		background: #ffffec;
 		color: #5e5858;
 		font-family: 'Comfortaa', 'Comfortaa Regular', 'Trebuchet MS', sans-serif;
 	}
 
 	.welcome-panel {
-		width: min(100%, 1160px);
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 1160px;
 		margin: 0 auto;
 		padding: clamp(36px, 7vh, 68px) clamp(24px, 7vw, 92px) 38px;
 	}
@@ -182,6 +185,16 @@ const menuItems = [
 	.menu-item:focus-visible {
 		outline: 3px solid #b8977a;
 		outline-offset: 8px;
+	}
+
+	@media (max-width: 900px) {
+		.welcome-panel {
+			padding-inline: clamp(20px, 5vw, 40px);
+		}
+
+		.menu-grid {
+			column-gap: clamp(42px, 8vw, 70px);
+		}
 	}
 
 	@media (max-width: 760px) {
