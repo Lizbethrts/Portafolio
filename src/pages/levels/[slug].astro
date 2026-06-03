@@ -501,6 +501,49 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 				}
 
 				{
+					project.slug === 'fixia-service-platform' && (
+						<section class="content-block quest-artifacts fixia-artifacts" aria-labelledby="fixia-artifacts-title">
+							<div class="artifacts-heading">
+								<p class="artifact-eyebrow">Final Evidence</p>
+								<h2 id="fixia-artifacts-title">Quest Artifacts</h2>
+								<p>
+									Desktop and mobile mockups showing how FIXIA turns service uncertainty into a clearer path: diagnose the problem, compare verified technicians, and request help with more trust.
+								</p>
+							</div>
+
+							<div class="fixia-showcase" aria-label="FIXIA final mockups">
+								<a
+									class="fixia-mockup fixia-mockup-desktop"
+									href="/img/levels/fixia/fixia-imac.png"
+									target="_blank"
+									rel="noreferrer"
+									aria-label="Open FIXIA desktop mockup"
+								>
+									<img
+										src="/img/levels/fixia/fixia-imac.png"
+										alt="FIXIA desktop mockup showing verified plumber cards and service filters"
+										loading="lazy"
+									/>
+								</a>
+								<a
+									class="fixia-mockup fixia-mockup-mobile"
+									href="/img/levels/fixia/fixia-iphone.png"
+									target="_blank"
+									rel="noreferrer"
+									aria-label="Open FIXIA mobile app mockup"
+								>
+									<img
+										src="/img/levels/fixia/fixia-iphone.png"
+										alt="FIXIA mobile mockup showing home-service app screens and splash screen"
+										loading="lazy"
+									/>
+								</a>
+							</div>
+						</section>
+					)
+				}
+
+				{
 					artifactPlaceholders && project.slug !== 'ai-hiring-platform' && (
 						<section class="content-block quest-artifacts hiring-artifacts" aria-labelledby="quest-artifacts-title">
 							<div class="artifacts-heading">
@@ -1644,6 +1687,79 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		transform: translateY(14px) rotate(2deg);
 	}
 
+	.fixia-artifacts {
+		overflow: hidden;
+		border-color: #bfd7ed;
+		background:
+			radial-gradient(circle at 12% 16%, rgba(191, 215, 237, 0.24) 0 10%, rgba(191, 215, 237, 0.08) 17%, transparent 26%),
+			radial-gradient(circle at 88% 14%, rgba(249, 231, 163, 0.26) 0 8%, rgba(249, 231, 163, 0.08) 14%, transparent 23%),
+			linear-gradient(135deg, #ffffff 0%, #fff7f1 48%, #f7fbff 100%);
+	}
+
+	.fixia-showcase {
+		position: relative;
+		display: grid;
+		grid-template-columns: minmax(0, 1.06fr) minmax(260px, 0.94fr);
+		gap: clamp(18px, 4vw, 46px);
+		align-items: center;
+		margin-top: 8px;
+		padding: clamp(10px, 2vw, 18px) 0;
+		isolation: isolate;
+	}
+
+	.fixia-showcase::before {
+		content: "";
+		position: absolute;
+		left: 5%;
+		right: 5%;
+		bottom: 4%;
+		height: 28%;
+		border-radius: 999px;
+		background:
+			linear-gradient(90deg, rgba(191, 215, 237, 0.45), rgba(249, 231, 163, 0.42)),
+			#fff0d6;
+		opacity: 0.68;
+		filter: blur(2px);
+		z-index: -1;
+	}
+
+	.fixia-mockup {
+		position: relative;
+		display: grid;
+		place-items: center;
+		overflow: visible;
+		transition:
+			filter 180ms ease,
+			transform 180ms ease;
+	}
+
+	.fixia-mockup:hover {
+		filter: drop-shadow(0 24px 28px rgba(74, 64, 58, 0.16));
+		transform: translateY(-4px);
+	}
+
+	.fixia-mockup img {
+		display: block;
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+		filter: drop-shadow(0 20px 22px rgba(74, 64, 58, 0.16));
+	}
+
+	.fixia-mockup-desktop img {
+		max-height: 520px;
+		transform: rotate(-1deg);
+	}
+
+	.fixia-mockup-mobile {
+		justify-self: center;
+	}
+
+	.fixia-mockup-mobile img {
+		max-height: 500px;
+		transform: translateY(10px) rotate(2deg);
+	}
+
 	.hiring-artifacts {
 		background:
 			radial-gradient(circle at 12% 12%, rgba(191, 215, 237, 0.2) 0 10%, rgba(191, 215, 237, 0.08) 16%, transparent 25%),
@@ -1717,7 +1833,8 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		.process-grid,
 		.artifact-feature-grid,
 		.mockup-showcase,
-		.entertainment-mockup-grid {
+		.entertainment-mockup-grid,
+		.fixia-showcase {
 			grid-template-columns: 1fr;
 		}
 
@@ -1834,6 +1951,12 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		.entertainment-mockup-primary img,
 		.entertainment-mockup-secondary img {
 			max-height: 380px;
+			transform: none;
+		}
+
+		.fixia-mockup-desktop img,
+		.fixia-mockup-mobile img {
+			max-height: 360px;
 			transform: none;
 		}
 	}

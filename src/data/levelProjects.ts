@@ -419,6 +419,137 @@ export const levelProjects = [
 		],
 		achievement: 'HR Tech UX + Screen Design Contribution',
 	},
+	{
+		level: 'LEVEL_04',
+		slug: 'fixia-service-platform',
+		title: 'FIXIA Service Platform',
+		intro:
+			'A home-service platform concept designed to help users diagnose household problems, compare verified technicians, and book repairs with more confidence.',
+		tags: [
+			'Service Marketplace',
+			'UX Research',
+			'Mobile App',
+			'Web Platform',
+			'Trust & Safety',
+			'AI-Assisted Diagnosis',
+		],
+		metadata: [
+			{ label: 'Type', value: 'Home Services / Marketplace UX' },
+			{ label: 'Platform', value: 'Mobile app + responsive web prototype' },
+			{ label: 'Focus', value: 'Trust, diagnosis, booking, and service clarity' },
+			{ label: 'Prototype', value: 'FIXIA V1 deployed on Vercel' },
+		],
+		impactMetrics: [
+			{ value: '42.5%', label: 'Main concern: not knowing if a technician is trustworthy' },
+			{ value: '83%', label: 'Would pay, at least conditionally, for the service' },
+			{ value: '23.2%', label: 'Value verified technicians most when paying' },
+		],
+		clientContext:
+			'Project context: a product concept for CDMX users who need reliable home repair services and technicians who need a steadier flow of verified clients.',
+		useCase:
+			'FIXIA helps users describe a home problem, understand what type of technician they need, compare verified profiles, review estimated prices, request service, track the visit, pay safely, and rate the experience.',
+		blockers: [
+			'Users often misdiagnose home problems and may hire the wrong professional.',
+			'Trust is fragile because people worry about informal technicians, unclear prices, low quality work, and lack of guarantees.',
+			'Service requests can feel slow or uncertain when users cannot see who is coming, how long it will take, or what the estimated cost might be.',
+			'Independent technicians need more consistent access to verified customers, especially in a market with high informal labor.',
+		],
+		deliveryScope: [
+			'A web prototype that simulates choosing a service, viewing verified technicians, checking ratings, and confirming a request.',
+			'A mobile app concept with service categories, common problems, nearby professionals, and a friendly diagnostic entry point.',
+			'Trust signals such as technician photos, verified badges, arrival estimates, ratings, reviews, and service guarantees.',
+			'AI-assisted initial diagnosis to help users understand what kind of technician they may need before booking.',
+			'A roadmap for pilot operation, technician onboarding, NPS tracking, real payments, express services, and future memberships.',
+		],
+		whyMatters:
+			'Home repairs are emotional because they happen inside personal spaces and often begin with urgency or uncertainty. FIXIA turns the request into a clearer sequence: diagnose, compare, trust, book, follow up, and pay.',
+		missionBrief: [
+			'The project explored how to create a faster, clearer, and safer way to request technical services for the home. The goal was to reduce uncertainty before the visit and help users feel confident about who they were hiring.',
+			'Research showed that homeowners struggle to identify the right expert, worry about trust, and value online booking, technician identity, transparent pricing, and real-time updates.',
+			'The challenge was to design a marketplace experience that could support both sides: users looking for reliable repairs and technicians looking for verified service opportunities.',
+		],
+		problem: [
+			'Many users do not know what type of professional they need when something breaks at home. This can lead to procrastination, wrong hires, excessive charges, or repeated service attempts.',
+			'Survey insights showed that trust was the biggest concern when hiring services, followed by finding nearby providers, work quality, excessive charges, and lack of guarantee or speed.',
+			'The product needed to make the invisible parts of the service feel visible: who is coming, why they are qualified, when they arrive, what it may cost, and what happens after the service is completed.',
+		],
+		role: [
+			'UX Research',
+			'Survey Insight Analysis',
+			'User Persona',
+			'Empathy Map',
+			'Customer Journey Map',
+			'Mobile UI Design',
+			'Web Prototype Design',
+			'Trust Signal Design',
+		],
+		process: [
+			{
+				title: 'Research Context',
+				body: [
+					'The team started by studying the problems people face when hiring home-service professionals: late arrivals, unclear prices, lack of updates, low professionalism, and uncertainty about who to trust.',
+					'The research also considered the technician side, especially the economic reality of informal work and the need for a steady flow of verified clients.',
+				],
+			},
+			{
+				title: 'Problem Framing',
+				body: [
+					'The problem-framing questions focused on helping users identify the right technician, feel safe before receiving someone at home, and move from request to payment in a faster and clearer way.',
+					'The hypotheses centered on diagnosis, technician visibility, transparent pricing, and real-time communication as trust builders for first-time use.',
+				],
+			},
+			{
+				title: 'Survey Insights',
+				body: [
+					'The survey showed that the biggest hiring problem was not knowing whether a technician is trustworthy. Users also worried about nearby availability, work quality, excessive charges, and lack of guarantee.',
+					'When asked what they would value enough to pay for, users prioritized verified technicians, reviews, secure payments, service guarantees, transparent prices, and faster attention.',
+				],
+			},
+			{
+				title: 'User Journey',
+				body: [
+					'The journey mapped the user from recognizing a home problem to describing it, comparing options, requesting service, tracking the technician, paying, and rating the visit.',
+					'This clarified where the product needed to reduce anxiety: diagnosis, technician selection, price expectation, confirmation, and post-service trust.',
+				],
+			},
+			{
+				title: 'Prototype Strategy',
+				body: [
+					'The prototype was designed to validate the main flow: choosing a service, seeing verified technicians, receiving an initial diagnosis, reviewing an estimated price, and confirming the request.',
+					'Mobile and desktop mockups were used to communicate how the experience could work across service browsing, technician comparison, and quick booking.',
+				],
+			},
+		],
+		designDecisions: [
+			'Use verified badges, photos, ratings, and arrival estimates to reduce trust friction.',
+			'Prioritize common household problems so users can start without knowing technical terminology.',
+			'Include a diagnostic assistant as an entry point before booking.',
+			'Show price ranges and service filters to make comparison feel clear and controlled.',
+			'Design technician cards with service tags, experience, rating, and response time.',
+			'Support both mobile-first requests and desktop comparison for browsing multiple professionals.',
+			'Keep the visual system professional, calm, and service-oriented instead of alarm-based.',
+		],
+		keyFeatures: [
+			'AI-assisted diagnosis',
+			'Verified technicians',
+			'Technician photos',
+			'Ratings and reviews',
+			'Arrival estimates',
+			'Service categories',
+			'Common problem shortcuts',
+			'Transparent price range',
+			'Secure payment flow',
+			'Service guarantee',
+			'Mobile app V1',
+			'Responsive web prototype',
+		],
+		outcome: [
+			'FIXIA helped me practice designing trust into a service marketplace where the user is not only buying a task, but inviting someone into their home.',
+			'The project strengthened my understanding of how research insights can shape concrete interface decisions such as verified profiles, pricing clarity, diagnosis support, and service follow-up.',
+			'It also helped me think about feasibility beyond the screen: technician onboarding, verification, payments, operations, support, and future growth through pilots and partnerships.',
+		],
+		achievement: 'Trust-Centered Marketplace UX + AI Service Flow',
+	},
 ] as const;
 
 export type LevelProject = (typeof levelProjects)[number];
