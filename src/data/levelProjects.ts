@@ -366,24 +366,28 @@ export const levelProjects = [
 		artifactPlaceholders: [
 			{
 				title: 'Product Kickoff',
+				label: 'Research Artifact',
 				description:
 					'The kickoff helped align the team around the platform vision, collaboration model, product goals, and main challenges of building a gamified hiring experience.',
 				alt: 'Project kickoff artifact for AI hiring platform',
 			},
 			{
 				title: 'User Personas',
+				label: 'Research Artifact',
 				description:
 					'The User Personas workshop helped validate user profiles, motivations, challenges, behaviors, and problem statements to better align the platform with real hiring needs.',
 				alt: 'User personas workshop artifact',
 			},
 			{
 				title: 'Customer Journey Map',
+				label: 'Research Artifact',
 				description:
 					'The Customer Journey Map helped identify emotions, touchpoints, friction points, and opportunities across the candidate and company hiring experience.',
 				alt: 'Customer journey map workshop artifact',
 			},
 			{
 				title: 'Selected Screen Contributions',
+				label: 'Screen Contribution',
 				description:
 					'These screens represent the parts of the platform where I contributed through UI exploration, screen variation, and visual refinement.',
 				alt: 'Selected UI screen contribution',
@@ -421,6 +425,144 @@ export const levelProjects = [
 	},
 	{
 		level: 'LEVEL_04',
+		slug: 'traditional-food-brand-website',
+		title: 'Traditional Food Brand Website',
+		intro:
+			'A website experience created to present a traditional food brand, its locations, history, menu, and services through a clear and visually recognizable digital presence.',
+		tags: [
+			'Web Design',
+			'Brand Experience',
+			'Visual Design',
+			'Food & Beverage',
+			'Interface Layout',
+			'Responsive Web',
+		],
+		metadata: [
+			{ label: 'Type', value: 'Web Design / Brand Experience' },
+			{
+				label: 'Role',
+				value: 'Web Screen Design · Visual Layout Support · Brand Consistency',
+			},
+			{ label: 'Difficulty', value: '★★★☆☆' },
+			{ label: 'Contribution', value: 'Selected Web Screen + Visual Layout Support' },
+		],
+		contributionNote: [
+			'I participated in this project as part of the web design process. Since I was not responsible for the full project from beginning to end, I present this level as a web screen and visual layout contribution.',
+			'My work focused on supporting selected screens, visual structure, and interface consistency within the broader website experience.',
+		],
+		missionBrief: [
+			'The project focused on creating a web experience for a traditional food brand with a strong cultural identity.',
+			'The main goal was to help users learn more about the brand, explore its locations, understand its services, and access key information in a simple and visually consistent way.',
+			'My contribution was part of the web creation process, supporting the design and layout of selected screens and helping maintain a clear visual structure aligned with the brand’s identity.',
+		],
+		problem: [
+			'Food and beverage brands with a strong offline presence need digital experiences that communicate trust, tradition, and accessibility.',
+			'Users visiting the website need to quickly understand what the brand offers, where they can visit, and how to access relevant information such as menu, locations, history, catering, and contact options.',
+			'The challenge was to create a website that felt clear and functional while preserving the visual personality and traditional character of the brand.',
+		],
+		projectContext: [
+			'The website needed to present key brand information in a structured and accessible way.',
+			'The experience included sections such as menu, locations, history, catering, language options, and informational footer links.',
+			'The visual direction followed a traditional Mexican-inspired identity with a clean editorial layout, strong color contrast, and recognizable brand elements.',
+		],
+		systemOverview: [
+			'Menu',
+			'Locations',
+			'History',
+			'Catering',
+			'Language switch',
+			'Footer information',
+		],
+		roleIntro:
+			'My role was focused on supporting selected web screens and helping organize interface content in a way that felt readable, visually consistent, and aligned with the brand identity.',
+		role: [
+			'Web Screen Design',
+			'Visual Layout Support',
+			'Interface Structure',
+			'Brand Consistency',
+			'Information Layout',
+			'Responsive Web Thinking',
+			'Visual Hierarchy Support',
+		],
+		processTitle: 'Quest Progress',
+		process: [
+			{
+				title: 'Understanding the Website Purpose',
+				body: [
+					'The first step was understanding that the website needed to work as a digital entry point for users who wanted to know the brand, find locations, and access basic service information.',
+					'The design needed to make information easy to scan while keeping the personality of the brand visible.',
+				],
+			},
+			{
+				title: 'Organizing Key Information',
+				body: [
+					'The website required clear navigation between different types of content, including menu, locations, history, and catering.',
+					'For the locations page, the information needed to be structured by country, city, branch name, address, and opening hours.',
+				],
+			},
+			{
+				title: 'Supporting Visual Layout',
+				body: [
+					'My contribution focused on selected screens and layout support.',
+					'The goal was to make the pages feel organized, readable, and aligned with the brand’s visual language.',
+				],
+			},
+			{
+				title: 'Preserving Brand Identity',
+				body: [
+					'Because the brand had a strong traditional and recognizable identity, the interface needed to feel consistent with that visual world.',
+					'The layout used bold color blocks, clean spacing, strong typography, and image-based location cards to balance tradition and clarity.',
+				],
+			},
+			{
+				title: 'Screen Refinement',
+				body: [
+					'I supported the design process by helping refine selected screens and organizing content in a way that made the experience easier to navigate.',
+				],
+			},
+		],
+		artifactsIntro:
+			'Screens and visual references that show the web experience.',
+		artifactPlaceholders: [
+			{
+				title: 'Locations Page',
+				label: 'Web Screen',
+				description:
+					'A location-focused page designed to help users explore branches across Mexico and the United States, using photography, addresses, schedules, and clear regional grouping.',
+				alt: 'Locations page screenshot for traditional food brand website',
+			},
+		],
+		designDecisions: [
+			'Use a clear navigation structure to help users find key sections quickly.',
+			'Organize locations by region to improve scanning and readability.',
+			'Combine photography with branch information to make locations easier to recognize.',
+			'Maintain a strong brand color presence throughout the page.',
+			'Use visual hierarchy to separate branch names, addresses, and schedules.',
+			'Keep the layout simple and content-focused to support quick decision-making.',
+			'Support bilingual navigation for broader accessibility.',
+		],
+		keyFeaturesTitle: 'Features Supported',
+		keyFeatures: [
+			'Brand website structure',
+			'Navigation menu',
+			'Locations page',
+			'Branch cards',
+			'Address and schedule information',
+			'Footer information',
+			'Language switch',
+			'Image-supported content blocks',
+			'Responsive web layout thinking',
+		],
+		outcomeTitle: 'Level Complete',
+		outcome: [
+			'This project helped me understand how web design can support brand presence beyond aesthetics.',
+			'A website for a traditional food brand needs to communicate identity, trust, and practical information at the same time.',
+			'Even though my contribution was focused on selected parts of the website, the project helped me practice visual layout, brand consistency, and information organization for a real digital experience.',
+		],
+		achievement: 'Brand Web Experience + Visual Layout Support',
+	},
+	{
+		level: 'LEVEL_05',
 		slug: 'fixia-service-platform',
 		title: 'FIXIA Service Platform',
 		intro:

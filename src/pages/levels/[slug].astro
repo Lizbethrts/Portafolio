@@ -545,7 +545,7 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 
 				{
 					artifactPlaceholders && project.slug !== 'ai-hiring-platform' && (
-						<section class="content-block quest-artifacts hiring-artifacts" aria-labelledby="quest-artifacts-title">
+						<section class:list={['content-block quest-artifacts hiring-artifacts', project.slug === 'traditional-food-brand-website' && 'brand-web-artifacts']} aria-labelledby="quest-artifacts-title">
 							<div class="artifacts-heading">
 								<p class="artifact-eyebrow">Evidence Collected</p>
 								<h2 id="quest-artifacts-title">Quest Artifacts</h2>
@@ -555,7 +555,7 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 							<div class="hiring-artifact-grid">
 								{artifactPlaceholders.map((artifact, index) => (
 									<article class="artifact-card hiring-artifact-card">
-										<span class="artifact-label">{index === 3 ? 'Screen Contribution' : 'Research Artifact'}</span>
+										<span class="artifact-label">{artifact.label}</span>
 										<h3>{artifact.title}</h3>
 										<p>{artifact.description}</p>
 										<div class="artifact-placeholder" role="img" aria-label={artifact.alt}>
@@ -1775,6 +1775,32 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 
 	.hiring-artifact-card {
 		min-height: 100%;
+	}
+
+	.brand-web-artifacts {
+		border-color: #d6c6f5;
+		background:
+			radial-gradient(circle at 12% 18%, rgba(249, 231, 163, 0.28) 0 9%, rgba(249, 231, 163, 0.08) 15%, transparent 24%),
+			radial-gradient(circle at 88% 16%, rgba(191, 215, 237, 0.22) 0 9%, rgba(191, 215, 237, 0.07) 15%, transparent 24%),
+			linear-gradient(135deg, #ffffff 0%, #fff7f1 48%, #fffdf3 100%);
+	}
+
+	.brand-web-artifacts .hiring-artifact-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.brand-web-artifacts .hiring-artifact-card {
+		border-color: #d6c6f5;
+		background: rgba(255, 255, 255, 0.82);
+	}
+
+	.brand-web-artifacts .artifact-placeholder {
+		min-height: clamp(320px, 46vw, 560px);
+		background:
+			linear-gradient(90deg, rgba(249, 228, 232, 0.16) 1px, transparent 1px),
+			linear-gradient(rgba(214, 198, 245, 0.18) 1px, transparent 1px),
+			#ffffff;
+		background-size: 26px 26px;
 	}
 
 	.artifact-placeholder {

@@ -34,6 +34,15 @@ import Layout from '../layouts/Layout.astro';
 					<div class="map-sparkle map-sparkle-one" aria-hidden="true"></div>
 					<div class="map-sparkle map-sparkle-two" aria-hidden="true"></div>
 					<canvas id="level-map" aria-label="Three.js project world map"></canvas>
+					<div class="player-marker" id="player-marker" aria-hidden="true">
+						<img src="/images/lizzy-player-marker.png" alt="" />
+						<span></span>
+					</div>
+					<div class="map-controls" aria-label="Map controls">
+						<button type="button" data-zoom-in aria-label="Zoom in">+</button>
+						<button type="button" data-zoom-out aria-label="Zoom out">-</button>
+						<button type="button" data-reset-map aria-label="Reset map">Reset</button>
+					</div>
 					<div class="map-hotspots" id="map-hotspots" aria-label="Keyboard project map controls"></div>
 					<div class="floating-tip" id="floating-tip" role="dialog" aria-label="Project preview"></div>
 				</div>
@@ -118,6 +127,26 @@ import Layout from '../layouts/Layout.astro';
 		{
 			id: 'level-4',
 			level: 'LEVEL_04',
+			title: 'Traditional Food Brand Website',
+			type: 'Web Design / Brand Experience',
+			mission:
+				'Create a web experience for a traditional food brand, supporting selected screens, visual layout, locations, and brand consistency.',
+			role: 'Web Screen Design / Visual Layout Support / Brand Consistency',
+			difficulty: '★★★☆☆',
+			rewards: [
+				'Brand Web Experience',
+				'Locations Page Structure',
+				'Visual Layout Support',
+				'Responsive Web Thinking',
+			],
+			href: '/levels/traditional-food-brand-website',
+			flag: '/img/levels/flag-4.png',
+			position: [2.35, 1.25, 0],
+			color: 0xf9e7a3,
+		},
+		{
+			id: 'level-5',
+			level: 'LEVEL_05',
 			title: 'FIXIA Service Platform',
 			type: 'Home Services / Marketplace UX',
 			mission:
@@ -131,13 +160,13 @@ import Layout from '../layouts/Layout.astro';
 				'Service Marketplace UX',
 			],
 			href: '/levels/fixia-service-platform',
-			flag: '/img/levels/flag-4.png',
-			position: [2.8, 1.2, 0],
-			color: 0xf9e7a3,
+			flag: '/img/levels/flag-5.png',
+			position: [4.45, -0.35, 0],
+			color: 0xbfd7ed,
 		},
 		{
-			id: 'level-5',
-			level: 'LEVEL_05',
+			id: 'level-6',
+			level: 'LEVEL_06',
 			title: 'Coming Soon',
 			type: 'Locked Project',
 			mission: 'This project level is waiting for its mission brief.',
@@ -146,8 +175,8 @@ import Layout from '../layouts/Layout.astro';
 			rewards: ['Coming Soon'],
 			href: '',
 			flag: '/img/levels/flag-5.png',
-			position: [5.2, -1.1, 0],
-			color: 0x9edff2,
+			position: [5.9, -1.95, 0],
+			color: 0xd6c6f5,
 		},
 	];
 
@@ -156,6 +185,10 @@ import Layout from '../layouts/Layout.astro';
 	const floatingTip = document.querySelector('#floating-tip');
 	const hotspotLayer = document.querySelector('#map-hotspots');
 	const fallbackGrid = document.querySelector('#fallback-grid');
+	const playerMarker = document.querySelector('#player-marker');
+	const zoomInButton = document.querySelector('[data-zoom-in]');
+	const zoomOutButton = document.querySelector('[data-zoom-out]');
+	const resetMapButton = document.querySelector('[data-reset-map]');
 	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 	if (fallbackGrid instanceof HTMLElement) {
@@ -194,8 +227,15 @@ import Layout from '../layouts/Layout.astro';
 		canvas instanceof HTMLCanvasElement &&
 		tip &&
 		floatingTip instanceof HTMLElement &&
-		hotspotLayer instanceof HTMLElement
+		hotspotLayer instanceof HTMLElement &&
+		playerMarker instanceof HTMLElement
 	) {
+		const playerMarkerImage = playerMarker.querySelector('img');
+		if (playerMarkerImage instanceof HTMLImageElement) {
+			playerMarkerImage.addEventListener('load', () => playerMarker.classList.add('has-image'));
+			playerMarkerImage.addEventListener('error', () => playerMarker.classList.remove('has-image'));
+		}
+
 		const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true });
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		renderer.setClearColor(0x000000, 0);
@@ -209,16 +249,30 @@ import Layout from '../layouts/Layout.astro';
 		const levelMeshes = [];
 		const flagSprites = [];
 		const hotspotButtons = [];
+		const pathSegments = [];
 		const clock = new THREE.Clock();
 		const textureLoader = new THREE.TextureLoader();
 		let hovered = null;
 		let selected = null;
+		let hoveringHotspot = false;
 		let closeTimer = 0;
 		const defaultTip = tip.innerHTML;
 		let lastCanvasWidth = 0;
 		let lastCanvasHeight = 0;
 		let parallaxX = 0;
 		let parallaxY = 0;
+		let mapOffsetX = 0;
+		let mapOffsetY = 0;
+		let activePathToken = 0;
+		let isDraggingMap = false;
+		let didDragMap = false;
+		let dragStartX = 0;
+		let dragStartY = 0;
+		let dragStartOffsetX = 0;
+		let dragStartOffsetY = 0;
+		let playerMarkerWorldPosition = new THREE.Vector3(projects[0].position[0], projects[0].position[1], 0);
+		let playerMarkerAnimation = null;
+		let playerMarkerTargetIndex = 0;
 
 		const resize = () => {
 			const rect = canvas.getBoundingClientRect();
@@ -273,15 +327,24 @@ import Layout from '../layouts/Layout.astro';
 			];
 			const curve = new THREE.CatmullRomCurve3(points);
 			const dotGeometry = new THREE.CircleGeometry(0.075, 12);
+			const dots = [];
 			for (let index = 0; index <= 18; index += 1) {
 				const point = curve.getPoint(index / 18);
+				const dotMaterial = new THREE.MeshBasicMaterial({
+					color: index % 2 === 0 ? 0xd6c6f5 : 0xe9dfd1,
+					transparent: true,
+					opacity: 0.48,
+				});
 				const dot = new THREE.Mesh(
 					dotGeometry,
-					new THREE.MeshBasicMaterial({ color: index % 2 === 0 ? 0xd6c6f5 : 0xe9dfd1 })
+					dotMaterial
 				);
 				dot.position.copy(point);
+				dot.userData = { baseScale: 1, active: false };
 				scene.add(dot);
+				dots.push(dot);
 			}
+			pathSegments.push({ curve, dots });
 		};
 
 		const addCloud = (x, y, scale = 1) => {
@@ -333,8 +396,9 @@ import Layout from '../layouts/Layout.astro';
 		addIsland(-5.2, -1.85, 2.3, 1.35, 0xb8f2a3);
 		addIsland(-2.7, 0.45, 2.2, 1.25, 0xf9e7a3);
 		addIsland(0.2, -0.95, 2.5, 1.35, 0xf9e4e8);
-		addIsland(2.8, 1.1, 2.3, 1.25, 0xd6c6f5);
-		addIsland(5.2, -1.25, 2.4, 1.35, 0x9edff2);
+		addIsland(2.35, 1.1, 2.3, 1.25, 0xd6c6f5);
+		addIsland(4.45, -0.5, 2.35, 1.25, 0x9edff2);
+		addIsland(5.9, -2.1, 2.2, 1.2, 0xf9e4e8);
 
 		const clouds = [
 			addCloud(-5.8, 2.2, 1.08),
@@ -388,31 +452,36 @@ import Layout from '../layouts/Layout.astro';
 			const hotspot = document.createElement('button');
 			hotspot.type = 'button';
 			hotspot.className = 'map-hotspot';
+			hotspot.dataset.index = String(index);
 			hotspot.setAttribute('aria-label', `${project.level}: ${project.title}`);
 			hotspot.innerHTML = `<span>${project.level.replace('LEVEL_', 'Lv ')}</span><strong>${project.title}</strong>`;
+			hotspot.addEventListener('mouseenter', () => {
+				hoveringHotspot = true;
+				showLevelPreview(marker);
+			});
+			hotspot.addEventListener('mouseleave', () => {
+				hoveringHotspot = false;
+				restoreSelectedPreview(marker);
+			});
 			hotspot.addEventListener('focus', () => {
-				selected = marker;
-				hovered = marker;
-				updateTip(project);
-				positionFloatingTip(marker);
+				hoveringHotspot = true;
+				showLevelPreview(marker);
+			});
+			hotspot.addEventListener('blur', () => {
+				hoveringHotspot = false;
+				restoreSelectedPreview(marker);
 			});
 			hotspot.addEventListener('click', () => {
-				if (project.href) {
-					window.location.href = project.href;
-					return;
-				}
-				selected = marker;
-				hovered = marker;
-				updateTip(project);
-				positionFloatingTip(marker);
+				selectLevel(marker);
 			});
 			hotspotLayer.append(hotspot);
 			hotspotButtons.push(hotspot);
 		});
 
-		const updateTip = (project) => {
+		const updateTip = (project, isActive = false) => {
 			floatingTip.innerHTML = `
 				<button class="tip-close" type="button" aria-label="Close project preview">x</button>
+				<p class="active-badge">${isActive ? 'Level Active' : 'Level Preview'}</p>
 				<p class="tip-kicker">${project.level}</p>
 				<h2>${project.title}</h2>
 				<dl>
@@ -449,6 +518,89 @@ import Layout from '../layouts/Layout.astro';
 			floatingTip.classList.add('is-visible');
 		};
 
+		const updateHoverPreview = (project) => {
+			tip.innerHTML = `
+				<p class="tip-kicker">${project.level}</p>
+				<h2>${project.title}</h2>
+				<p>${project.mission}</p>
+			`;
+		};
+
+		const showLevelPreview = (mesh) => {
+			if (!mesh) {
+				return;
+			}
+			hovered = mesh;
+			const { project } = mesh.userData;
+			updateHoverPreview(project);
+			updateTip(project, mesh === selected);
+			updateActivePath(mesh.userData.index);
+			positionFloatingTip(mesh);
+			animatePlayerMarkerTo(mesh);
+		};
+
+		const restoreSelectedPreview = (mesh) => {
+			if (hovered === mesh) {
+				hovered = selected;
+			}
+			if (selected) {
+				updateHoverPreview(selected.userData.project);
+				updateTip(selected.userData.project, true);
+				updateActivePath(selected.userData.index);
+				positionFloatingTip(selected);
+				animatePlayerMarkerTo(selected);
+				return;
+			}
+			tip.innerHTML = defaultTip;
+			updateActivePath(0);
+			floatingTip.classList.remove('is-visible', 'is-left', 'is-above');
+			animatePlayerMarkerTo(levelMeshes[0]);
+		};
+
+		const updateActivePath = (activeIndex) => {
+			activePathToken += 1;
+			const token = activePathToken;
+			pathSegments.forEach(({ dots }, segmentIndex) => {
+				const isActive = segmentIndex < activeIndex;
+				dots.forEach((dot, dotIndex) => {
+					dot.userData.active = false;
+					dot.material.color.set(0xd6c6f5);
+					dot.material.opacity = 0.42;
+					if (isActive) {
+						window.setTimeout(() => {
+							if (token !== activePathToken) {
+								return;
+							}
+							dot.userData.active = true;
+							dot.material.color.set(segmentIndex % 2 === 0 ? 0xf4a6bd : 0xa8d870);
+							dot.material.opacity = 0.95;
+						}, prefersReducedMotion ? 0 : segmentIndex * 130 + dotIndex * 18);
+					}
+				});
+			});
+		};
+
+		const selectLevel = (mesh) => {
+			if (!mesh) {
+				return;
+			}
+			selected = mesh;
+			hovered = mesh;
+			const { project, index } = mesh.userData;
+			tip.innerHTML = `
+				<p class="tip-kicker">Route Progress</p>
+				<h2>${project.level} selected</h2>
+				<p>Lizzy is moving toward ${project.title}. Use Enter Level in the active panel to open the project.</p>
+			`;
+			updateTip(project, true);
+			updateActivePath(index);
+			positionFloatingTip(mesh);
+			animatePlayerMarkerTo(mesh);
+			hotspotButtons.forEach((button, buttonIndex) => {
+				button.classList.toggle('is-selected', buttonIndex === index);
+			});
+		};
+
 		const positionFloatingTip = (mesh) => {
 			const projected = mesh.position.clone().project(camera);
 			const rect = canvas.getBoundingClientRect();
@@ -463,6 +615,75 @@ import Layout from '../layouts/Layout.astro';
 			floatingTip.style.top = `${y}px`;
 			floatingTip.classList.toggle('is-left', placeLeft);
 			floatingTip.classList.toggle('is-above', placeAbove);
+		};
+
+		const positionPlayerMarkerAtWorld = (worldPosition = playerMarkerWorldPosition) => {
+			const projected = worldPosition.clone().project(camera);
+			const rect = canvas.getBoundingClientRect();
+			const x = ((projected.x + 1) / 2) * rect.width;
+			const y = ((-projected.y + 1) / 2) * rect.height;
+			playerMarker.style.left = `${x}px`;
+			playerMarker.style.top = `${y}px`;
+		};
+
+		const positionPlayerMarker = (mesh = selected ?? levelMeshes[0]) => {
+			if (!mesh || playerMarkerAnimation) {
+				return;
+			}
+			playerMarkerWorldPosition.set(mesh.position.x, mesh.position.y, 0);
+			positionPlayerMarkerAtWorld();
+			playerMarker.classList.toggle('is-moving', mesh !== levelMeshes[0] || Boolean(selected));
+		};
+
+		const getRoutePoints = (fromIndex, toIndex) => {
+			if (fromIndex === toIndex) {
+				return [new THREE.Vector3(projects[toIndex].position[0], projects[toIndex].position[1], 0)];
+			}
+
+			const route = [];
+			const direction = toIndex > fromIndex ? 1 : -1;
+			for (let index = fromIndex; index !== toIndex; index += direction) {
+				const segmentIndex = direction > 0 ? index : index - 1;
+				const segment = pathSegments[segmentIndex];
+				if (!segment) {
+					continue;
+				}
+				const steps = 18;
+				for (let step = 0; step <= steps; step += 1) {
+					const t = direction > 0 ? step / steps : 1 - step / steps;
+					const point = segment.curve.getPoint(t);
+					route.push(new THREE.Vector3(point.x, point.y, 0));
+				}
+			}
+			return route;
+		};
+
+		const animatePlayerMarkerTo = (mesh) => {
+			if (!mesh) {
+				return;
+			}
+			const targetIndex = mesh.userData.index;
+			if (targetIndex === playerMarkerTargetIndex && !playerMarkerAnimation) {
+				positionPlayerMarker(mesh);
+				return;
+			}
+
+			const routePoints = getRoutePoints(playerMarkerTargetIndex, targetIndex);
+			if (routePoints.length < 2 || prefersReducedMotion) {
+				playerMarkerTargetIndex = targetIndex;
+				playerMarkerAnimation = null;
+				playerMarkerWorldPosition.set(mesh.position.x, mesh.position.y, 0);
+				positionPlayerMarkerAtWorld();
+				return;
+			}
+
+			playerMarkerTargetIndex = targetIndex;
+			playerMarkerAnimation = {
+				points: routePoints,
+				start: performance.now(),
+				duration: Math.min(1150, Math.max(520, routePoints.length * 18)),
+			};
+			playerMarker.classList.add('is-moving');
 		};
 
 		const updatePointer = (event) => {
@@ -496,9 +717,13 @@ import Layout from '../layouts/Layout.astro';
 			pointer.set(-10, -10);
 			hovered = null;
 			selected = null;
+			hoveringHotspot = false;
 			canvas.style.cursor = 'default';
 			tip.innerHTML = defaultTip;
 			hotspotButtons.forEach((button) => button.classList.remove('is-active'));
+			hotspotButtons.forEach((button) => button.classList.remove('is-selected'));
+			updateActivePath(0);
+			animatePlayerMarkerTo(levelMeshes[0]);
 			floatingTip.classList.remove('is-visible', 'is-left', 'is-above');
 		};
 
@@ -511,12 +736,35 @@ import Layout from '../layouts/Layout.astro';
 				return;
 			}
 			window.clearTimeout(closeTimer);
-			closeTimer = window.setTimeout(resetPreview, 260);
+			closeTimer = window.setTimeout(resetPreview, 850);
 		};
 
 		canvas.addEventListener('pointermove', (event) => {
 			cancelClose();
 			updatePointer(event);
+			if (isDraggingMap) {
+				const dx = (event.clientX - dragStartX) / Math.max(canvas.clientWidth, 1);
+				const dy = (event.clientY - dragStartY) / Math.max(canvas.clientHeight, 1);
+				mapOffsetX = Math.max(-0.65, Math.min(0.65, dragStartOffsetX - dx * 2.2));
+				mapOffsetY = Math.max(-0.42, Math.min(0.42, dragStartOffsetY + dy * 1.4));
+				didDragMap = Math.abs(event.clientX - dragStartX) > 4 || Math.abs(event.clientY - dragStartY) > 4;
+				canvas.classList.add('is-grabbing');
+			}
+		});
+
+		canvas.addEventListener('pointerdown', (event) => {
+			isDraggingMap = true;
+			didDragMap = false;
+			dragStartX = event.clientX;
+			dragStartY = event.clientY;
+			dragStartOffsetX = mapOffsetX;
+			dragStartOffsetY = mapOffsetY;
+			canvas.classList.add('is-grabbing');
+		});
+
+		window.addEventListener('pointerup', () => {
+			isDraggingMap = false;
+			canvas.classList.remove('is-grabbing');
 		});
 
 		floatingTip.addEventListener('pointerenter', cancelClose);
@@ -526,16 +774,17 @@ import Layout from '../layouts/Layout.astro';
 		window.addEventListener('pointermove', (event) => {
 			const rect = canvas.getBoundingClientRect();
 			const tipRect = floatingTip.getBoundingClientRect();
+			const tipReach = floatingTip.classList.contains('is-visible') ? 72 : 0;
 			const isOutsideCanvas =
 				event.clientX < rect.left ||
 				event.clientX > rect.right ||
 				event.clientY < rect.top ||
 				event.clientY > rect.bottom;
 			const isOutsideFloatingTip =
-				event.clientX < tipRect.left ||
-				event.clientX > tipRect.right ||
-				event.clientY < tipRect.top ||
-				event.clientY > tipRect.bottom;
+				event.clientX < tipRect.left - tipReach ||
+				event.clientX > tipRect.right + tipReach ||
+				event.clientY < tipRect.top - tipReach ||
+				event.clientY > tipRect.bottom + tipReach;
 			let isOverLevel = false;
 
 			if (!isOutsideCanvas) {
@@ -544,7 +793,16 @@ import Layout from '../layouts/Layout.astro';
 				isOverLevel = raycaster.intersectObjects(levelMeshes).length > 0;
 			}
 
-			if (isOutsideFloatingTip && !isOverLevel && hovered) {
+			if (
+				isOutsideCanvas &&
+				isOutsideFloatingTip &&
+				selected &&
+				hovered &&
+				hovered !== selected &&
+				!hoveringHotspot
+			) {
+				restoreSelectedPreview(hovered);
+			} else if (isOutsideFloatingTip && !isOverLevel && hovered && hovered !== selected) {
 				scheduleClose();
 			} else if (hovered) {
 				cancelClose();
@@ -552,19 +810,36 @@ import Layout from '../layouts/Layout.astro';
 		});
 
 		canvas.addEventListener('click', (event) => {
+			if (didDragMap) {
+				didDragMap = false;
+				return;
+			}
 			updatePointer(event);
 			raycaster.setFromCamera(pointer, camera);
 			const clickedLevel = raycaster.intersectObjects(levelMeshes)[0]?.object ?? hovered;
 			const project = clickedLevel?.userData.project;
 			if (project) {
-				if (project.href) {
-					window.location.href = project.href;
-					return;
-				}
-				selected = clickedLevel;
-				hovered = clickedLevel;
-				updateTip(project);
-				positionFloatingTip(clickedLevel);
+				selectLevel(clickedLevel);
+			}
+		});
+
+		const setZoom = (nextZoom) => {
+			camera.zoom = Math.max(0.9, Math.min(1.15, nextZoom));
+			camera.updateProjectionMatrix();
+		};
+
+		zoomInButton?.addEventListener('click', () => setZoom(camera.zoom + 0.06));
+		zoomOutButton?.addEventListener('click', () => setZoom(camera.zoom - 0.06));
+		resetMapButton?.addEventListener('click', () => {
+			mapOffsetX = 0;
+			mapOffsetY = 0;
+			setZoom(1);
+			positionPlayerMarker(selected ?? levelMeshes[0]);
+		});
+
+		window.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape') {
+				resetPreview();
 			}
 		});
 
@@ -579,8 +854,8 @@ import Layout from '../layouts/Layout.astro';
 
 			const elapsed = clock.getElapsedTime();
 			if (!prefersReducedMotion) {
-				camera.position.x += (parallaxX - camera.position.x) * 0.035;
-				camera.position.y += (parallaxY - camera.position.y) * 0.035;
+				camera.position.x += (mapOffsetX + parallaxX - camera.position.x) * 0.035;
+				camera.position.y += (mapOffsetY + parallaxY - camera.position.y) * 0.035;
 				clouds.forEach((cloud, index) => {
 					cloud.position.x += Math.sin(elapsed * cloud.userData.drift + index) * 0.0018;
 					cloud.position.y += Math.cos(elapsed * cloud.userData.drift + index) * 0.0012;
@@ -596,31 +871,58 @@ import Layout from '../layouts/Layout.astro';
 
 			if (nextHovered && nextHovered !== hovered) {
 				cancelClose();
-				hovered = nextHovered;
 				canvas.style.cursor = 'pointer';
-				updateTip(hovered.userData.project);
+				showLevelPreview(nextHovered);
 			} else if (!nextHovered) {
-				canvas.style.cursor = 'default';
+				canvas.style.cursor = isDraggingMap ? 'grabbing' : 'grab';
+				if (!hovered && !selected && !hoveringHotspot) {
+					tip.innerHTML = defaultTip;
+				}
 			}
 
 			levelMeshes.forEach((mesh, index) => {
 				const isHovered = mesh === hovered;
+				const isSelected = mesh === selected;
 				const pulse = prefersReducedMotion ? 0 : Math.sin(elapsed * 3 + index) * 0.04;
-				const scale = isHovered ? 1.22 + pulse : 1 + pulse;
+				const scale = isSelected ? 1.28 + pulse : isHovered ? 1.17 + pulse : 1 + pulse;
 				mesh.scale.setScalar(scale);
 
 				if (flagSprites[index]) {
-					const flagScale = isHovered ? 1.24 + pulse : 1.08 + pulse * 0.35;
+					const flagScale = isSelected ? 1.32 + pulse : isHovered ? 1.2 + pulse : 1.08 + pulse * 0.35;
 					flagSprites[index].scale.set(flagScale, flagScale, 1);
 					flagSprites[index].position.y =
-						mesh.userData.project.position[1] + 0.58 + (isHovered && !prefersReducedMotion ? 0.12 : 0);
+						mesh.userData.project.position[1] + 0.58 + ((isHovered || isSelected) && !prefersReducedMotion ? 0.12 : 0);
 				}
 			});
 
-			if (hovered) {
-				positionFloatingTip(hovered);
+			if (playerMarkerAnimation) {
+				const progress = Math.min(1, (performance.now() - playerMarkerAnimation.start) / playerMarkerAnimation.duration);
+				const eased = 1 - Math.pow(1 - progress, 3);
+				const pointIndex = Math.min(
+					playerMarkerAnimation.points.length - 1,
+					Math.floor(eased * (playerMarkerAnimation.points.length - 1))
+				);
+				playerMarkerWorldPosition.copy(playerMarkerAnimation.points[pointIndex]);
+				positionPlayerMarkerAtWorld();
+				if (progress >= 1) {
+					playerMarkerAnimation = null;
+				}
+			}
+
+			pathSegments.forEach(({ dots }, segmentIndex) => {
+				dots.forEach((dot, dotIndex) => {
+					const pulse = dot.userData.active && !prefersReducedMotion
+						? 1 + Math.sin(elapsed * 4 + dotIndex * 0.35 + segmentIndex) * 0.18
+						: 1;
+					dot.scale.setScalar(dot.userData.active ? pulse : 1);
+				});
+			});
+
+			if (hovered || selected) {
+				positionFloatingTip(hovered ?? selected);
 			}
 			positionHotspots();
+			positionPlayerMarker(hovered ?? selected ?? levelMeshes[0]);
 
 			renderer.render(scene, camera);
 			requestAnimationFrame(render);
@@ -764,6 +1066,107 @@ import Layout from '../layouts/Layout.astro';
 		width: 100%;
 		height: min(680px, calc(100svh - 150px));
 		min-height: 520px;
+		cursor: grab;
+	}
+
+	#level-map.is-grabbing {
+		cursor: grabbing;
+	}
+
+	.player-marker {
+		position: absolute;
+		z-index: 5;
+		display: grid;
+		place-items: center;
+		width: 34px;
+		aspect-ratio: 1;
+		border: 3px solid #ffffff;
+		border-radius: 50%;
+		background:
+			radial-gradient(circle at 62% 30%, #ffffff 0 9%, transparent 10%),
+			#f4a6bd;
+		box-shadow:
+			0 0 0 5px rgba(249, 228, 232, 0.72),
+			0 12px 24px rgba(123, 113, 108, 0.16);
+		pointer-events: none;
+		transform: translate(-50%, -115%);
+		transition:
+			transform 180ms ease;
+	}
+
+	.player-marker img {
+		display: none;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+
+	.player-marker.has-image {
+		border: 0;
+		background: transparent;
+		box-shadow: 0 12px 24px rgba(123, 113, 108, 0.16);
+	}
+
+	.player-marker.has-image img {
+		display: block;
+		filter: drop-shadow(0 10px 14px rgba(123, 113, 108, 0.16));
+	}
+
+	.player-marker.has-image span {
+		display: none;
+	}
+
+	.player-marker span {
+		width: 9px;
+		aspect-ratio: 1;
+		background: #fff0d6;
+		border-radius: 3px;
+		box-shadow: 0 0 0 4px rgba(255, 240, 214, 0.28);
+		transform: rotate(45deg);
+	}
+
+	.player-marker.is-moving {
+		transform: translate(-50%, -126%) scale(1.06);
+	}
+
+	.map-controls {
+		position: absolute;
+		top: 24px;
+		right: 24px;
+		z-index: 6;
+		display: flex;
+		gap: 8px;
+		border: 2px solid rgba(214, 198, 245, 0.72);
+		border-radius: 16px;
+		background: rgba(255, 255, 255, 0.86);
+		box-shadow: 0 12px 28px rgba(214, 198, 245, 0.18);
+		padding: 8px;
+	}
+
+	.map-controls button {
+		display: inline-grid;
+		place-items: center;
+		min-width: 32px;
+		height: 32px;
+		border: 0;
+		border-radius: 10px;
+		background: #f9e4e8;
+		color: #4a403a;
+		cursor: pointer;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 0.86rem;
+		font-weight: 800;
+		padding: 0 10px;
+		transition:
+			background 160ms ease,
+			transform 160ms ease;
+	}
+
+	.map-controls button:hover,
+	.map-controls button:focus-visible {
+		background: #fff0d6;
+		outline: none;
+		transform: translateY(-2px);
 	}
 
 	.map-sparkle {
@@ -840,13 +1243,52 @@ import Layout from '../layouts/Layout.astro';
 
 	.map-hotspot:hover,
 	.map-hotspot:focus-visible,
-	.map-hotspot.is-active {
+	.map-hotspot.is-active,
+	.map-hotspot.is-selected {
 		background: #fff7f1;
 		box-shadow:
 			0 0 0 5px rgba(249, 228, 232, 0.48),
 			0 12px 26px rgba(214, 198, 245, 0.2);
 		outline: none;
 		transform: translate(-50%, 30px);
+	}
+
+	.map-hotspot.is-selected {
+		box-shadow:
+			0 0 24px rgba(214, 198, 245, 0.45),
+			0 0 0 6px rgba(168, 216, 112, 0.18),
+			0 16px 30px rgba(123, 113, 108, 0.14);
+		transform: translate(-50%, 26px) scale(1.04);
+	}
+
+	.map-hotspot.is-selected::after {
+		content: "Selected";
+		position: absolute;
+		left: 50%;
+		top: -22px;
+		border-radius: 999px;
+		background: #a8d870;
+		color: #4a403a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 0.62rem;
+		font-weight: 800;
+		padding: 4px 8px;
+		transform: translateX(-50%);
+		white-space: nowrap;
+	}
+
+	.map-hotspot:hover::before,
+	.map-hotspot:focus-visible::before {
+		content: "";
+		position: absolute;
+		right: -7px;
+		top: -7px;
+		width: 9px;
+		aspect-ratio: 1;
+		border-radius: 3px;
+		background: #f4a6bd;
+		box-shadow: 0 0 0 5px rgba(244, 166, 189, 0.16);
+		transform: rotate(45deg);
 	}
 
 	.map-tip,
@@ -902,6 +1344,21 @@ import Layout from '../layouts/Layout.astro';
 		font-family: 'Pixelify Sans', 'Courier New', monospace;
 		font-size: 0.92rem;
 		font-weight: 800;
+	}
+
+	.active-badge {
+		width: fit-content;
+		margin: 0 0 8px !important;
+		border-radius: 999px;
+		background: #a8d870;
+		box-shadow: inset 0 0 0 1px rgba(74, 64, 58, 0.08);
+		color: #4a403a !important;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 0.72rem !important;
+		font-weight: 800;
+		line-height: 1;
+		padding: 6px 10px;
+		text-transform: uppercase;
 	}
 
 	.floating-tip.is-visible {
@@ -1201,6 +1658,24 @@ import Layout from '../layouts/Layout.astro';
 		#level-map {
 			height: 620px;
 			min-height: 620px;
+		}
+
+		.player-marker {
+			width: 30px;
+		}
+
+		.map-controls {
+			top: 16px;
+			right: 16px;
+			gap: 6px;
+			padding: 6px;
+		}
+
+		.map-controls button {
+			min-width: 30px;
+			height: 30px;
+			font-size: 0.76rem;
+			padding: 0 8px;
 		}
 
 		.map-hotspot {
