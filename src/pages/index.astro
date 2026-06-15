@@ -1,223 +1,500 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-const menuItems = [
-	{
-		title: 'Levels',
-		label: 'Select Projects',
-		icon: '/img/menu/1.png',
-		href: '/levels',
-	},
-	{
-		title: 'Player Profile',
-		label: 'About Me',
-		icon: '/img/menu/3.png',
-		href: '/about',
-	},
-	{
-		title: 'Inventory',
-		label: 'Equipped skills & tools',
-		icon: '/img/menu/4.png',
-		href: '/inventory',
-	},
-	{
-		title: 'Secret Lab',
-		label: 'Experiment & Playground',
-		icon: '/img/menu/5.png',
-		href: '/secret-lab',
-	},
-	{
-		title: 'Talk to NPC',
-		label: 'Contact me',
-		icon: '/img/menu/7.png',
-		href: '/contact',
-	},
-];
 ---
 
 <Layout>
-	<main class="world-screen" aria-labelledby="welcome-title">
-		<section class="welcome-panel">
-			<header class="intro">
-				<h1 id="welcome-title">Welcome To Lizzy World</h1>
-				<p>Chose what you want to explote</p>
-			</header>
-
-			<nav class="menu-grid" aria-label="Lizzy World sections">
-				{
-					menuItems.map((item) => (
-						<a class="menu-item" href={item.href}>
-							<span class="menu-title">
-								<img src={item.icon} alt="" width="34" height="34" loading="eager" />
-								{item.title}
-							</span>
-							<span class="menu-button">{item.label}</span>
-						</a>
-					))
-				}
-			</nav>
-		</section>
-
+	<main class="world-screen">
+		<div class="console-frame">
+			<canvas id="spline-canvas"></canvas>
+		</div>
 	</main>
 </Layout>
+
+<script>
+	import { Application } from '@splinetool/runtime';
+	import * as THREE from 'three';
+	import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
+
+	// ── Secciones ──────────────────────────────────────────────────────────────
+	const SECTIONS = [
+		{ title: 'LEVELS',         label: 'Select Projects',         href: '/levels',     icon: '/img/menu/1.png' },
+		{ title: 'PLAYER PROFILE', label: 'About Me',                href: '/about',      icon: '/img/menu/3.png' },
+		{ title: 'INVENTORY',      label: 'Equipped Skills & Tools', href: '/inventory',  icon: '/img/menu/4.png' },
+		{ title: 'SECRET LAB',     label: 'Experiment & Playground', href: '/secret-lab', icon: '/img/menu/5.png' },
+		{ title: 'TALK TO NPC',    label: 'Contact Me',              href: '/contact',    icon: '/img/menu/7.png' },
+	];
+
+	// ── Traducciones de la pantalla de la consola (toggle ES/EN vía mystery box 2) ──
+	const SECTIONS_ES = [
+		{ title: 'NIVELES',            label: 'Selecciona Proyectos' },
+		{ title: 'PERFIL DEL JUGADOR', label: 'Sobre Mí' },
+		{ title: 'INVENTARIO',         label: 'Habilidades y Herramientas' },
+		{ title: 'LABORATORIO SECRETO', label: 'Experimentos y Juegos' },
+		{ title: 'HABLAR CON NPC',      label: 'Contáctame' },
+	];
+	const HINT_EN = '◀ use d-pad ▶';
+	const HINT_ES = '◀ usa el d-pad ▶';
+
+	let currentIndex = 0;
+	let consoleOn = true;
+	let lang: 'en' | 'es' = 'en';
+	let panelMode: 'menu' | 'class' = 'menu';
+
+	const canvas = document.getElementById('spline-canvas') as HTMLCanvasElement;
+	const consoleFrame = document.querySelector('.console-frame') as HTMLElement;
+
+	// ── Elemento HTML que se "monta" sobre la pantalla 3D vía CSS3DRenderer ─────
+	const menuEl = document.createElement('div');
+	menuEl.className = 'menu-3d';
+	menuEl.setAttribute('role', 'button');
+	menuEl.setAttribute('tabindex', '0');
+	menuEl.setAttribute('aria-label', 'Abrir sección');
+	menuEl.innerHTML = `
+		<img class="menu-icon" alt="" />
+		<div class="menu-text">
+			<p class="menu-title"></p>
+			<p class="menu-label"></p>
+			<p class="menu-hint"></p>
+		</div>
+		<div class="class-panel">
+			<p class="class-kicker">PLAYER CLASS</p>
+			<ul class="class-list">
+				<li><span class="class-label">Class</span><span class="class-value">UX/UI Designer</span></li>
+				<li><span class="class-label">Special skill</span><span class="class-value">UX + Code</span></li>
+				<li><span class="class-label">Current mode</span><span class="class-value">Creative</span></li>
+			</ul>
+		</div>
+		<div class="menu-off"></div>
+	`;
+	const menuIcon   = menuEl.querySelector('.menu-icon') as HTMLImageElement;
+	const menuTitle  = menuEl.querySelector('.menu-title') as HTMLElement;
+	const menuLabel  = menuEl.querySelector('.menu-label') as HTMLElement;
+	const menuHint   = menuEl.querySelector('.menu-hint') as HTMLElement;
+
+	function updateMenuContent() {
+		if (panelMode === 'class') return;
+		const s = SECTIONS[currentIndex];
+		const sEs = SECTIONS_ES[currentIndex];
+		menuIcon.src = s.icon;
+		menuTitle.textContent = lang === 'es' ? sEs.title : s.title;
+		menuLabel.textContent = lang === 'es' ? sEs.label : s.label;
+		menuHint.textContent = lang === 'es' ? HINT_ES : HINT_EN;
+	}
+	updateMenuContent();
+
+	function goToCurrentSection() {
+		if (!consoleOn || panelMode === 'class') return;
+		window.location.href = SECTIONS[currentIndex].href;
+	}
+	menuEl.addEventListener('click', goToCurrentSection);
+	menuEl.addEventListener('keydown', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			goToCurrentSection();
+		}
+	});
+
+	function showSection(index: number) {
+		currentIndex = (index + SECTIONS.length) % SECTIONS.length;
+		updateMenuContent();
+	}
+
+	// ── CSS3DRenderer: monta el div como un objeto 3D real dentro de la escena ──
+	const cssScene = new THREE.Scene();
+	const cssObject = new CSS3DObject(menuEl);
+	cssScene.add(cssObject);
+
+	const cssRenderer = new CSS3DRenderer();
+	cssRenderer.domElement.style.position = 'absolute';
+	cssRenderer.domElement.style.inset = '0';
+	cssRenderer.domElement.style.pointerEvents = 'none';
+	consoleFrame.appendChild(cssRenderer.domElement);
+
+	function resizeCssRenderer() {
+		cssRenderer.setSize(canvas.clientWidth, canvas.clientHeight);
+	}
+	resizeCssRenderer();
+	window.addEventListener('resize', resizeCssRenderer);
+
+	// ── Iniciar Spline ─────────────────────────────────────────────────────────
+	const app = new Application(canvas);
+	(window as any).__splineApp = app;
+	await app.load('https://prod.spline.design/DFYUH0FqBWoYc67j/scene.splinecode');
+
+	const camera = (app as any)._camera;
+
+	// Ajuste único de zoom para que la consola completa (incluido el dial inferior) sea visible
+	if (camera) {
+		camera.zoom = 0.68;
+		camera.updateProjectionMatrix();
+	}
+
+	// Rotar para quedar de frente
+	const gameObj = app.findObjectByName('Game');
+	if (gameObj) gameObj.rotation.y = 0;
+
+	// ── Acceder a la escena Three.js ─────────────────────────────────────────
+	const rawScene = (app as any)._scene;
+
+	// ── Helper: forzar invisibilidad permanente (Spline restaura .visible cada frame) ──
+	function forceHide(obj: any) {
+		try {
+			Object.defineProperty(obj, 'visible', {
+				get() { return false; },
+				set(_v: any) {},
+				configurable: true
+			});
+		} catch (_e) {}
+	}
+
+	// ── Ocultar grupos de juego que muestran imágenes ajenas (mantiene visibles los botones D-pad) ──
+	let gameGroup: any = null;
+	rawScene.traverse((o: any) => {
+		if (o.name === 'Game' && o.type === 'Group' && !gameGroup) gameGroup = o;
+	});
+
+	const hideByName = [
+		'Group',          // crew, crew 2, crew 1 (Pixel Starships characters)
+		'Buttons below screen',
+		'Slide button',
+		'Button edge',
+		'Link',
+		'contra',
+		'mushroom',
+		'Rectangle',      // card de juego en Game group
+	];
+
+	if (gameGroup) {
+		gameGroup.children.forEach((c: any) => {
+			if (hideByName.includes(c.name)) {
+				forceHide(c);
+				c.traverse((o: any) => forceHide(o));
+			}
+		});
+	}
+
+	// ── Ocultar la pantalla del juego (carrusel animado) y preparar el plano CSS3D ──
+	let screenMesh: any = null;
+	rawScene.traverse((o: any) => {
+		if (o.name === 'SCREEN inner' && !screenMesh) screenMesh = o;
+	});
+
+	let centerX = 0, centerY = 0, frontZ = 0;
+	if (screenMesh) {
+		forceHide(screenMesh);
+		screenMesh.geometry.computeBoundingBox();
+		const box = screenMesh.geometry.boundingBox;
+
+		const planeWidth = box.max.x - box.min.x;
+		const planeHeight = box.max.y - box.min.y;
+		centerX = (box.max.x + box.min.x) / 2;
+		centerY = (box.max.y + box.min.y) / 2;
+		frontZ = box.max.z + 2;
+
+		menuEl.style.width = `${planeWidth}px`;
+		menuEl.style.height = `${planeHeight}px`;
+	}
+
+	// ── RAF loop: mantener la consola de frente y alinear el panel CSS3D con la pantalla ──
+	const worldMatrix = new THREE.Matrix4();
+	const cssPosition = new THREE.Vector3();
+	const cssQuaternion = new THREE.Quaternion();
+	const cssScale = new THREE.Vector3();
+
+	function syncFrame() {
+		if (gameObj) gameObj.rotation.y = 0;
+
+		if (screenMesh && camera) {
+			screenMesh.updateWorldMatrix(true, false);
+			camera.updateMatrixWorld(true);
+
+			worldMatrix.fromArray(screenMesh.matrixWorld.elements);
+			worldMatrix.decompose(cssPosition, cssQuaternion, cssScale);
+
+			cssObject.position.copy(
+				new THREE.Vector3(centerX, centerY, frontZ).applyMatrix4(worldMatrix)
+			);
+			cssObject.quaternion.copy(cssQuaternion);
+			cssObject.scale.copy(cssScale);
+
+			cssScene.updateMatrixWorld(true);
+			cssRenderer.render(cssScene, camera);
+		}
+
+		requestAnimationFrame(syncFrame);
+	}
+	syncFrame();
+
+	// ── D-pad: raycasting propio sobre los botones (Spline no emite eventos para ellos) ──
+	const dpadButtons: { mesh: any; dir: 'next' | 'prev' }[] = [];
+	let dialGrip: any = null;
+	rawScene.traverse((o: any) => {
+		if (o.name === 'Small button Instance' || o.name === 'Small button Instance 5') {
+			const cylinder = o.children.find((c: any) => c.name === 'Cylinder');
+			if (!cylinder) return;
+			const { x, y } = o.position;
+			const dir: 'next' | 'prev' = (Math.abs(x) > Math.abs(y) ? x > 0 : y < 0) ? 'next' : 'prev';
+			dpadButtons.push({ mesh: cylinder, dir });
+		}
+		if (o.name === 'Dial Grip' && !dialGrip) dialGrip = o;
+	});
+
+	// ── Dial de poder: gira la pieza "Dial Grip" entre las posiciones ON/OFF ──
+	const DIAL_ON_X = -Math.PI / 2;
+	const DIAL_OFF_X = 0;
+	const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	function rotateDialGrip(on: boolean) {
+		if (!dialGrip) return;
+		const from = dialGrip.rotation.x;
+		const to = on ? DIAL_ON_X : DIAL_OFF_X;
+
+		if (reduceMotion) {
+			dialGrip.rotation.x = to;
+			return;
+		}
+
+		const duration = 200;
+		const start = performance.now();
+		function step(now: number) {
+			const t = Math.min((now - start) / duration, 1);
+			dialGrip.rotation.x = from + (to - from) * t;
+			if (t < 1) requestAnimationFrame(step);
+		}
+		requestAnimationFrame(step);
+	}
+
+	function setConsoleOn(on: boolean) {
+		consoleOn = on;
+		menuEl.classList.toggle('menu-3d--off', !consoleOn);
+		rotateDialGrip(consoleOn);
+	}
+
+	const raycaster = new THREE.Raycaster();
+	const pointerNDC = new THREE.Vector2();
+
+	canvas.addEventListener('click', (e: MouseEvent) => {
+		if (!consoleOn || panelMode === 'class') return;
+
+		const rect = canvas.getBoundingClientRect();
+		pointerNDC.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+		pointerNDC.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+		raycaster.setFromCamera(pointerNDC, camera);
+		const hits = raycaster.intersectObjects(dpadButtons.map((b) => b.mesh), true);
+		if (hits.length === 0) return;
+
+		const btn = dpadButtons.find((b) => b.mesh === hits[0].object);
+		if (!btn) return;
+
+		showSection(btn.dir === 'next' ? currentIndex + 1 : currentIndex - 1);
+	});
+
+	// ── Botones de la consola con interacción "On Mouse Down" configurada en Spline ──
+	app.addEventListener('mouseDown', (e: any) => {
+		const name = e?.target?.name ?? '';
+
+		switch (name) {
+			case 'SMILE BUTTON':
+			case 'Power button':
+				setConsoleOn(!consoleOn);
+				break;
+
+			case 'CARD': {
+				const a = document.createElement('a');
+				a.href = '/resume.pdf';
+				a.download = 'Lizbeth-Trujillo-CV.pdf';
+				document.body.appendChild(a);
+				a.click();
+				a.remove();
+				break;
+			}
+
+			case 'mystery box 1':
+				if (!consoleOn) break;
+				panelMode = panelMode === 'class' ? 'menu' : 'class';
+				menuEl.classList.toggle('menu-3d--class', panelMode === 'class');
+				updateMenuContent();
+				break;
+
+			case 'mystery box 2':
+				if (!consoleOn) break;
+				lang = lang === 'en' ? 'es' : 'en';
+				updateMenuContent();
+				break;
+		}
+	});
+</script>
 
 <style is:global>
 	@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Pixelify+Sans:wght@400..700&display=swap');
 
-	body {
+	*, *::before, *::after { box-sizing: border-box; }
+
+	html, body {
+		margin: 0; padding: 0;
+		width: 100%; height: 100%;
 		overflow-x: hidden;
-		background: #ffffec;
-	}
-
-	*,
-	*::before,
-	*::after {
-		box-sizing: border-box;
-	}
-
-	a {
-		color: inherit;
-		text-decoration: none;
+		overflow-y: auto;
 	}
 
 	.world-screen {
-		display: grid;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		min-height: 100svh;
-		overflow-x: clip;
-		background: #ffffec;
-		color: #5e5858;
-		font-family: 'Comfortaa', 'Comfortaa Regular', 'Trebuchet MS', sans-serif;
+		padding: clamp(24px, 5vh, 64px) clamp(16px, 4vw, 48px);
+		overflow: visible;
 	}
 
-	.welcome-panel {
-		box-sizing: border-box;
+	.console-frame {
+		position: relative;
+		width: min(92vw, 760px, calc((100svh - 2 * clamp(24px, 5vh, 64px)) * 0.93));
+		aspect-ratio: 0.93;
+	}
+
+	#spline-canvas {
+		position: absolute;
+		inset: 0;
 		width: 100%;
-		max-width: 1160px;
-		margin: 0 auto;
-		padding: clamp(36px, 7vh, 68px) clamp(24px, 7vw, 92px) 38px;
+		height: 100%;
+		display: block;
 	}
 
-	.intro {
-		margin-bottom: clamp(58px, 10vh, 84px);
+	.menu-3d {
+		position: relative;
+		display: flex;
+		align-items: center;
+		gap: 24px;
+		padding: 28px 32px;
+		background: linear-gradient(to bottom, rgba(40, 15, 80, 0.95), rgba(10, 6, 20, 1));
+		border-top: 4px solid #f3a4ba;
+		border-bottom: 4px solid #f3a4ba;
+		font-family: 'Comfortaa', sans-serif;
+		color: #b8e0ff;
+		overflow: hidden;
+		cursor: pointer;
+		transition: opacity 180ms ease;
 	}
 
-	h1 {
-		margin: 0 0 4px;
-		color: #b8977a;
-		font-family: 'Pixelify Sans', 'Courier New', monospace;
-		font-size: clamp(2rem, 4.1vw, 3.25rem);
-		font-weight: 700;
-		letter-spacing: 0;
-		line-height: 1.05;
-		text-wrap: balance;
+	.menu-3d:focus-visible {
+		outline: 3px solid #f0e68c;
+		outline-offset: -6px;
 	}
 
-	p {
-		margin: 0;
-		color: #211f21;
-		font-size: clamp(0.95rem, 1.45vw, 1.15rem);
-		line-height: 1.5;
+	.menu-icon {
+		width: 96px;
+		height: 96px;
+		object-fit: contain;
+		image-rendering: pixelated;
+		flex-shrink: 0;
 	}
 
-	.menu-grid {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(260px, 1fr));
-		column-gap: clamp(80px, 24vw, 380px);
-		row-gap: clamp(66px, 12vh, 92px);
-	}
-
-	.menu-item {
-		display: grid;
-		width: fit-content;
-		min-width: 236px;
-		gap: 16px;
-		color: inherit;
-		text-decoration: none;
+	.menu-text {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		min-width: 0;
 	}
 
 	.menu-title {
+		font-family: 'Pixelify Sans', monospace;
+		font-weight: 700;
+		font-size: 30px;
+		color: #f0e68c;
+		margin: 0;
+		line-height: 1.15;
+		letter-spacing: 1px;
+	}
+
+	.menu-label {
+		font-size: 16px;
+		margin: 0;
+	}
+
+	.menu-hint {
+		font-size: 14px;
+		margin: 6px 0 0;
+		color: #f3a4ba;
+		font-weight: 700;
+		font-family: monospace;
+	}
+
+	/* ── Tarjeta de clase de personaje (mystery box 1) ──────────────────────── */
+	.class-panel {
+		display: none;
+		flex-direction: column;
+		gap: 14px;
+	}
+
+	.menu-3d--class .class-panel {
 		display: flex;
-		align-items: center;
-		gap: 8px;
-		min-height: 34px;
-		font-family: 'Pixelify Sans', 'Courier New', monospace;
-		font-size: clamp(1.6rem, 2.6vw, 2.2rem);
-		font-weight: 800;
-		line-height: 1;
 	}
 
-	.menu-title img {
-		width: 34px;
-		height: 34px;
-		object-fit: contain;
-		image-rendering: pixelated;
+	.menu-3d--class .menu-icon,
+	.menu-3d--class .menu-text {
+		display: none;
 	}
 
-	.menu-button {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: fit-content;
-		min-width: 128px;
-		min-height: 36px;
-		margin-left: 18px;
-		padding: 0 24px;
-		border-radius: 10px;
-		background: #f3a4ba;
-		color: #6b5260;
-		font-size: 0.72rem;
+	.class-kicker {
+		font-family: 'Pixelify Sans', monospace;
+		font-weight: 700;
+		font-size: 18px;
+		color: #f3a4ba;
+		margin: 0;
+		letter-spacing: 2px;
+	}
+
+	.class-list {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.class-list li {
+		display: flex;
+		gap: 10px;
+		align-items: baseline;
+	}
+
+	.class-label {
+		font-family: 'Pixelify Sans', monospace;
+		font-weight: 700;
+		font-size: 14px;
+		color: #b8e0ff;
+		letter-spacing: 1px;
+	}
+
+	.class-value {
+		font-size: 16px;
+		color: #f0e68c;
 		font-weight: 600;
-		line-height: 1.2;
-		text-align: center;
-		transition:
-			transform 160ms ease,
-			background 160ms ease,
-			box-shadow 160ms ease;
 	}
 
-	.menu-item:hover .menu-button,
-	.menu-item:focus-visible .menu-button {
-		background: #f08eac;
-		box-shadow: 0 8px 0 rgba(94, 88, 88, 0.12);
-		transform: translateY(-3px);
+	/* ── Consola apagada (SMILE BUTTON / Power button) ──────────────────────── */
+	.menu-off {
+		display: none;
+		position: absolute;
+		inset: 0;
+		background: #171321;
+		box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.45);
+		transition: background 220ms ease, opacity 180ms ease, box-shadow 220ms ease;
 	}
 
-	.menu-item:focus-visible {
-		outline: 3px solid #b8977a;
-		outline-offset: 8px;
+	.menu-3d--off {
+		cursor: default;
 	}
 
-	@media (max-width: 900px) {
-		.welcome-panel {
-			padding-inline: clamp(20px, 5vw, 40px);
-		}
-
-		.menu-grid {
-			column-gap: clamp(42px, 8vw, 70px);
-		}
+	.menu-3d--off .menu-icon,
+	.menu-3d--off .menu-text,
+	.menu-3d--off .class-panel {
+		display: none;
 	}
 
-	@media (max-width: 760px) {
-		.welcome-panel {
-			padding: 34px 24px 42px;
-		}
-
-		.intro {
-			margin-bottom: 42px;
-		}
-
-		.menu-grid {
-			grid-template-columns: 1fr;
-			row-gap: 38px;
-		}
-
-		.menu-item {
-			min-width: 0;
-		}
-
-		.menu-button {
-			margin-left: 42px;
-		}
-
+	.menu-3d--off .menu-off {
+		display: block;
 	}
 </style>
