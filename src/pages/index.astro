@@ -53,7 +53,14 @@ import Layout from '../layouts/Layout.astro';
 				</g>
 
 			</svg>
+
+			<!-- Contenedor donde se renderiza la view del portafolio dentro de la pantalla -->
+			<div class="screen-view" id="screen-view" aria-hidden="true">
+				<iframe id="screen-iframe" title="Contenido de la sección"></iframe>
+			</div>
 		</div>
+
+		<button id="screen-back" class="screen-back" hidden aria-label="Volver al menú de la consola">← Volver</button>
 	</main>
 </Layout>
 
@@ -86,9 +93,14 @@ import Layout from '../layouts/Layout.astro';
 	let consoleOn = true;
 	let lang: 'en' | 'es' = 'en';
 	let panelMode: 'menu' | 'class' = 'menu';
+	let viewActive = false;   // true cuando una view está abierta dentro de la pantalla
+	let animating = false;    // true mientras corre la animación de zoom (entrar/salir)
 
 	const canvas = document.getElementById('spline-canvas') as HTMLCanvasElement;
 	const consoleFrame = document.querySelector('.console-frame') as HTMLElement;
+	const screenView   = document.getElementById('screen-view') as HTMLElement;
+	const screenIframe = document.getElementById('screen-iframe') as HTMLIFrameElement;
+	const screenBack   = document.getElementById('screen-back') as HTMLButtonElement;
 
 	// ── Elemento HTML que se "monta" sobre la pantalla 3D vía CSS3DRenderer ─────
 	const menuEl = document.createElement('div');
@@ -129,9 +141,13 @@ import Layout from '../layouts/Layout.astro';
 	}
 	updateMenuContent();
 
+	// Abre la sección actual DENTRO de la pantalla de la consola (zoom + iframe).
+	// Se reasigna tras cargar Spline; fallback (pre-carga): navega directo.
+	let openCurrentView: () => void = () => { window.location.href = SECTIONS[currentIndex].href; };
+
 	function goToCurrentSection() {
 		if (!consoleOn || panelMode === 'class') return;
-		window.location.href = SECTIONS[currentIndex].href;
+		openCurrentView();
 	}
 	menuEl.addEventListener('click', goToCurrentSection);
 	menuEl.addEventListener('keydown', (e) => {
@@ -251,6 +267,9 @@ import Layout from '../layouts/Layout.astro';
 	function syncFrame() {
 		if (gameObj) gameObj.rotation.y = 0;
 
+		// Mantener el encuadre de la view contra el re-ajuste de cámara de Spline
+		if (viewActive && !animating) applyFit(1);
+
 		if (screenMesh && camera) {
 			screenMesh.updateWorldMatrix(true, false);
 			camera.updateMatrixWorld(true);
@@ -317,11 +336,150 @@ import Layout from '../layouts/Layout.astro';
 		rotateDialGrip(consoleOn);
 	}
 
+	// ── Vista dentro de la pantalla: zoom de cámara hasta que el screen ocupa la
+	//    medida objetivo (≤90vh, ≤92vw) y se monta un iframe alineado a la pantalla ──
+	let fit: {
+		baseZoom: number; targetZoom: number; screenWorld: any;
+		ndc0x: number; ndc0y: number; pxPerZoomH: number; pxPerZoomW: number;
+	} | null = null;
+	const _right = new THREE.Vector3();
+	const _up    = new THREE.Vector3();
+	const _proj  = new THREE.Vector3();
+
+	function computeFit() {
+		camera.updateMatrixWorld(true);
+		screenMesh.updateWorldMatrix(true, false);
+		const baseZoom = camera.zoom;
+		const screenWorld = new THREE.Vector3(centerX, centerY, frontZ).applyMatrix4(screenMesh.matrixWorld);
+		const ndc0 = screenWorld.clone().project(camera);      // posición del screen en reposo (descentrado)
+		const r = menuEl.getBoundingClientRect();              // tamaño del screen en zoom base
+		fit = {
+			baseZoom, targetZoom: 0, screenWorld, ndc0x: ndc0.x, ndc0y: ndc0.y,
+			pxPerZoomH: r.height / baseZoom, pxPerZoomW: r.width / baseZoom,
+		};
+		recomputeTargetZoom();
+	}
+	function recomputeTargetZoom() {
+		if (!fit) return;
+		// La pantalla domina el viewport pero dejando ver el bisel/borde del modelo alrededor.
+		const zH = (0.80 * window.innerHeight) / fit.pxPerZoomH;
+		const zW = (0.80 * window.innerWidth)  / fit.pxPerZoomW;
+		fit.targetZoom = Math.min(zH, zW);
+	}
+	// Centrado en lazo cerrado: en vez de fijar la posición analíticamente (Spline la
+	// re-ajusta cada frame), medimos dónde cae el centro del screen y corregimos. k: 0=base, 1=centrado.
+	function applyFit(k: number) {
+		if (!fit) return;
+		camera.zoom = fit.baseZoom + (fit.targetZoom - fit.baseZoom) * k;
+		camera.updateProjectionMatrix();
+		camera.updateMatrixWorld(true);
+		_proj.copy(fit.screenWorld).project(camera);
+		const e = camera.matrixWorld.elements;
+		_right.set(e[0], e[1], e[2]);
+		_up.set(e[4], e[5], e[6]);
+		const halfW = camera.right / camera.zoom;
+		const halfH = camera.top   / camera.zoom;
+		const tx = fit.ndc0x * (1 - k);                       // NDC objetivo del screen este frame
+		const ty = fit.ndc0y * (1 - k);
+		camera.position
+			.addScaledVector(_right, (_proj.x - tx) * halfW)
+			.addScaledVector(_up,    (_proj.y - ty) * halfH);
+		camera.updateProjectionMatrix();
+	}
+	function runZoom(target: 0 | 1, onDone?: () => void) {
+		if (reduceMotion) { applyFit(target); onDone && onDone(); return; }
+		animating = true;
+		const from = target === 1 ? 0 : 1;
+		const t0   = performance.now();
+		// easeInOutSine: soft start and end, feels more natural than cubic
+		const ease = (t: number) => -(Math.cos(Math.PI * t) - 1) / 2;
+		const step = (now: number) => {
+			const p = Math.min((now - t0) / 950, 1);
+			applyFit(from + (target - from) * ease(p));
+			if (p < 1) requestAnimationFrame(step);
+			else { animating = false; onDone && onDone(); }
+		};
+		requestAnimationFrame(step);
+	}
+
+	// Alinea el iframe (overlay fijo en viewport) para que llene el cristal de la pantalla;
+	// el inset mínimo evita derramarse sobre el bisel del modelo, que queda como borde.
+	function syncViewRect() {
+		const r = menuEl.getBoundingClientRect();
+		const inset = r.width * 0.008;
+		screenView.style.left   = (r.left + inset) + 'px';
+		screenView.style.top    = (r.top  + inset) + 'px';
+		screenView.style.width  = (r.width  - inset * 2) + 'px';
+		screenView.style.height = (r.height - inset * 2) + 'px';
+	}
+
+	function openView() {
+		if (animating || viewActive || !consoleOn || panelMode === 'class') return;
+		if (!camera || !screenMesh) { window.location.href = SECTIONS[currentIndex].href; return; }
+		try {
+			computeFit();
+			const href = SECTIONS[currentIndex].href;
+			screenIframe.src = href + (href.includes('?') ? '&' : '?') + 'embed=1';
+			screenView.style.left = '0';
+			screenView.style.top = '0';
+			screenView.style.width = '100vw';
+			screenView.style.height = '100svh';
+			screenView.style.borderRadius = '0';
+			screenView.classList.add('is-active');
+			screenView.setAttribute('aria-hidden', 'false');
+			screenBack.hidden = false;
+			if (toggleBtn) toggleBtn.hidden = true;
+			runZoom(1, () => { viewActive = true; });
+		} catch (_err) {
+			window.location.href = SECTIONS[currentIndex].href;
+		}
+	}
+	function closeView() {
+		if (animating || !viewActive) return;
+		viewActive = false;
+		screenView.classList.remove('is-active');
+		screenView.setAttribute('aria-hidden', 'true');
+		screenBack.hidden = true;
+		if (toggleBtn) toggleBtn.hidden = false;
+		runZoom(0, () => {
+			fit = null;
+			screenIframe.src = 'about:blank';
+			screenView.style.cssText = '';
+		});
+	}
+
+	openCurrentView = openView;
+	screenBack.addEventListener('click', closeView);
+	window.addEventListener('message', (e) => {
+		if (e.data === 'console:back') {
+			closeView();
+		} else if (typeof e.data === 'string' && e.data.startsWith('console:navigate:')) {
+			const href = e.data.slice('console:navigate:'.length);
+			const idx = SECTIONS.findIndex(s => s.href === href);
+			if (idx !== -1 && viewActive && !animating) {
+				currentIndex = idx;
+				updateMenuContent();
+				const fullHref = SECTIONS[idx].href;
+				// Soft fade: hide current page, swap src, fade new page in
+				screenIframe.style.transition = 'opacity 180ms ease';
+				screenIframe.style.opacity = '0';
+				setTimeout(() => {
+					screenIframe.src = fullHref + (fullHref.includes('?') ? '&' : '?') + 'embed=1';
+					screenIframe.addEventListener('load', () => {
+						screenIframe.style.opacity = '1';
+					}, { once: true });
+				}, 180);
+			}
+		}
+	});
+	window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeView(); });
+	window.addEventListener('resize', () => { if (viewActive) { recomputeTargetZoom(); applyFit(1); } });
+
 	const raycaster = new THREE.Raycaster();
 	const pointerNDC = new THREE.Vector2();
 
 	canvas.addEventListener('click', (e: MouseEvent) => {
-		if (!consoleOn || panelMode === 'class') return;
+		if (animating || viewActive || !consoleOn || panelMode === 'class') return;
 
 		const rect = canvas.getBoundingClientRect();
 		pointerNDC.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
@@ -349,6 +507,7 @@ import Layout from '../layouts/Layout.astro';
 
 	// ── Botones de la consola con interacción "On Mouse Down" configurada en Spline ──
 	app.addEventListener('mouseDown', (e: any) => {
+		if (animating || viewActive) return;
 		const name = e?.target?.name ?? '';
 
 		switch (name) {
@@ -591,6 +750,58 @@ import Layout from '../layouts/Layout.astro';
 		opacity: 0.45;
 	}
 	.annotations-toggle:hover { opacity: 1; }
+
+	/* ── View del portafolio renderizada dentro de la pantalla de la consola ──── */
+	.screen-view {
+		position: fixed;
+		z-index: 10;
+		overflow: hidden;
+		border-radius: 10px;
+		background: #f4f4de;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 240ms ease;
+	}
+	/* Pantalla completa cuando la sección está activa.
+	   !important garantiza que el CSS gana sobre cualquier estilo inline que el RAF pueda escribir. */
+	.screen-view.is-active {
+		opacity: 1;
+		pointer-events: auto;
+		left: 0 !important;
+		top: 0 !important;
+		width: 100vw !important;
+		height: 100svh !important;
+		border-radius: 0 !important;
+		z-index: 30;
+	}
+	.screen-view iframe {
+		width: 100%;
+		height: 100%;
+		border: 0;
+		display: block;
+		background: #f4f4de;
+	}
+
+	.screen-back {
+		display: none; /* la navegación de vuelta la gestiona el botón Back de cada sección */
+		position: fixed;
+		top: 16px;
+		left: 16px;
+		z-index: 40;
+		font-family: 'Pixelify Sans', monospace;
+		font-size: 15px;
+		letter-spacing: 0.5px;
+		color: #2a0a1c;
+		background: rgba(255, 238, 238, 0.85);
+		border: 1.5px solid rgba(30, 8, 28, 0.2);
+		border-radius: 999px;
+		padding: 8px 16px;
+		cursor: pointer;
+		backdrop-filter: blur(6px);
+		transition: opacity 200ms ease, transform 120ms ease;
+	}
+	.screen-back:hover { transform: translateY(-1px); }
+	.screen-back[hidden] { display: none; }
 
 	/* ── Consola apagada (SMILE BUTTON / Power button) ──────────────────────── */
 	.menu-off {

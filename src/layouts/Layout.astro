@@ -1,5 +1,5 @@
 ---
-const { title = 'Welcome To Lizzy World' } = Astro.props;
+const { title = 'Welcome To Lizzy World', frame = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -15,9 +15,89 @@ const { title = 'Welcome To Lizzy World' } = Astro.props;
 		/>
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+
+		<script is:inline>
+			// Cuando la página se renderiza dentro de la pantalla de la consola (iframe / ?embed=1),
+			// el enlace "Back → /" no recarga la home dentro del marco: avisa al padre para que haga
+			// zoom-out. Inline + captura para estar activo antes de cualquier interacción del usuario.
+			(function () {
+				var isEmbed =
+					window.self !== window.top ||
+					new URLSearchParams(window.location.search).has('embed');
+				if (!isEmbed) return;
+				document.documentElement.classList.add('is-embed');
+				document.addEventListener(
+					'click',
+					function (e) {
+						var link = e.target && e.target.closest ? e.target.closest('a') : null;
+						if (!link) return;
+						var href = link.getAttribute('href');
+						if (href === '/' || href === '' || link.classList.contains('back-link')) {
+							e.preventDefault();
+							e.stopPropagation();
+							if (window.parent) window.parent.postMessage('console:back', '*');
+						}
+					},
+					true
+				);
+			})();
+		</script>
 	</head>
 	<body>
 		<slot />
+		{
+			frame && (
+				<>
+					<div class="console-frame-grain" aria-hidden="true" />
+					<div class="console-frame-bezel" aria-hidden="true" />
+				</>
+			)
+		}
+
+		<nav class="embed-nav" aria-label="Console navigation">
+			<button class="embed-nav-toggle" id="embed-nav-toggle" aria-label="Navigation menu" aria-expanded="false">
+				<span></span><span></span><span></span>
+			</button>
+			<div class="embed-nav-panel" id="embed-nav-panel">
+				<a class="embed-nav-link" href="/levels" data-console-nav>Levels</a>
+				<a class="embed-nav-link" href="/about" data-console-nav>Player Profile</a>
+				<a class="embed-nav-link" href="/inventory" data-console-nav>Inventory</a>
+				<a class="embed-nav-link" href="/secret-lab" data-console-nav>Secret Lab</a>
+				<a class="embed-nav-link" href="/contact" data-console-nav>Contact</a>
+			</div>
+		</nav>
+
+		<script is:inline>
+			(function () {
+				var toggle = document.getElementById('embed-nav-toggle');
+				var panel = document.getElementById('embed-nav-panel');
+				if (!toggle || !panel) return;
+
+				toggle.addEventListener('click', function () {
+					var isOpen = toggle.classList.contains('is-open');
+					toggle.classList.toggle('is-open', !isOpen);
+					panel.classList.toggle('is-open', !isOpen);
+					toggle.setAttribute('aria-expanded', String(!isOpen));
+				});
+
+				var currentPath = window.location.pathname;
+				panel.querySelectorAll('[data-console-nav]').forEach(function (link) {
+					if (link.getAttribute('href') === currentPath) {
+						link.classList.add('is-active');
+					}
+					link.addEventListener('click', function (e) {
+						var href = link.getAttribute('href');
+						if (window.self !== window.top) {
+							e.preventDefault();
+							window.parent.postMessage('console:navigate:' + href, '*');
+							toggle.classList.remove('is-open');
+							panel.classList.remove('is-open');
+							toggle.setAttribute('aria-expanded', 'false');
+						}
+					});
+				});
+			})();
+		</script>
 	</body>
 </html>
 
@@ -41,4 +121,214 @@ const { title = 'Welcome To Lizzy World' } = Astro.props;
 	a {
 		color: inherit;
 	}
+
+	/* ── Marco "dentro de la consola": bisel rosa coral + grano, como la pantalla 3D ── */
+	.console-frame-bezel {
+		position: fixed;
+		inset: 0;
+		z-index: 9000;
+		pointer-events: none;
+		border-radius: clamp(14px, 2.4vw, 30px);
+		box-shadow:
+			/* canto oscuro exterior (bisel) */
+			inset 0 0 0 2px rgba(94, 22, 58, 0.55),
+			/* plástico rosa coral de la consola */
+			inset 0 0 0 clamp(11px, 1.9vw, 22px) #e981a4,
+			/* labio brillante justo por dentro del marco */
+			inset 0 0 0 calc(clamp(11px, 1.9vw, 22px) + 2px) rgba(255, 255, 255, 0.4),
+			/* sombra que hunde el contenido como vidrio de la pantalla */
+			inset 0 0 34px 10px rgba(28, 6, 22, 0.5);
+	}
+
+	/* Brillo de plástico: más claro arriba, más profundo abajo (solo sobre el marco) */
+	.console-frame-bezel::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		background: linear-gradient(
+			160deg,
+			rgba(255, 255, 255, 0.22),
+			transparent 16%,
+			transparent 80%,
+			rgba(120, 20, 64, 0.28)
+		);
+		-webkit-mask:
+			linear-gradient(#000 0 0) content-box,
+			linear-gradient(#000 0 0);
+		-webkit-mask-composite: xor;
+		mask-composite: exclude;
+		padding: clamp(11px, 1.9vw, 22px);
+	}
+
+	.console-frame-grain {
+		position: fixed;
+		inset: 0;
+		z-index: 9001;
+		pointer-events: none;
+		opacity: 0.05;
+		mix-blend-mode: soft-light;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+		background-size: 150px 150px;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.console-frame-grain {
+			opacity: 0.04;
+		}
+	}
+
+	/* ── Hamburger nav: oculto en modo normal, visible solo dentro del iframe ─── */
+	.embed-nav {
+		display: none;
+		position: fixed;
+		top: 16px;
+		right: 16px;
+		z-index: 9500;
+		font-family: 'Comfortaa', 'Trebuchet MS', ui-sans-serif, sans-serif;
+	}
+
+	:global(.is-embed) .embed-nav {
+		display: block;
+	}
+
+	:global(.is-embed) .console-frame-bezel,
+	:global(.is-embed) .console-frame-grain {
+		display: none;
+	}
+
+	.embed-nav-toggle {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 5px;
+		width: 40px;
+		height: 40px;
+		border: 2px solid rgba(244, 166, 189, 0.7);
+		border-radius: 12px;
+		background: rgba(255, 255, 255, 0.94);
+		backdrop-filter: blur(8px);
+		box-shadow:
+			0 8px 24px rgba(123, 113, 108, 0.12),
+			0 0 0 1px rgba(244, 166, 189, 0.18);
+		cursor: pointer;
+		padding: 10px;
+		transition:
+			background 150ms ease,
+			box-shadow 150ms ease,
+			transform 160ms cubic-bezier(0.34, 1.56, 0.64, 1);
+	}
+
+	.embed-nav-toggle:hover {
+		background: #fff0d6;
+		box-shadow: 0 10px 28px rgba(244, 166, 189, 0.28);
+		transform: scale(1.07);
+	}
+
+	.embed-nav-toggle.is-open {
+		background: #fff0f5;
+		box-shadow:
+			0 10px 28px rgba(244, 166, 189, 0.32),
+			0 0 0 3px rgba(244, 166, 189, 0.35);
+	}
+
+	.embed-nav-toggle span {
+		display: block;
+		width: 16px;
+		height: 2px;
+		background: #4a403a;
+		border-radius: 2px;
+		transition:
+			transform 200ms ease,
+			opacity 200ms ease;
+	}
+
+	.embed-nav-toggle.is-open span:first-child {
+		transform: translateY(7px) rotate(45deg);
+	}
+
+	.embed-nav-toggle.is-open span:nth-child(2) {
+		opacity: 0;
+		transform: scaleX(0);
+	}
+
+	.embed-nav-toggle.is-open span:last-child {
+		transform: translateY(-7px) rotate(-45deg);
+	}
+
+	@keyframes nav-link-in {
+		from { opacity: 0; transform: translateX(10px); }
+		to   { opacity: 1; transform: translateX(0);   }
+	}
+
+	.embed-nav-panel {
+		display: flex;
+		position: absolute;
+		top: calc(100% + 8px);
+		right: 0;
+		width: 200px;
+		flex-direction: column;
+		gap: 3px;
+		border: 2px solid rgba(214, 198, 245, 0.85);
+		border-radius: 18px;
+		background: rgba(255, 255, 255, 0.97);
+		backdrop-filter: blur(12px);
+		box-shadow: 0 16px 40px rgba(123, 113, 108, 0.16);
+		overflow: hidden;
+		padding: 8px;
+		/* Hidden by default via opacity/visibility so CSS transitions work */
+		opacity: 0;
+		transform: translateY(-10px) scale(0.95);
+		pointer-events: none;
+		visibility: hidden;
+		transition:
+			opacity 210ms cubic-bezier(0.16, 1, 0.3, 1),
+			transform 210ms cubic-bezier(0.16, 1, 0.3, 1),
+			visibility 0ms linear 210ms;
+	}
+
+	.embed-nav-panel.is-open {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+		pointer-events: auto;
+		visibility: visible;
+		transition:
+			opacity 210ms cubic-bezier(0.16, 1, 0.3, 1),
+			transform 210ms cubic-bezier(0.16, 1, 0.3, 1),
+			visibility 0ms;
+	}
+
+	.embed-nav-panel.is-open .embed-nav-link {
+		animation: nav-link-in 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
+	}
+	.embed-nav-panel.is-open .embed-nav-link:nth-child(1) { animation-delay:  40ms; }
+	.embed-nav-panel.is-open .embed-nav-link:nth-child(2) { animation-delay:  70ms; }
+	.embed-nav-panel.is-open .embed-nav-link:nth-child(3) { animation-delay: 100ms; }
+	.embed-nav-panel.is-open .embed-nav-link:nth-child(4) { animation-delay: 130ms; }
+	.embed-nav-panel.is-open .embed-nav-link:nth-child(5) { animation-delay: 160ms; }
+
+	.embed-nav-link {
+		display: flex;
+		align-items: center;
+		min-height: 40px;
+		border-radius: 12px;
+		color: #4a403a;
+		font-size: 0.84rem;
+		font-weight: 700;
+		padding: 8px 14px;
+		text-decoration: none;
+		transition: background 140ms ease, transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1);
+	}
+
+	.embed-nav-link:hover {
+		background: #f9e4e8;
+		transform: translateX(4px);
+	}
+
+	.embed-nav-link.is-active {
+		background: #f9e4e8;
+		font-weight: 800;
+	}
+
 </style>

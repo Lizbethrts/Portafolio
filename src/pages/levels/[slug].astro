@@ -34,7 +34,7 @@ const artifactsIntro = 'artifactsIntro' in project ? project.artifactsIntro : nu
 const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifactPlaceholders : null;
 ---
 
-<Layout title={`${project.title} | Lizzy World`}>
+<Layout title={`${project.title} | Lizzy World`} frame>
 	<main class="level-detail-screen" aria-labelledby="project-title">
 		<a class="back-link" href="/levels" aria-label="Back to Levels map">Back</a>
 
@@ -544,7 +544,76 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 				}
 
 				{
-					artifactPlaceholders && project.slug !== 'ai-hiring-platform' && (
+					project.slug === 'ai-hiring-platform' && (
+						<section class="content-block quest-artifacts ai-hiring-artifacts" aria-labelledby="ai-hiring-artifacts-title">
+							<div class="artifacts-heading">
+								<p class="artifact-eyebrow">Evidence Collected</p>
+								<h2 id="ai-hiring-artifacts-title">Quest Artifacts</h2>
+								<p>Screen design contributions supporting the gamified hiring platform experience.</p>
+							</div>
+
+							<div class="ai-hiring-showcase" aria-label="AI Hiring Platform mockup">
+								<a
+									class="ai-hiring-mockup"
+									href="/img/levels/ai-hiring/Group%201261156676.jpg"
+									target="_blank"
+									rel="noreferrer"
+									aria-label="Open AI Hiring Platform mockup"
+								>
+									<img
+										src="/img/levels/ai-hiring/Group%201261156676.jpg"
+										alt="AI Hiring Platform tablet mockup showing the gamified recruitment experience"
+										loading="lazy"
+									/>
+								</a>
+							</div>
+						</section>
+					)
+				}
+
+				{
+					project.slug === 'traditional-food-brand-website' && (
+						<section class="content-block quest-artifacts brand-web-showcase-artifacts" aria-labelledby="brand-web-artifacts-title">
+							<div class="artifacts-heading">
+								<p class="artifact-eyebrow">Evidence Collected</p>
+								<h2 id="brand-web-artifacts-title">Quest Artifacts</h2>
+								<p>Web screens and visual layouts supporting the traditional food brand digital experience.</p>
+							</div>
+
+							<div class="brand-web-mockup-grid" aria-label="Traditional food brand website screens">
+								<a
+									class="brand-web-mockup brand-web-mockup-primary"
+									href="/img/levels/Moro/Group%20142539.png"
+									target="_blank"
+									rel="noreferrer"
+									aria-label="Open brand website screen"
+								>
+									<img
+										src="/img/levels/Moro/Group%20142539.png"
+										alt="Traditional food brand website screen showing visual layout and brand identity"
+										loading="lazy"
+									/>
+								</a>
+								<a
+									class="brand-web-mockup brand-web-mockup-secondary"
+									href="/img/levels/Moro/Group%20142538.png"
+									target="_blank"
+									rel="noreferrer"
+									aria-label="Open brand website screen"
+								>
+									<img
+										src="/img/levels/Moro/Group%20142538.png"
+										alt="Traditional food brand website screen showing locations and brand structure"
+										loading="lazy"
+									/>
+								</a>
+							</div>
+						</section>
+					)
+				}
+
+				{
+					artifactPlaceholders && project.slug !== 'ai-hiring-platform' && project.slug !== 'traditional-food-brand-website' && (
 						<section class:list={['content-block quest-artifacts hiring-artifacts', project.slug === 'traditional-food-brand-website' && 'brand-web-artifacts']} aria-labelledby="quest-artifacts-title">
 							<div class="artifacts-heading">
 								<p class="artifact-eyebrow">Evidence Collected</p>
@@ -1760,6 +1829,42 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		transform: translateY(10px) rotate(2deg);
 	}
 
+	.ai-hiring-artifacts {
+		overflow: hidden;
+		border-color: #f9e7a3;
+		background:
+			radial-gradient(circle at 10% 14%, rgba(249, 231, 163, 0.28) 0 10%, rgba(249, 231, 163, 0.08) 16%, transparent 26%),
+			radial-gradient(circle at 88% 14%, rgba(168, 216, 112, 0.18) 0 9%, rgba(168, 216, 112, 0.06) 15%, transparent 24%),
+			linear-gradient(135deg, #ffffff 0%, #fffdf3 48%, #f8fff5 100%);
+	}
+
+	.ai-hiring-showcase {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: clamp(8px, 2vw, 20px) 0;
+	}
+
+	.ai-hiring-mockup {
+		display: block;
+		max-width: 100%;
+		transition: filter 180ms ease, transform 180ms ease;
+	}
+
+	.ai-hiring-mockup:hover {
+		filter: drop-shadow(0 24px 28px rgba(74, 64, 58, 0.14));
+		transform: translateY(-4px);
+	}
+
+	.ai-hiring-mockup img {
+		display: block;
+		width: 100%;
+		max-width: 900px;
+		height: auto;
+		object-fit: contain;
+		filter: drop-shadow(0 20px 24px rgba(74, 64, 58, 0.13));
+	}
+
 	.hiring-artifacts {
 		background:
 			radial-gradient(circle at 12% 12%, rgba(191, 215, 237, 0.2) 0 10%, rgba(191, 215, 237, 0.08) 16%, transparent 25%),
@@ -1775,6 +1880,50 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 
 	.hiring-artifact-card {
 		min-height: 100%;
+	}
+
+	.brand-web-showcase-artifacts {
+		overflow: hidden;
+		border-color: #d6c6f5;
+		background:
+			radial-gradient(circle at 12% 18%, rgba(249, 231, 163, 0.28) 0 9%, rgba(249, 231, 163, 0.08) 15%, transparent 24%),
+			radial-gradient(circle at 88% 16%, rgba(191, 215, 237, 0.22) 0 9%, rgba(191, 215, 237, 0.07) 15%, transparent 24%),
+			linear-gradient(135deg, #ffffff 0%, #fff7f1 48%, #fffdf3 100%);
+	}
+
+	.brand-web-mockup-grid {
+		position: relative;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: clamp(16px, 3vw, 32px);
+		align-items: start;
+		margin-top: 8px;
+		padding: clamp(8px, 2vw, 16px) 0;
+	}
+
+	.brand-web-mockup {
+		display: grid;
+		place-items: start center;
+		overflow: hidden;
+		border: 2px solid rgba(214, 198, 245, 0.72);
+		border-radius: 20px;
+		background: #ffffff;
+		box-shadow: 0 14px 32px rgba(123, 113, 108, 0.1);
+		padding: 10px;
+		transition: box-shadow 180ms ease, transform 180ms ease;
+	}
+
+	.brand-web-mockup:hover {
+		box-shadow: 0 20px 42px rgba(123, 113, 108, 0.16);
+		transform: translateY(-4px);
+	}
+
+	.brand-web-mockup img {
+		display: block;
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+		border-radius: 12px;
 	}
 
 	.brand-web-artifacts {
@@ -1860,7 +2009,8 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		.artifact-feature-grid,
 		.mockup-showcase,
 		.entertainment-mockup-grid,
-		.fixia-showcase {
+		.fixia-showcase,
+		.brand-web-mockup-grid {
 			grid-template-columns: 1fr;
 		}
 
