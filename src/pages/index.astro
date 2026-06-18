@@ -518,7 +518,7 @@ import Layout from '../layouts/Layout.astro';
 
 			case 'CARD': {
 				const a = document.createElement('a');
-				a.href = '/resume.pdf';
+				a.href = '/LizbethTujilloCV.pdf';
 				a.download = 'Lizbeth-Trujillo-CV.pdf';
 				document.body.appendChild(a);
 				a.click();
@@ -825,5 +825,46 @@ import Layout from '../layouts/Layout.astro';
 
 	.menu-3d--off .menu-off {
 		display: block;
+	}
+
+	/* ── Responsive ─────────────────────────────────────────────────────────── */
+
+	/* Mobile: lock page to viewport height — no dead scroll below console */
+	@media (max-width: 640px) {
+		.world-screen {
+			height: 100svh;
+			min-height: unset;
+			overflow: hidden;
+			padding-bottom: 0;
+		}
+		/* Slightly more canvas width on tiny screens */
+		.console-frame {
+			width: min(97vw, calc((100svh - 12px) * 0.93));
+		}
+	}
+
+	/* Tablet: lock to viewport, remove horizontal padding so console centers cleanly */
+	@media (min-width: 641px) and (max-width: 1024px) {
+		.world-screen {
+			height: 100svh;
+			min-height: unset;
+			overflow: hidden;
+			padding-inline: 0;
+			padding-bottom: 0;
+		}
+		.console-frame {
+			width: min(92vw, calc((100svh - clamp(4px, 0.5vh, 12px)) * 0.93));
+		}
+	}
+</style>
+
+<!-- Lock body scroll on mobile/tablet: Spline injects a watermark that adds page height -->
+<style is:global>
+	@media (max-width: 1024px) {
+		html, body {
+			height: 100%;
+			max-height: 100svh;
+			overflow: hidden;
+		}
 	}
 </style>

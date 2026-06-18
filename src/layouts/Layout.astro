@@ -67,6 +67,9 @@ const { title = 'Welcome To Lizzy World', frame = false } = Astro.props;
 			</div>
 		</nav>
 
+		<!-- Decorative screen bezel: only visible inside the console iframe -->
+		<div class="console-screen-bezel" aria-hidden="true"></div>
+
 		<script is:inline>
 			(function () {
 				var toggle = document.getElementById('embed-nav-toggle');
@@ -329,6 +332,88 @@ const { title = 'Welcome To Lizzy World', frame = false } = Astro.props;
 	.embed-nav-link.is-active {
 		background: #f9e4e8;
 		font-weight: 800;
+	}
+
+	/* ── Console screen bezel: simulates the DS screen frame inside the iframe ── */
+	.console-screen-bezel {
+		display: none;
+		position: fixed;
+		inset: 0;
+		z-index: 9400;
+		pointer-events: none;
+		border-radius: 18px;
+		box-shadow:
+			/* Innermost gloss ring — screen-edge shimmer */
+			inset 0 0 0 2px rgba(240, 168, 205, 0.58),
+			/* Main bezel — matches console pink body */
+			inset 0 0 0 9px #c72f6a,
+			/* Darker outer channel — separates bezel from screen content */
+			inset 0 0 0 12px rgba(28, 6, 22, 0.46),
+			/* Top reflection */
+			inset 0 4px 24px rgba(255, 205, 230, 0.14),
+			/* Bottom ambient depth */
+			inset 0 -5px 30px rgba(28, 6, 22, 0.2);
+	}
+
+	/* Plastic gloss overlay — same technique as the main console frame */
+	.console-screen-bezel::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		background: linear-gradient(
+			162deg,
+			rgba(255, 255, 255, 0.2),
+			transparent 18%,
+			transparent 80%,
+			rgba(120, 20, 64, 0.22)
+		);
+		-webkit-mask:
+			linear-gradient(#000 0 0) content-box,
+			linear-gradient(#000 0 0);
+		-webkit-mask-composite: xor;
+		mask-composite: exclude;
+		padding: 12px;
+	}
+
+	/* Corner fills — cover content in the four rounded corners so they
+	   look genuinely clipped, not just overlaid */
+	.console-screen-bezel::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background:
+			radial-gradient(circle at 0    0,    transparent 16px, #c72f6a 16px) 0   0   / 20px 20px no-repeat,
+			radial-gradient(circle at 100% 0,    transparent 16px, #c72f6a 16px) 100% 0   / 20px 20px no-repeat,
+			radial-gradient(circle at 0    100%, transparent 16px, #c72f6a 16px) 0   100% / 20px 20px no-repeat,
+			radial-gradient(circle at 100% 100%, transparent 16px, #c72f6a 16px) 100% 100% / 20px 20px no-repeat;
+	}
+
+	:global(.is-embed) .console-screen-bezel {
+		display: block;
+	}
+
+	/* Thinner bezel on narrow mobile screens */
+	@media (max-width: 480px) {
+		.console-screen-bezel {
+			border-radius: 12px;
+			box-shadow:
+				inset 0 0 0 1px rgba(240, 168, 205, 0.5),
+				inset 0 0 0 6px #c72f6a,
+				inset 0 0 0 8px rgba(28, 6, 22, 0.42),
+				inset 0 3px 14px rgba(255, 205, 230, 0.12),
+				inset 0 -3px 18px rgba(28, 6, 22, 0.16);
+		}
+		.console-screen-bezel::before {
+			background:
+				radial-gradient(circle at 0    0,    transparent 10px, #c72f6a 10px) 0    0    / 13px 13px no-repeat,
+				radial-gradient(circle at 100% 0,    transparent 10px, #c72f6a 10px) 100% 0    / 13px 13px no-repeat,
+				radial-gradient(circle at 0    100%, transparent 10px, #c72f6a 10px) 0    100% / 13px 13px no-repeat,
+				radial-gradient(circle at 100% 100%, transparent 10px, #c72f6a 10px) 100% 100% / 13px 13px no-repeat;
+		}
+		.console-screen-bezel::after {
+			padding: 8px;
+		}
 	}
 
 </style>

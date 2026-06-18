@@ -1647,12 +1647,21 @@ import Layout from '../layouts/Layout.astro';
 		}
 
 		.levels-header {
-			padding-left: 0;
+			padding-left: clamp(44px, 11vw, 72px);
+			gap: 12px;
+		}
+
+		.levels-header h1 {
+			font-size: clamp(1.7rem, 5.5vw, 2.8rem);
+		}
+
+		.levels-header p {
+			font-size: 0.78rem;
 		}
 
 		.screen-icon {
-			width: 72px;
-			border-radius: 20px;
+			width: 60px;
+			border-radius: 16px;
 		}
 
 		.map-shell {
