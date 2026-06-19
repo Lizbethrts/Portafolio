@@ -3,33 +3,69 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Levels | Lizzy World" frame>
+	<script is:inline>
+	window.__i18nStrings = {
+		en: {
+			title: 'Levels', subtitle: 'Select a project level',
+			tipKicker: 'Hover a level', tipTitle: 'Project preview', tipDesc: 'Move over a level marker to see a quick summary.',
+			selectMode: 'Select mode', pressFlag: 'Press a flag',
+			pressDesc: 'Hover or click a flag to preview the mission. Use Enter Level inside the card to open the project.',
+			infoDefault: 'Project info', infoDefaultTitle: 'Select a level', infoDefaultDesc: 'Hover a flag on the map to see project details here.',
+			allLevels: 'All levels', projectList: 'Project list',
+			fallbackDesc: 'The same levels are available here for keyboard, mobile, and reduced-motion browsing.',
+			resetMap: 'Reset',
+		},
+		es: {
+			title: 'Niveles', subtitle: 'Selecciona un nivel de proyecto',
+			tipKicker: 'Pasa el cursor sobre un nivel', tipTitle: 'Vista previa del proyecto', tipDesc: 'Mueve el cursor sobre un marcador de nivel para ver un resumen rápido.',
+			selectMode: 'Modo de selección', pressFlag: 'Presiona una bandera',
+			pressDesc: 'Pasa el cursor o haz clic en una bandera para previsualizar la misión. Usa "Entrar al nivel" dentro de la tarjeta para abrir el proyecto.',
+			infoDefault: 'Info del proyecto', infoDefaultTitle: 'Selecciona un nivel', infoDefaultDesc: 'Pasa el cursor sobre una bandera para ver los detalles aquí.',
+			allLevels: 'Todos los niveles', projectList: 'Lista de proyectos',
+			fallbackDesc: 'Los mismos niveles están disponibles aquí para navegación por teclado, móvil y movimiento reducido.',
+			resetMap: 'Reiniciar',
+		},
+	};
+	</script>
+
 	<main class="levels-screen" aria-labelledby="levels-title">
-		<a class="back-link" href="/" aria-label="Back to Lizzy World menu">Back</a>
+		<a class="back-link" href="/" aria-label="Back to Lizzy World menu" data-i18n="nav.back" data-i18n-aria="nav.backAria">Back</a>
 
 		<header class="levels-header">
 			<div class="screen-icon" aria-hidden="true">
 				<img src="/img/menu/1.png" alt="" width="46" height="46" />
 			</div>
 			<div>
-				<h1 id="levels-title">Levels</h1>
-				<p>Select a project level</p>
+				<h1 id="levels-title" data-i18n="title">Levels</h1>
+				<p data-i18n="subtitle">Select a project level</p>
 			</div>
 		</header>
 
-		<section class="map-tip map-tip-top" id="map-tip" role="status" aria-live="polite">
-			<p class="tip-kicker">Hover a level</p>
-			<h2>Project preview</h2>
-			<p>Move over a level marker to see a quick summary.</p>
-		</section>
+		<!-- Instructions: horizontal row above map + info panel -->
+		<div class="levels-instructions">
+			<div class="map-tip map-tip-static" data-i18n-ignore>
+				<p class="tip-kicker" data-i18n="tipKicker">Hover a level</p>
+				<h2 data-i18n="tipTitle">Project preview</h2>
+				<p data-i18n="tipDesc">Move over a level marker to see a quick summary.</p>
+			</div>
+			<article class="level-help">
+				<p class="panel-kicker" data-i18n="selectMode">Select mode</p>
+				<h2 data-i18n="pressFlag">Press a flag</h2>
+				<p data-i18n="pressDesc">Hover or click a flag to preview the mission. Use Enter Level inside the card to open the project.</p>
+			</article>
+		</div>
 
 		<section class="levels-playfield" aria-label="Interactive project map">
-			<div class="map-column">
-				<article class="level-help" aria-live="polite">
-					<p class="panel-kicker">Select mode</p>
-					<h2>Press a flag</h2>
-					<p>Hover or click a flag to preview the mission. Use Enter Level inside the card to open the project.</p>
-				</article>
+			<!-- Project info panel aligned with map -->
+			<aside class="levels-sidebar">
+				<div class="map-tip info-panel" id="map-tip" role="status" aria-live="polite">
+					<p class="tip-kicker" data-i18n="infoDefault">Project info</p>
+					<h2 data-i18n="infoDefaultTitle">Select a level</h2>
+					<p data-i18n="infoDefaultDesc">Hover a flag on the map to see project details here.</p>
+				</div>
+			</aside>
 
+			<div class="map-column">
 				<div class="map-shell">
 					<div class="map-sparkle map-sparkle-one" aria-hidden="true"></div>
 					<div class="map-sparkle map-sparkle-two" aria-hidden="true"></div>
@@ -41,7 +77,7 @@ import Layout from '../layouts/Layout.astro';
 					<div class="map-controls" aria-label="Map controls">
 						<button type="button" data-zoom-in aria-label="Zoom in">+</button>
 						<button type="button" data-zoom-out aria-label="Zoom out">-</button>
-						<button type="button" data-reset-map aria-label="Reset map">Reset</button>
+						<button type="button" data-reset-map aria-label="Reset map" data-i18n="resetMap">Reset</button>
 					</div>
 					<div class="map-hotspots" id="map-hotspots" aria-label="Keyboard project map controls"></div>
 					<div class="floating-tip" id="floating-tip" role="dialog" aria-label="Project preview"></div>
@@ -51,9 +87,9 @@ import Layout from '../layouts/Layout.astro';
 
 		<section class="levels-fallback" aria-labelledby="levels-fallback-title">
 			<div class="fallback-heading">
-				<p class="panel-kicker">All levels</p>
-				<h2 id="levels-fallback-title">Project list</h2>
-				<p>The same levels are available here for keyboard, mobile, and reduced-motion browsing.</p>
+				<p class="panel-kicker" data-i18n="allLevels">All levels</p>
+				<h2 id="levels-fallback-title" data-i18n="projectList">Project list</h2>
+				<p data-i18n="fallbackDesc">The same levels are available here for keyboard, mobile, and reduced-motion browsing.</p>
 			</div>
 			<div class="fallback-grid" id="fallback-grid"></div>
 		</section>
@@ -180,6 +216,27 @@ import Layout from '../layouts/Layout.astro';
 		},
 	];
 
+	const PROJECTS_ES = [
+		{ level:'NIVEL_01', title:'Plataforma de Ruta de Aprendizaje', type:'EdTech UX / Aprendizaje Asistido por IA', mission:'Diseñar una plataforma de aprendizaje personalizada para educadores con tiempo limitado, baja conectividad y distintos niveles de confianza digital.', role:'Investigación UX · Experiencia de Aprendizaje · Arquitectura de la Información', rewards:['Personas de Usuario','Rutas de Aprendizaje Personalizadas','Estrategia de Prompts de IA','Pensamiento de Dashboard'] },
+		{ level:'NIVEL_02', title:'Rediseño de Entretenimiento Digital', type:'Rediseño de App Móvil / UX de Entretenimiento', mission:'Rediseñar una app móvil existente para hacerla más escalable, intuitiva, confiable y atractiva en múltiples secciones de entretenimiento.', role:'Diseño de Flujo UX · Análisis Competitivo · UI Móvil · Pruebas A/B', rewards:['Estrategia de Rediseño de App','Optimización del Flujo de Usuario','UX de Descubrimiento Cruzado','Componentes Escalables'] },
+		{ level:'NIVEL_03', title:'Plataforma de Reclutamiento con IA', type:'HR Tech / UX de Reclutamiento Gamificado', mission:'Diseñar y refinar pantallas seleccionadas para una plataforma de reclutamiento gamificada enfocada en coincidencias por habilidades y flujos de contratación más claros.', role:'Diseño de Pantalla UI / Soporte de Flujo UX / Consistencia Visual', rewards:['Iteración de Pantalla','UX de HR Tech','Consistencia Visual','Soporte de Flujo de Plataforma'] },
+		{ level:'NIVEL_04', title:'Sitio Web de Marca de Alimento Tradicional', type:'Diseño Web / Experiencia de Marca', mission:'Crear una experiencia web para una marca de alimento tradicional, apoyando pantallas seleccionadas, disposición visual, ubicaciones y consistencia de marca.', role:'Diseño de Pantalla Web / Soporte de Disposición Visual / Consistencia de Marca', rewards:['Experiencia Web de Marca','Estructura de Página de Ubicaciones','Soporte de Disposición Visual','Pensamiento Web Responsivo'] },
+		{ level:'NIVEL_05', title:'Plataforma de Servicios FIXIA', type:'Servicios del Hogar / UX de Marketplace', mission:'Crear una forma más clara y segura de diagnosticar problemas del hogar, comparar técnicos verificados y reservar servicios de reparación confiables.', role:'Investigación UX / Flujo de Servicio / UI Móvil + Web', rewards:['Diseño de Señales de Confianza','Flujo de Diagnóstico con IA','Tarjetas de Técnicos Verificados','UX de Marketplace de Servicios'] },
+		{ level:'NIVEL_06', title:'Próximamente', type:'Proyecto Bloqueado', mission:'Este nivel de proyecto espera su descripción de misión.', role:'Nueva misión pendiente', rewards:['Próximamente'] },
+	];
+
+	const UI_STR = {
+		en: { levelActive:'Level Active', levelPreview:'Level Preview', closeAria:'Close project preview', typeL:'Type:', missionL:'Mission:', roleL:'Role:', diffL:'Difficulty:', rewardsL:'Rewards Unlocked:', enter:'Enter Level', locked:'Locked', routeProgress:'Route Progress', selected:'selected', movingTo:(t:string)=>`Lizzy is moving toward ${t}. Use Enter Level in the active panel to open the project.`, fallbackType:'Type', fallbackRole:'Role', infoDefault:'Project info', infoDefaultTitle:'Select a level', infoDefaultDesc:'Hover a flag on the map to see project details here.' },
+		es: { levelActive:'Nivel Activo', levelPreview:'Vista Previa del Nivel', closeAria:'Cerrar vista previa del proyecto', typeL:'Tipo:', missionL:'Misión:', roleL:'Rol:', diffL:'Dificultad:', rewardsL:'Recompensas:', enter:'Entrar al Nivel', locked:'Bloqueado', routeProgress:'Progreso de Ruta', selected:'seleccionado', movingTo:(t:string)=>`Lizzy se dirige hacia ${t}. Usa "Entrar al nivel" en el panel activo para abrir el proyecto.`, fallbackType:'Tipo', fallbackRole:'Rol', infoDefault:'Info del proyecto', infoDefaultTitle:'Selecciona un nivel', infoDefaultDesc:'Pasa el cursor sobre una bandera para ver los detalles aquí.' },
+	};
+
+	function getLang(): 'en'|'es' { return ((typeof localStorage!=='undefined'&&localStorage.getItem('lizzy-lang'))||'en') as 'en'|'es'; }
+	function getUI() { return UI_STR[getLang()]||UI_STR.en; }
+	function getProjectData(i: number) {
+		const l = getLang();
+		return l === 'es' ? { ...projects[i], ...PROJECTS_ES[i] } : projects[i];
+	}
+
 	const canvas = document.querySelector('#level-map');
 	const tip = document.querySelector('#map-tip');
 	const floatingTip = document.querySelector('#floating-tip');
@@ -191,37 +248,31 @@ import Layout from '../layouts/Layout.astro';
 	const resetMapButton = document.querySelector('[data-reset-map]');
 	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-	if (fallbackGrid instanceof HTMLElement) {
+	function buildFallbackGrid() {
+		if (!(fallbackGrid instanceof HTMLElement)) return;
+		const ui = getUI();
 		fallbackGrid.innerHTML = projects
-			.map(
-				(project) => `
+			.map((p, i) => {
+				const proj = getProjectData(i);
+				return `
 					<article class="fallback-card">
-						<p class="tip-kicker">${project.level}</p>
-						<h3>${project.title}</h3>
-						<p>${project.mission}</p>
+						<p class="tip-kicker">${proj.level}</p>
+						<h3>${proj.title}</h3>
+						<p>${proj.mission}</p>
 						<dl>
-							<div>
-								<dt>Type</dt>
-								<dd>${project.type}</dd>
-							</div>
-							<div>
-								<dt>Role</dt>
-								<dd>${project.role}</dd>
-							</div>
+							<div><dt>${ui.fallbackType}</dt><dd>${proj.type}</dd></div>
+							<div><dt>${ui.fallbackRole}</dt><dd>${proj.role}</dd></div>
 						</dl>
 						<div class="fallback-chip-list">
-							${project.rewards.map((reward) => `<span>${reward}</span>`).join('')}
+							${proj.rewards.map((r) => `<span>${r}</span>`).join('')}
 						</div>
-						${
-							project.href
-								? `<a class="tip-enter" href="${project.href}">Enter Level</a>`
-								: '<span class="tip-enter is-disabled">Locked</span>'
-						}
+						${p.href ? `<a class="tip-enter" href="${p.href}">${ui.enter}</a>` : `<span class="tip-enter is-disabled">${ui.locked}</span>`}
 					</article>
-				`
-			)
+				`;
+			})
 			.join('');
 	}
+	buildFallbackGrid();
 
 	if (
 		canvas instanceof HTMLCanvasElement &&
@@ -259,7 +310,7 @@ import Layout from '../layouts/Layout.astro';
 		let selected = null;
 		let hoveringHotspot = false;
 		let closeTimer = 0;
-		const defaultTip = tip.innerHTML;
+		// defaultTip is rebuilt dynamically via DEFAULT_TIP_HTML
 		let lastCanvasWidth = 0;
 		let lastCanvasHeight = 0;
 		let parallaxX = 0;
@@ -475,57 +526,49 @@ import Layout from '../layouts/Layout.astro';
 			});
 			hotspot.addEventListener('click', () => {
 				selectLevel(marker);
+				if (marker.userData.project?.href) {
+					window.location.href = marker.userData.project.href;
+				}
 			});
 			hotspotLayer.append(hotspot);
 			hotspotButtons.push(hotspot);
 		});
 
 		const updateTip = (project, isActive = false) => {
+			const ui = getUI();
 			floatingTip.innerHTML = `
-				<button class="tip-close" type="button" aria-label="Close project preview">x</button>
-				<p class="active-badge">${isActive ? 'Level Active' : 'Level Preview'}</p>
+				<p class="active-badge">${isActive ? ui.levelActive : ui.levelPreview}</p>
 				<p class="tip-kicker">${project.level}</p>
 				<h2>${project.title}</h2>
-				<dl>
-					<div>
-						<dt>Type:</dt>
-						<dd>${project.type}</dd>
-					</div>
-					<div>
-						<dt>Mission:</dt>
-						<dd>${project.mission}</dd>
-					</div>
-					<div>
-						<dt>Role:</dt>
-						<dd>${project.role}</dd>
-					</div>
-					<div>
-						<dt>Difficulty:</dt>
-						<dd>${project.difficulty}</dd>
-					</div>
-					<div>
-						<dt>Rewards Unlocked:</dt>
-						<dd class="tip-chip-list">
-							${project.rewards.map((reward) => `<span>${reward}</span>`).join('')}
-						</dd>
-					</div>
-				</dl>
-				${
-					project.href
-						? `<a class="tip-enter" href="${project.href}">Enter Level</a>`
-						: '<span class="tip-enter is-disabled">Locked</span>'
-				}
 			`;
-			floatingTip.querySelector('.tip-close')?.addEventListener('click', resetPreview);
 			floatingTip.classList.add('is-visible');
 		};
 
+		const showDefaultInfo = () => {
+			const ui = getUI();
+			tip.innerHTML = `
+				<p class="tip-kicker">${ui.infoDefault}</p>
+				<h2>${ui.infoDefaultTitle}</h2>
+				<p>${ui.infoDefaultDesc}</p>
+			`;
+			tip.classList.remove('has-project');
+		};
+
 		const updateHoverPreview = (project) => {
+			const ui = getUI();
 			tip.innerHTML = `
 				<p class="tip-kicker">${project.level}</p>
 				<h2>${project.title}</h2>
-				<p>${project.mission}</p>
+				<dl class="tip-dl">
+					<div><dt>${ui.typeL}</dt><dd>${project.type}</dd></div>
+					<div><dt>${ui.missionL}</dt><dd>${project.mission}</dd></div>
+					<div><dt>${ui.roleL}</dt><dd>${project.role}</dd></div>
+					<div><dt>${ui.diffL}</dt><dd>${project.difficulty}</dd></div>
+					<div><dt>${ui.rewardsL}</dt><dd class="tip-chip-list">${project.rewards.map((r) => `<span>${r}</span>`).join('')}</dd></div>
+				</dl>
+				${project.href ? `<a class="tip-enter" href="${project.href}">${ui.enter}</a>` : `<span class="tip-enter is-disabled">${ui.locked}</span>`}
 			`;
+			tip.classList.add('has-project');
 		};
 
 		const showLevelPreview = (mesh) => {
@@ -553,7 +596,7 @@ import Layout from '../layouts/Layout.astro';
 				animatePlayerMarkerTo(selected);
 				return;
 			}
-			tip.innerHTML = defaultTip;
+			showDefaultInfo();
 			updateActivePath(0);
 			floatingTip.classList.remove('is-visible', 'is-left', 'is-above');
 			animatePlayerMarkerTo(levelMeshes[0]);
@@ -589,11 +632,7 @@ import Layout from '../layouts/Layout.astro';
 			selected = mesh;
 			hovered = mesh;
 			const { project, index } = mesh.userData;
-			tip.innerHTML = `
-				<p class="tip-kicker">Route Progress</p>
-				<h2>${project.level} selected</h2>
-				<p>Lizzy is moving toward ${project.title}. Use Enter Level in the active panel to open the project.</p>
-			`;
+			updateHoverPreview(project);
 			updateTip(project, true);
 			updateActivePath(index);
 			positionFloatingTip(mesh);
@@ -721,7 +760,7 @@ import Layout from '../layouts/Layout.astro';
 			selected = null;
 			hoveringHotspot = false;
 			canvas.style.cursor = 'default';
-			tip.innerHTML = defaultTip;
+			showDefaultInfo();
 			hotspotButtons.forEach((button) => button.classList.remove('is-active'));
 			hotspotButtons.forEach((button) => button.classList.remove('is-selected'));
 			updateActivePath(0);
@@ -822,6 +861,9 @@ import Layout from '../layouts/Layout.astro';
 			const project = clickedLevel?.userData.project;
 			if (project) {
 				selectLevel(clickedLevel);
+				if (project.href) {
+					window.location.href = project.href;
+				}
 			}
 		});
 
@@ -878,7 +920,7 @@ import Layout from '../layouts/Layout.astro';
 			} else if (!nextHovered) {
 				canvas.style.cursor = isDraggingMap ? 'grabbing' : 'grab';
 				if (!hovered && !selected && !hoveringHotspot) {
-					tip.innerHTML = defaultTip;
+					// panel is hidden — nothing to update
 				}
 			}
 
@@ -930,6 +972,34 @@ import Layout from '../layouts/Layout.astro';
 			requestAnimationFrame(render);
 		};
 
+		document.addEventListener('langchange', (e: Event) => {
+			const l = (e as CustomEvent).detail.lang;
+			buildFallbackGrid();
+			levelMeshes.forEach((mesh, i) => {
+				Object.assign(mesh.userData.project, getProjectData(i));
+			});
+			const ui = getUI();
+			if (selected) {
+				const proj = selected.userData.project;
+				updateHoverPreview(proj);
+				updateTip(proj, true);
+			} else if (hovered) {
+				updateHoverPreview(hovered.userData.project);
+				if (floatingTip instanceof HTMLElement && floatingTip.classList.contains('is-visible')) {
+					updateTip(hovered.userData.project, false);
+				}
+			} else {
+				showDefaultInfo();
+			}
+			hotspotButtons.forEach((btn, i) => {
+				const proj = getProjectData(i);
+				btn.setAttribute('aria-label', `${proj.level}: ${proj.title}`);
+				const strong = btn.querySelector('strong');
+				if (strong) strong.textContent = proj.title;
+			});
+		});
+
+		showDefaultInfo();
 		window.addEventListener('resize', resize);
 		new ResizeObserver(resize).observe(canvas);
 		requestAnimationFrame(resize);
@@ -1023,18 +1093,37 @@ import Layout from '../layouts/Layout.astro';
 		font-size: clamp(0.95rem, 1.2vw, 1.08rem);
 	}
 
+	.levels-instructions {
+		display: flex;
+		gap: 14px;
+		width: min(100%, 1320px);
+		margin: clamp(18px, 3vh, 28px) auto 0;
+	}
+
+	.levels-instructions .map-tip,
+	.levels-instructions .level-help {
+		flex: 1;
+	}
+
 	.levels-playfield {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: 22px;
+		grid-template-columns: clamp(240px, 28%, 300px) 1fr;
+		gap: 18px;
 		align-items: start;
 		width: min(100%, 1320px);
-		margin: 18px auto 0;
+		margin: 14px auto 0;
+	}
+
+	.levels-sidebar {
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+		position: sticky;
+		top: 80px;
 	}
 
 	.map-column {
-		display: grid;
-		gap: 16px;
+		min-width: 0;
 	}
 
 	.map-shell {
@@ -1207,24 +1296,26 @@ import Layout from '../layouts/Layout.astro';
 	.map-hotspot {
 		position: absolute;
 		display: grid;
-		gap: 2px;
+		gap: 0;
 		width: max-content;
 		max-width: 180px;
 		border: 2px solid rgba(214, 198, 245, 0.85);
-		border-radius: 16px;
+		border-radius: 999px;
 		background: rgba(255, 255, 255, 0.9);
-		box-shadow: 0 10px 22px rgba(123, 113, 108, 0.1);
+		box-shadow: 0 4px 12px rgba(123, 113, 108, 0.1);
 		color: #4a403a;
 		cursor: pointer;
 		font-family: inherit;
-		padding: 8px 10px;
+		padding: 5px 10px;
 		pointer-events: auto;
 		text-align: left;
 		transform: translate(-50%, 38px);
 		transition:
-			background 160ms ease,
-			box-shadow 160ms ease,
-			transform 160ms ease;
+			background 180ms ease,
+			box-shadow 180ms ease,
+			border-radius 180ms ease,
+			padding 180ms ease,
+			transform 180ms ease;
 	}
 
 	.map-hotspot span {
@@ -1236,23 +1327,39 @@ import Layout from '../layouts/Layout.astro';
 	}
 
 	.map-hotspot strong {
+		display: block;
 		overflow: hidden;
+		max-height: 0;
 		font-size: 0.68rem;
 		line-height: 1.2;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		opacity: 0;
+		transition:
+			max-height 180ms ease,
+			opacity 180ms ease;
 	}
 
 	.map-hotspot:hover,
 	.map-hotspot:focus-visible,
 	.map-hotspot.is-active,
 	.map-hotspot.is-selected {
+		border-radius: 14px;
 		background: #fff7f1;
 		box-shadow:
 			0 0 0 5px rgba(249, 228, 232, 0.48),
 			0 12px 26px rgba(214, 198, 245, 0.2);
 		outline: none;
+		padding: 8px 10px;
 		transform: translate(-50%, 30px);
+	}
+
+	.map-hotspot:hover strong,
+	.map-hotspot:focus-visible strong,
+	.map-hotspot.is-active strong,
+	.map-hotspot.is-selected strong {
+		max-height: 2em;
+		opacity: 1;
 	}
 
 	.map-hotspot.is-selected {
@@ -1302,32 +1409,34 @@ import Layout from '../layouts/Layout.astro';
 	}
 
 	.map-tip {
-		width: min(100%, 1180px);
-		padding: 18px 20px;
-		border: 5px solid #a8d870;
+		padding: 16px 18px;
+		border: 4px solid #a8d870;
 	}
 
-	.map-tip-top {
-		margin: clamp(28px, 5vh, 48px) auto 0;
+	.info-panel {
+		border-color: #d6c6f5;
+		transition: border-color 220ms ease;
+	}
+
+	.info-panel.has-project {
+		border-color: #a8d870;
 	}
 
 	.floating-tip {
 		position: absolute;
 		z-index: 6;
-		width: min(360px, calc(100vw - 40px));
-		max-height: 500px;
-		overflow: hidden;
-		border: 5px solid #a8d870;
-		border-radius: 22px;
+		width: min(200px, calc(100% - 24px));
+		border: 3px solid #a8d870;
+		border-radius: 16px;
 		background: rgba(255, 255, 255, 0.96);
-		box-shadow: 0 18px 38px rgba(123, 113, 108, 0.16);
+		box-shadow: 0 10px 24px rgba(123, 113, 108, 0.14);
 		opacity: 0;
-		padding: 12px 14px;
+		padding: 10px 12px;
 		pointer-events: none;
-		transform: translate(22px, -52%) scale(0.98);
+		transform: translate(16px, -50%) scale(0.95);
 		transition:
-			opacity 220ms ease,
-			transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+			opacity 200ms ease,
+			transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1);
 	}
 
 	.tip-close {
@@ -1366,19 +1475,19 @@ import Layout from '../layouts/Layout.astro';
 	.floating-tip.is-visible {
 		opacity: 1;
 		pointer-events: auto;
-		transform: translate(22px, -52%) scale(1);
+		transform: translate(16px, -50%) scale(1);
 	}
 
 	.floating-tip.is-left {
-		transform: translate(calc(-100% - 22px), -52%) scale(1);
+		transform: translate(calc(-100% - 16px), -50%) scale(1);
 	}
 
 	.floating-tip.is-above {
-		transform: translate(22px, calc(-100% - 22px)) scale(1);
+		transform: translate(16px, calc(-100% - 16px)) scale(1);
 	}
 
 	.floating-tip.is-left.is-above {
-		transform: translate(calc(-100% - 22px), calc(-100% - 22px)) scale(1);
+		transform: translate(calc(-100% - 16px), calc(-100% - 16px)) scale(1);
 	}
 
 	.tip-kicker,
@@ -1396,8 +1505,13 @@ import Layout from '../layouts/Layout.astro';
 		margin: 0 0 10px;
 		color: #4a403a;
 		font-family: 'Pixelify Sans', 'Courier New', monospace;
-		font-size: 1.46rem;
-		line-height: 1;
+		font-size: 1.3rem;
+		line-height: 1.1;
+	}
+
+	.floating-tip h2 {
+		font-size: 1rem;
+		margin-bottom: 0;
 	}
 
 	.map-tip p,
@@ -1405,61 +1519,61 @@ import Layout from '../layouts/Layout.astro';
 	.level-help p {
 		margin: 0;
 		color: #6b625d;
-		font-size: 0.9rem;
-		line-height: 1.6;
+		font-size: 0.82rem;
+		line-height: 1.55;
 	}
 
-	.floating-tip dl {
+	/* Left panel detail dl */
+	.tip-dl {
 		display: grid;
-		gap: 5px;
-		margin: 0;
+		gap: 7px;
+		margin: 10px 0 0;
 		color: #6b625d;
-		font-size: 0.62rem;
-		line-height: 1.3;
+		font-size: 0.74rem;
+		line-height: 1.35;
 	}
 
-	.floating-tip dt {
+	.tip-dl dt {
 		color: #4a403a;
 		font-weight: 800;
 	}
 
-	.floating-tip dd {
-		margin: 2px 0 0;
+	.tip-dl dd {
+		margin: 1px 0 0;
 	}
 
-	.floating-tip .tip-chip-list {
+	.tip-dl .tip-chip-list {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 6px;
-		margin-top: 6px;
+		gap: 5px;
+		margin-top: 5px;
 	}
 
-	.floating-tip .tip-chip-list span {
+	.tip-dl .tip-chip-list span {
 		display: inline-flex;
 		align-items: center;
-		min-height: 24px;
+		min-height: 22px;
 		border-radius: 999px;
 		background: #fff0d6;
 		box-shadow: inset 0 0 0 1px rgba(244, 166, 189, 0.65);
 		color: #4a403a;
-		font-size: 0.58rem;
+		font-size: 0.62rem;
 		font-weight: 800;
-		line-height: 1.15;
-		padding: 5px 9px;
+		padding: 4px 8px;
 	}
 
 	.tip-enter {
-		display: inline-flex;
+		display: flex;
 		align-items: center;
 		justify-content: center;
-		min-height: 30px;
-		margin-top: 10px;
+		min-height: 34px;
+		margin-top: 12px;
 		border-radius: 12px;
 		background: #f4a6bd;
 		color: #4a403a;
-		font-size: 0.7rem;
+		font-size: 0.76rem;
 		font-weight: 800;
-		padding: 7px 16px;
+		padding: 8px 18px;
 		transition:
 			background 160ms ease,
 			transform 160ms ease,
@@ -1478,9 +1592,9 @@ import Layout from '../layouts/Layout.astro';
 	}
 
 	.level-help {
-		width: min(360px, 100%);
-		padding: 18px 20px;
-		border: 5px solid #f4a6bd;
+		width: 100%;
+		padding: 14px 16px;
+		border: 4px solid #f4a6bd;
 	}
 
 	.levels-fallback {
@@ -1641,6 +1755,15 @@ import Layout from '../layouts/Layout.astro';
 		}
 	}
 
+	@media (max-width: 680px) {
+		.levels-playfield {
+			grid-template-columns: 1fr;
+		}
+		.levels-sidebar {
+			position: static;
+		}
+	}
+
 	@media (max-width: 740px) {
 		.levels-screen {
 			padding: 96px 16px 30px;
@@ -1672,8 +1795,7 @@ import Layout from '../layouts/Layout.astro';
 		}
 
 		.floating-tip {
-			width: min(310px, calc(100vw - 32px));
-			max-height: 440px;
+			width: min(180px, calc(100vw - 32px));
 			transform: translate(-50%, -100%) scale(0.98);
 		}
 

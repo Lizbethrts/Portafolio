@@ -1,0 +1,960 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const interactionNodes = [
+	'Move and position the needle',
+	'Observe depth in real time',
+	'Cross simulated tissue layers',
+	'Feel resistance during insertion',
+	'Connect visual and physical feedback',
+];
+
+const contributions = [
+	'Interaction Concept',
+	'Haptic Experience Design',
+	'Unity Implementation',
+	'CHAI3D Integration',
+	'Force Feedback Exploration',
+	'Visual Simulation Support',
+	'Device Testing',
+	'Iteration & Troubleshooting',
+];
+
+const tools = [
+	{ name: 'Unity', icon: '◈' },
+	{ name: 'CHAI3D', icon: '◉' },
+	{ name: 'Haptic Device', icon: '⊕' },
+	{ name: '3 Degrees of Freedom', icon: '⊞' },
+	{ name: 'Real-Time Force Feedback', icon: '◎' },
+	{ name: 'Interactive Simulation', icon: '◇' },
+];
+
+const artifacts = [
+	{
+		src: '/images/Interactive Tech/WhatsApp Image 2026-06-19 at 11.58.43 AM.jpeg',
+		alt: 'Haptic injection simulator running in Unity',
+		title: 'Simulator Overview',
+		caption: 'The simulator connected visual movement with physical force feedback to create a more immersive training experience.',
+	},
+	{
+		src: '/images/Interactive Tech/WhatsApp Image 2026-06-19 at 11.58.59 AM.jpeg',
+		alt: 'Virtual needle interaction inside haptic training prototype',
+		title: 'Needle Interaction',
+		caption: 'Users could move the virtual needle and observe its position and depth in real time.',
+	},
+	{
+		src: '/images/Interactive Tech/WhatsApp Image 2026-06-19 at 11.59.39 AM.jpeg',
+		alt: 'Simulated tissue layers in needle insertion experience',
+		title: 'Layer Feedback',
+		caption: 'The visual interface represented different simulated layers while the device provided resistance during insertion.',
+	},
+];
+---
+
+<Layout title="Haptic Injection Simulator | Secret Lab | Lizzy World" frame>
+	<script is:inline>
+	window.__i18nStrings = {
+		en: {
+			back: 'Back to Secret Lab',
+			backAria: 'Back to Secret Lab',
+			label: 'EXPERIMENT_01',
+			title: 'Haptic Injection Simulator',
+			subtitle: 'A functional training prototype exploring how force feedback can support needle insertion practice.',
+			viewSim: 'View Simulator',
+			backLab: 'Back to Secret Lab',
+			status: 'Functional Prototype',
+			typeLabel: 'Type', roleLabel: 'Role', statusLabel: 'Status',
+			overviewTitle: 'Project Overview',
+			goalTitle: 'Project Goal',
+			interactionTitle: 'Interaction',
+			contributionTitle: 'My Contribution',
+			challengeTitle: 'Main Challenge',
+			toolsTitle: 'Tools & Technology',
+			artifactsTitle: 'Experiment Artifacts',
+			artifactsSubtitle: 'Screenshots from the working simulator.',
+			outcomeTitle: 'Experiment Complete',
+			achievementLabel: 'Achievement Unlocked',
+			achievement: 'Haptic Interaction + Multisensory Prototype',
+			navBackTech: 'Back to Interactive Tech',
+			navPrev: 'Previous Experiment',
+			navNext: 'Next Experiment',
+			navNPC: 'Talk to NPC',
+		},
+		es: {
+			back: 'Volver al Laboratorio',
+			backAria: 'Volver al Laboratorio Secreto',
+			label: 'EXPERIMENTO_01',
+			title: 'Simulador de Inyección Háptico',
+			subtitle: 'Un prototipo de entrenamiento funcional que explora cómo la retroalimentación de fuerza puede apoyar la práctica de inserción de agujas.',
+			viewSim: 'Ver Simulador',
+			backLab: 'Volver al Laboratorio',
+			status: 'Prototipo Funcional',
+			typeLabel: 'Tipo', roleLabel: 'Rol', statusLabel: 'Estado',
+			overviewTitle: 'Resumen del Proyecto',
+			goalTitle: 'Objetivo del Proyecto',
+			interactionTitle: 'Interacción',
+			contributionTitle: 'Mi Contribución',
+			challengeTitle: 'Reto Principal',
+			toolsTitle: 'Herramientas y Tecnología',
+			artifactsTitle: 'Artefactos del Experimento',
+			artifactsSubtitle: 'Capturas de pantalla del simulador en funcionamiento.',
+			outcomeTitle: 'Experimento Completado',
+			achievementLabel: 'Logro Desbloqueado',
+			achievement: 'Interacción Háptica + Prototipo Multisensorial',
+			navBackTech: 'Volver a Tecnología Interactiva',
+			navPrev: 'Experimento Anterior',
+			navNext: 'Siguiente Experimento',
+			navNPC: 'Hablar con NPC',
+		},
+	};
+	</script>
+
+	<main class="sim-screen" aria-labelledby="sim-title">
+		<a class="back-link" href="/secret-lab" aria-label="Back to Secret Lab" data-i18n="nav.back" data-i18n-aria="nav.backAria">Back</a>
+
+		<!-- ── 1. HERO ──────────────────────────────────────── -->
+		<header class="sim-hero">
+			<div class="sim-hero-copy">
+				<p class="pixel-kicker" data-i18n="label">EXPERIMENT_01</p>
+				<h1 id="sim-title" data-i18n="title">Haptic Injection Simulator</h1>
+				<p class="sim-subtitle" data-i18n="subtitle">
+					A functional training prototype exploring how force feedback can support needle insertion practice.
+				</p>
+
+				<ul class="sim-tags" aria-label="Technologies and topics">
+					<li>Haptic Interaction</li>
+					<li>Unity</li>
+					<li>CHAI3D</li>
+					<li>Force Feedback</li>
+					<li>Medical Training</li>
+					<li>Interactive Simulation</li>
+				</ul>
+
+				<dl class="sim-meta-row">
+					<div>
+						<dt data-i18n="typeLabel">Type</dt>
+						<dd>Haptic Interaction / Training Prototype</dd>
+					</div>
+					<div>
+						<dt data-i18n="roleLabel">Role</dt>
+						<dd>Interaction Design · Development · Integration · Testing</dd>
+					</div>
+				</dl>
+
+				<div class="sim-hero-actions">
+					<a class="secondary-button" href="/secret-lab" data-i18n="backLab">Back to Secret Lab</a>
+				</div>
+			</div>
+
+			<div class="sim-hero-visual" aria-hidden="true">
+				<div class="hero-frame">
+					<img
+						src="/images/Interactive Tech/WhatsApp Image 2026-06-19 at 11.58.43 AM.jpeg"
+						alt="Haptic injection simulator running in Unity"
+						loading="eager"
+						onerror="this.style.display='none'"
+					/>
+					<div class="hero-frame-placeholder">
+						<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<rect x="30" y="6" width="12" height="38" rx="6" fill="#bfd7ed"/>
+							<rect x="33" y="42" width="6" height="14" rx="3" fill="#d6c6f5"/>
+							<circle cx="36" cy="62" r="6" fill="#a8d870" opacity="0.85"/>
+							<circle cx="16" cy="30" r="4" fill="#bfd7ed" opacity="0.5"/>
+							<circle cx="56" cy="30" r="4" fill="#bfd7ed" opacity="0.5"/>
+							<path d="M16 30 Q36 18 56 30" stroke="#bfd7ed" stroke-width="2" fill="none" opacity="0.4"/>
+						</svg>
+						<p>haptic device</p>
+					</div>
+					</div>
+			</div>
+		</header>
+
+		<!-- ── 2. OVERVIEW ──────────────────────────────────── -->
+		<section class="sim-section" aria-labelledby="overview-title">
+			<div class="section-header">
+				<p class="pixel-kicker">01</p>
+				<h2 id="overview-title" data-i18n="overviewTitle">Project Overview</h2>
+			</div>
+			<div class="section-body section-body-wide">
+				<p>The project explored how haptic technology could support the practice of needle insertion through a controlled digital simulation.</p>
+				<p>The experience allowed users to move a virtual needle through different simulated tissue layers while receiving physical force feedback from a haptic device.</p>
+				<p>The goal was to connect visual movement, depth, and physical resistance in a single interactive experience.</p>
+			</div>
+		</section>
+
+		<!-- ── 3. GOAL ──────────────────────────────────────── -->
+		<section class="sim-section" aria-labelledby="goal-title">
+			<div class="section-header">
+				<p class="pixel-kicker">02</p>
+				<h2 id="goal-title" data-i18n="goalTitle">Project Goal</h2>
+			</div>
+			<div class="section-body section-body-wide">
+				<p>The goal was to explore how force-feedback technology could be used in educational or training contexts to help users practice injection-related movements.</p>
+				<p>Instead of interacting only through a screen, the user could physically feel resistance while moving the needle, creating a stronger connection between visual feedback and physical action.</p>
+			</div>
+		</section>
+
+		<!-- ── 4. INTERACTION ────────────────────────────────── -->
+		<section class="sim-section" aria-labelledby="interaction-title">
+			<div class="section-header">
+				<p class="pixel-kicker">03</p>
+				<h2 id="interaction-title" data-i18n="interactionTitle">Interaction</h2>
+			</div>
+			<div class="section-body">
+				<p class="section-intro">The user controlled a virtual needle using a three-degree-of-freedom haptic device. As the needle moved through the simulated environment, the interface showed its position, depth, and the different layers being crossed. At the same time, the device generated physical resistance to make the insertion experience feel more tangible.</p>
+
+				<ul class="interaction-nodes" aria-label="Interaction points">
+					{interactionNodes.map((node, i) => (
+						<li class="interaction-node">
+							<span class="node-number">{String(i + 1).padStart(2, '0')}</span>
+							<span class="node-text">{node}</span>
+						</li>
+					))}
+				</ul>
+			</div>
+		</section>
+
+		<!-- ── 5. CONTRIBUTION ──────────────────────────────── -->
+		<section class="sim-section" aria-labelledby="contribution-title">
+			<div class="section-header">
+				<p class="pixel-kicker">04</p>
+				<h2 id="contribution-title" data-i18n="contributionTitle">My Contribution</h2>
+			</div>
+			<div class="section-body">
+				<p class="section-intro">This was a collaborative project where I participated throughout most of the process. Because the team worked closely together, responsibilities were shared across concept definition, implementation, testing, troubleshooting, and iteration.</p>
+
+				<ul class="contribution-tags" aria-label="Contribution areas">
+					{contributions.map((c) => <li>{c}</li>)}
+				</ul>
+			</div>
+		</section>
+
+		<!-- ── 6. CHALLENGE ─────────────────────────────────── -->
+		<section class="sim-section" aria-labelledby="challenge-title">
+			<div class="section-header">
+				<p class="pixel-kicker">05</p>
+				<h2 id="challenge-title" data-i18n="challengeTitle">Main Challenge</h2>
+			</div>
+			<div class="section-body section-body-wide">
+				<div class="challenge-block">
+					<p>One of the main challenges was the limited amount of accessible information and references about haptic devices and force-feedback interaction.</p>
+					<p>This required experimentation, technical research, testing, and repeated iteration to understand how the device responded and how resistance could be translated into a functional experience.</p>
+					<p>Another important challenge was synchronizing the movement of the virtual needle with the physical sensation generated by the device.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- ── 7. TOOLS ─────────────────────────────────────── -->
+		<section class="sim-section" aria-labelledby="tools-title">
+			<div class="section-header">
+				<p class="pixel-kicker">06</p>
+				<h2 id="tools-title" data-i18n="toolsTitle">Tools & Technology</h2>
+			</div>
+			<div class="section-body">
+				<ul class="tools-grid" aria-label="Tools and technologies">
+					{tools.map((t) => (
+						<li class="tool-card">
+							<span class="tool-icon" aria-hidden="true">{t.icon}</span>
+							<span class="tool-name">{t.name}</span>
+						</li>
+					))}
+				</ul>
+			</div>
+		</section>
+
+		<!-- ── 8. ARTIFACTS ─────────────────────────────────── -->
+		<section class="sim-section" id="artifacts" aria-labelledby="artifacts-title">
+			<div class="section-header">
+				<p class="pixel-kicker">07</p>
+				<h2 id="artifacts-title" data-i18n="artifactsTitle">Experiment Artifacts</h2>
+				<p class="section-subtitle" data-i18n="artifactsSubtitle">Screenshots from the working simulator.</p>
+			</div>
+			<div class="artifacts-grid">
+				{artifacts.map((a, i) => (
+					<figure class:list={['artifact-frame', i === 0 && 'artifact-featured']}>
+						<div class="artifact-img-wrap">
+							<img
+								src={a.src}
+								alt={a.alt}
+								loading="lazy"
+								onerror="this.parentElement.classList.add('img-missing')"
+							/>
+							<div class="artifact-placeholder" aria-hidden="true">
+								<span>{String(i + 1).padStart(2, '0')}</span>
+							</div>
+						</div>
+						<figcaption>
+							<strong>{a.title}</strong>
+							<span>{a.caption}</span>
+						</figcaption>
+					</figure>
+				))}
+			</div>
+		</section>
+
+		<!-- ── 9. OUTCOME ───────────────────────────────────── -->
+		<section class="sim-section outcome-section" aria-labelledby="outcome-title">
+			<div class="outcome-window">
+				<div class="window-bar" aria-hidden="true">
+					<span></span><span></span><span></span>
+				</div>
+				<div class="outcome-body">
+					<div class="section-header">
+						<p class="pixel-kicker">08</p>
+						<h2 id="outcome-title" data-i18n="outcomeTitle">Experiment Complete</h2>
+					</div>
+					<div class="section-body section-body-wide">
+						<p>The final prototype worked successfully and allowed users to control a virtual needle while feeling resistance during the interaction.</p>
+						<p>The project helped me understand how interaction design can move beyond traditional screens and include physical sensation, spatial movement, and real-time feedback.</p>
+						<p>It also strengthened my ability to work with unfamiliar technology, research limited technical documentation, test hardware behavior, and build a multisensory interactive experience.</p>
+					</div>
+					<div class="achievement-badge" role="note" aria-label="Achievement unlocked">
+						<span class="achievement-icon" aria-hidden="true">★</span>
+						<div>
+							<p class="achievement-label" data-i18n="achievementLabel">Achievement Unlocked</p>
+							<p class="achievement-name" data-i18n="achievement">Haptic Interaction + Multisensory Prototype</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ── 10. NAVIGATION ────────────────────────────────── -->
+		<nav class="sim-nav" aria-label="Experiment navigation">
+			<a class="lab-button" href="/secret-lab#interactive-tech-experiments" data-i18n="navBackTech">Back to Interactive Tech</a>
+			<a class="secondary-button" href="/contact" data-i18n="navNPC">Talk to NPC</a>
+		</nav>
+	</main>
+</Layout>
+
+<style is:global>
+	@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Pixelify+Sans:wght@400..700&display=swap');
+
+	body {
+		overflow-x: hidden;
+		background: #fff7f1;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	a { color: inherit; text-decoration: none; }
+
+	.sim-screen {
+		min-height: 100svh;
+		padding: clamp(104px, 12vh, 128px) clamp(20px, 6vw, 80px) 80px;
+		background:
+			radial-gradient(circle at 8% 14%, rgba(191, 215, 237, 0.55), transparent 28%),
+			radial-gradient(circle at 90% 10%, rgba(249, 228, 232, 0.48), transparent 24%),
+			#fff7f1;
+		color: #4a403a;
+		font-family: 'Comfortaa', 'Trebuchet MS', sans-serif;
+	}
+
+	.back-link {
+		position: fixed;
+		top: 24px;
+		left: 24px;
+		z-index: 10;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 92px;
+		min-height: 34px;
+		border-radius: 12px;
+		background: #f4a6bd;
+		color: #4a403a;
+		font-size: 0.78rem;
+		font-weight: 700;
+	}
+
+	.pixel-kicker {
+		margin: 0 0 10px;
+		color: #7baeca;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 0.9rem;
+		font-weight: 800;
+		text-transform: uppercase;
+	}
+
+	/* ── HERO ─────────────────────────────────── */
+	.sim-hero {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(280px, 480px);
+		gap: clamp(28px, 5vw, 60px);
+		align-items: center;
+		width: min(100%, 1180px);
+		margin-inline: auto;
+	}
+
+	.sim-hero-copy h1 {
+		margin: 0 0 14px;
+		color: #4a403a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: clamp(2.6rem, 6vw, 5rem);
+		font-weight: 700;
+		line-height: 0.95;
+	}
+
+	.sim-subtitle {
+		margin: 0 0 22px;
+		color: #7b716c;
+		font-size: clamp(1rem, 1.3vw, 1.12rem);
+		line-height: 1.7;
+		max-width: 62ch;
+	}
+
+	.sim-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin: 0 0 24px;
+		padding: 0;
+		list-style: none;
+	}
+
+	.sim-tags li {
+		padding: 6px 12px;
+		border: 1px solid rgba(191, 215, 237, 0.8);
+		border-radius: 999px;
+		background: rgba(191, 215, 237, 0.12);
+		color: #4a403a;
+		font-size: 0.76rem;
+		font-weight: 700;
+	}
+
+	.sim-meta-row {
+		display: grid;
+		gap: 10px;
+		margin: 0 0 28px;
+		padding: 16px 18px;
+		border: 2px solid rgba(191, 215, 237, 0.6);
+		border-radius: 18px;
+		background: rgba(255, 255, 255, 0.7);
+	}
+
+	.sim-meta-row div {
+		display: flex;
+		gap: 8px;
+		flex-wrap: wrap;
+	}
+
+	.sim-meta-row dt {
+		color: #4a403a;
+		font-size: 0.78rem;
+		font-weight: 800;
+	}
+
+	.sim-meta-row dd {
+		margin: 0;
+		color: #7b716c;
+		font-size: 0.78rem;
+	}
+
+	.status-chip {
+		display: inline-flex;
+		align-items: center;
+		padding: 3px 10px;
+		border-radius: 999px;
+		background: #a8d870;
+		color: #4a403a !important;
+		font-weight: 800 !important;
+	}
+
+	.sim-hero-actions {
+		display: flex;
+		gap: 12px;
+		flex-wrap: wrap;
+	}
+
+	.hero-frame {
+		position: relative;
+		display: grid;
+		place-items: center;
+		min-height: 340px;
+		overflow: hidden;
+		border: 3px solid rgba(191, 215, 237, 0.7);
+		border-radius: 26px;
+		background: linear-gradient(145deg, rgba(191, 215, 237, 0.3) 0%, rgba(214, 198, 245, 0.2) 100%);
+		box-shadow: 0 20px 48px rgba(191, 215, 237, 0.24);
+	}
+
+	.hero-frame img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		border-radius: 23px;
+	}
+
+	.hero-frame-placeholder {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 12px;
+		color: rgba(74, 64, 58, 0.3);
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 0.72rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		pointer-events: none;
+	}
+
+	.sim-status-badge {
+		position: absolute;
+		bottom: 16px;
+		right: 16px;
+		z-index: 2;
+		display: inline-flex;
+		align-items: center;
+		padding: 7px 13px;
+		border-radius: 999px;
+		background: #a8d870;
+		color: #4a403a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 0.68rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		animation: badge-glow 2.8s ease-in-out infinite;
+	}
+
+	@keyframes badge-glow {
+		0%, 100% { box-shadow: 0 0 0 0 rgba(168, 216, 112, 0.5); }
+		50% { box-shadow: 0 0 0 8px rgba(168, 216, 112, 0); }
+	}
+
+	/* ── SECTIONS ─────────────────────────────── */
+	.sim-section {
+		width: min(100%, 1180px);
+		margin: clamp(52px, 9vh, 80px) auto 0;
+	}
+
+	.section-header {
+		margin-bottom: 28px;
+	}
+
+	.section-header h2 {
+		margin: 0;
+		color: #4a403a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: clamp(1.8rem, 3vw, 2.8rem);
+		font-weight: 700;
+		line-height: 1;
+	}
+
+	.section-subtitle {
+		margin: 8px 0 0;
+		color: #7b716c;
+		font-size: 0.96rem;
+	}
+
+	.section-body {
+		display: grid;
+		gap: 16px;
+	}
+
+	.section-body-wide {
+		max-width: 72ch;
+	}
+
+	.section-body p,
+	.section-intro {
+		margin: 0;
+		color: #7b716c;
+		font-size: clamp(0.94rem, 1.1vw, 1.02rem);
+		line-height: 1.75;
+	}
+
+	/* ── INTERACTION NODES ───────────────────── */
+	.interaction-nodes {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 12px;
+		margin: 20px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.interaction-node {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 14px 16px;
+		border: 2px solid rgba(191, 215, 237, 0.65);
+		border-radius: 16px;
+		background: rgba(255, 255, 255, 0.85);
+		box-shadow: 0 8px 20px rgba(191, 215, 237, 0.12);
+		transition: transform 160ms ease, box-shadow 160ms ease;
+	}
+
+	.interaction-node:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 14px 28px rgba(191, 215, 237, 0.2);
+	}
+
+	.node-number {
+		flex-shrink: 0;
+		width: 30px;
+		height: 30px;
+		display: grid;
+		place-items: center;
+		border-radius: 10px;
+		background: rgba(191, 215, 237, 0.28);
+		color: #7baeca;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 0.72rem;
+		font-weight: 800;
+	}
+
+	.node-text {
+		color: #4a403a;
+		font-size: 0.82rem;
+		font-weight: 700;
+		line-height: 1.35;
+	}
+
+	/* ── CONTRIBUTION TAGS ───────────────────── */
+	.contribution-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin: 18px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.contribution-tags li {
+		padding: 9px 16px;
+		border: 2px solid rgba(191, 215, 237, 0.7);
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.88);
+		color: #4a403a;
+		font-size: 0.8rem;
+		font-weight: 700;
+		transition: background 160ms ease, transform 160ms ease;
+	}
+
+	.contribution-tags li:hover {
+		background: rgba(191, 215, 237, 0.2);
+		transform: translateY(-1px);
+	}
+
+	/* ── CHALLENGE ───────────────────────────── */
+	.challenge-block {
+		display: grid;
+		gap: 14px;
+		padding: 22px 24px;
+		border: 2px solid rgba(249, 228, 232, 0.85);
+		border-radius: 20px;
+		background: rgba(255, 255, 255, 0.78);
+		box-shadow: 0 12px 28px rgba(249, 228, 232, 0.18);
+	}
+
+	/* ── TOOLS ───────────────────────────────── */
+	.tools-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+		gap: 12px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.tool-card {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 14px 16px;
+		border: 2px solid #d6c6f5;
+		border-radius: 16px;
+		background: rgba(255, 255, 255, 0.88);
+		box-shadow: 0 8px 20px rgba(214, 198, 245, 0.12);
+		transition: transform 160ms ease, box-shadow 160ms ease;
+	}
+
+	.tool-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 14px 28px rgba(214, 198, 245, 0.2);
+	}
+
+	.tool-icon {
+		flex-shrink: 0;
+		color: #b8977a;
+		font-size: 1.1rem;
+	}
+
+	.tool-name {
+		color: #4a403a;
+		font-size: 0.82rem;
+		font-weight: 700;
+		line-height: 1.25;
+	}
+
+	/* ── ARTIFACTS ───────────────────────────── */
+	.artifacts-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 18px;
+		margin-top: 8px;
+	}
+
+	.artifact-frame {
+		display: grid;
+		gap: 12px;
+		margin: 0;
+	}
+
+	.artifact-featured {
+		grid-column: 1 / -1;
+	}
+
+	.artifact-img-wrap {
+		position: relative;
+		display: grid;
+		place-items: center;
+		min-height: 220px;
+		overflow: hidden;
+		border: 2px solid rgba(191, 215, 237, 0.65);
+		border-radius: 20px;
+		background: linear-gradient(145deg, rgba(191, 215, 237, 0.22), rgba(214, 198, 245, 0.16));
+	}
+
+	.artifact-featured .artifact-img-wrap {
+		min-height: 320px;
+	}
+
+	.artifact-img-wrap img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		border-radius: 18px;
+	}
+
+	.artifact-placeholder {
+		color: rgba(74, 64, 58, 0.25);
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 2.8rem;
+		font-weight: 800;
+		pointer-events: none;
+	}
+
+	.artifact-img-wrap.img-missing .artifact-placeholder {
+		display: grid;
+		place-items: center;
+	}
+
+	figcaption {
+		display: grid;
+		gap: 4px;
+		padding: 0 2px;
+	}
+
+	figcaption strong {
+		color: #4a403a;
+		font-size: 0.82rem;
+		font-weight: 800;
+	}
+
+	figcaption span {
+		color: #7b716c;
+		font-size: 0.78rem;
+		line-height: 1.55;
+	}
+
+	/* ── OUTCOME ─────────────────────────────── */
+	.outcome-section {
+		margin-bottom: 0;
+	}
+
+	.outcome-window {
+		overflow: hidden;
+		border: 2px solid #d6c6f5;
+		border-radius: 26px;
+		background: rgba(255, 255, 255, 0.88);
+		box-shadow: 0 18px 42px rgba(214, 198, 245, 0.18);
+	}
+
+	.window-bar {
+		display: flex;
+		justify-content: flex-end;
+		gap: 10px;
+		padding: 13px 18px;
+		background: #d6c6f5;
+	}
+
+	.window-bar span {
+		width: 13px;
+		height: 13px;
+		border-radius: 999px;
+		background: #f9e7a3;
+	}
+
+	.window-bar span:nth-child(2) { background: #a8d870; }
+	.window-bar span:nth-child(3) { background: #f4a6bd; }
+
+	.outcome-body {
+		padding: clamp(22px, 3.5vw, 38px);
+	}
+
+	.outcome-body .section-header {
+		margin-bottom: 20px;
+	}
+
+	.achievement-badge {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		margin-top: 28px;
+		padding: 16px 20px;
+		border-radius: 16px;
+		background: linear-gradient(135deg, rgba(168, 216, 112, 0.18), rgba(191, 215, 237, 0.14));
+		border: 2px solid rgba(168, 216, 112, 0.55);
+	}
+
+	.achievement-icon {
+		flex-shrink: 0;
+		width: 40px;
+		height: 40px;
+		display: grid;
+		place-items: center;
+		border-radius: 12px;
+		background: #a8d870;
+		color: #4a403a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 1.2rem;
+		font-weight: 800;
+	}
+
+	.achievement-label {
+		margin: 0 0 3px;
+		color: #6b8f3a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 0.7rem;
+		font-weight: 800;
+		text-transform: uppercase;
+	}
+
+	.achievement-name {
+		margin: 0;
+		color: #4a403a;
+		font-size: 0.88rem;
+		font-weight: 800;
+	}
+
+	/* ── NAV ─────────────────────────────────── */
+	.sim-nav {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		justify-content: center;
+		width: min(100%, 1180px);
+		margin: 48px auto 0;
+	}
+
+	/* ── BUTTONS ─────────────────────────────── */
+	.lab-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 42px;
+		padding: 10px 24px;
+		border: 0;
+		border-radius: 14px;
+		background: #bfd7ed;
+		color: #4a403a;
+		cursor: pointer;
+		font-family: inherit;
+		font-size: 0.82rem;
+		font-weight: 800;
+		transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+	}
+
+	.lab-button:hover,
+	.lab-button:focus-visible {
+		background: #d6e9f6;
+		box-shadow: 0 10px 22px rgba(191, 215, 237, 0.38);
+		transform: translateY(-2px);
+	}
+
+	.secondary-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 42px;
+		padding: 10px 20px;
+		border: 2px solid #d6c6f5;
+		border-radius: 14px;
+		background: rgba(255, 255, 255, 0.88);
+		color: #4a403a;
+		cursor: pointer;
+		font: inherit;
+		font-size: 0.82rem;
+		font-weight: 800;
+		transition: transform 160ms ease, box-shadow 160ms ease;
+	}
+
+	.secondary-button:hover,
+	.secondary-button:focus-visible {
+		box-shadow: 0 8px 20px rgba(214, 198, 245, 0.22);
+		transform: translateY(-2px);
+	}
+
+	/* ── RESPONSIVE ──────────────────────────── */
+	@media (max-width: 860px) {
+		.sim-hero {
+			grid-template-columns: 1fr;
+		}
+
+		.sim-hero-visual {
+			order: -1;
+		}
+
+		.hero-frame {
+			min-height: 260px;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.sim-screen {
+			padding: 96px 18px 58px;
+		}
+
+		.sim-hero-copy h1 {
+			font-size: clamp(2.2rem, 10vw, 3rem);
+		}
+
+		.interaction-nodes {
+			grid-template-columns: 1fr;
+		}
+
+		.tools-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.artifacts-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.artifact-featured {
+			grid-column: 1;
+		}
+
+		.sim-hero-actions,
+		.sim-nav {
+			flex-direction: column;
+		}
+
+		.sim-nav .lab-button,
+		.sim-nav .secondary-button {
+			width: 100%;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		*, *::before, *::after {
+			animation-duration: 1ms !important;
+			transition-duration: 1ms !important;
+		}
+	}
+</style>

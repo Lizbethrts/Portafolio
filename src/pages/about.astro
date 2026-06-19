@@ -3,14 +3,63 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout frame>
+	<script is:inline>
+	window.__i18nStrings = {
+		en: {
+			title: 'Player Profile',
+			intro: {
+				p1: "Hi, I'm Liz, a designer, developer, and naturally curious person from Mexico City who has always been drawn to creating things.",
+				p2: "Long before I understood what UX/UI or interactive design even meant, I was already fascinated by digital experiences through video games. I loved the feeling of exploring worlds, discovering interfaces, interacting with systems, and seeing how small details could completely shape an experience.",
+				p3: "Even as a kid, I knew I wanted to create something. I just didn't know what form that would take yet.",
+			},
+			design: {
+				p1: "What eventually led me to design was realizing that creativity and technology never felt separate to me. I was naturally interested in both.",
+				p2: "I loved imagining ideas visually, but I was equally curious about how things actually worked underneath the surface. That's why interactive design felt so right: it allowed me to combine storytelling, systems, visuals, logic, and human behavior all in one place.",
+				p3: "Today, I work across UX/UI, frontend development, and interactive experiences, creating interfaces that aim to feel dynamic, intuitive, and accessible. Accessibility is especially important to me because I believe good design should work for everyone, not just look good.",
+			},
+			code: {
+				p1: "One thing that deeply shapes the way I design is my programming background. It allows me to move comfortably between both worlds: understanding user needs and creative direction while also understanding the technical side of how products are built. I genuinely enjoy being able to speak both languages and help bridge the gap between design and development.",
+				p2: "I love researching competitors, analyzing interfaces, building prototypes, and exploring how different products solve problems. For me, design is not only about aesthetics — it's about curiosity, experimentation, and creating experiences that feel alive.",
+			},
+			lore: {
+				p1: "Outside of work, I spend a lot of time playing video games, listening to music, collecting pins and postcards, and constantly learning new things just because they spark my curiosity. I'm the kind of person who gets excited about discovering a clever interaction, a beautifully crafted interface, or a creative concept executed thoughtfully.",
+				p2: "At the core of everything I create is the same thing that inspired me when I was younger: the idea that digital experiences can make people feel something.",
+				p3: "And honestly, that's still the part I love the most.",
+			},
+		},
+		es: {
+			title: 'Perfil del Jugador',
+			intro: {
+				p1: "Hola, soy Liz, diseñadora, desarrolladora y una persona naturalmente curiosa de la Ciudad de México que siempre ha sentido atracción por crear cosas.",
+				p2: "Mucho antes de entender qué significaba UX/UI o diseño interactivo, ya estaba fascinada por las experiencias digitales a través de los videojuegos. Me encantaba la sensación de explorar mundos, descubrir interfaces, interactuar con sistemas y ver cómo los pequeños detalles podían cambiar completamente una experiencia.",
+				p3: "Desde niña, sabía que quería crear algo. Solo que todavía no sabía qué forma tomaría.",
+			},
+			design: {
+				p1: "Lo que me llevó al diseño fue darme cuenta de que la creatividad y la tecnología nunca me parecieron cosas separadas. Tenía interés natural en ambas.",
+				p2: "Me encantaba imaginar ideas visualmente, pero también me daba curiosidad cómo funcionaban las cosas por dentro. Por eso el diseño interactivo me pareció tan acertado: me permitía combinar narración, sistemas, visuales, lógica y comportamiento humano en un solo lugar.",
+				p3: "Hoy trabajo en UX/UI, desarrollo frontend y experiencias interactivas, creando interfaces que buscan ser dinámicas, intuitivas y accesibles. La accesibilidad es muy importante para mí porque creo que el buen diseño debe funcionar para todos, no solo verse bien.",
+			},
+			code: {
+				p1: "Algo que moldea profundamente mi manera de diseñar es mi experiencia en programación. Me permite moverme con comodidad entre ambos mundos: entender las necesidades del usuario y la dirección creativa, a la vez que comprendo el lado técnico de cómo se construyen los productos. Disfruto genuinamente poder hablar ambos lenguajes y ayudar a conectar el diseño con el desarrollo.",
+				p2: "Me encanta investigar competidores, analizar interfaces, construir prototipos y explorar cómo diferentes productos resuelven problemas. Para mí, el diseño no solo es estética: es curiosidad, experimentación y crear experiencias que se sientan vivas.",
+			},
+			lore: {
+				p1: "Fuera del trabajo, paso mucho tiempo jugando videojuegos, escuchando música, coleccionando pines y postales, y aprendiendo cosas nuevas solo porque me generan curiosidad. Soy el tipo de persona que se emociona al descubrir una interacción ingeniosa, una interfaz bellamente construida o un concepto creativo bien ejecutado.",
+				p2: "En el centro de todo lo que creo está lo mismo que me inspiró de joven: la idea de que las experiencias digitales pueden hacerte sentir algo.",
+				p3: "Y honestamente, esa sigue siendo la parte que más me encanta.",
+			},
+		},
+	};
+	</script>
+
 	<main class="profile-screen" aria-labelledby="profile-title">
-		<a class="back-link" href="/" aria-label="Volver al menu principal">Back</a>
+		<a class="back-link" href="/" aria-label="Back to Lizzy World menu" data-i18n="nav.back" data-i18n-aria="nav.backAria">Back</a>
 
 		<header class="profile-header">
 			<div class="screen-icon" aria-hidden="true">
 				<img src="/img/menu/3.png" alt="" width="46" height="46" />
 			</div>
-			<h1 id="profile-title">Player Profile</h1>
+			<h1 id="profile-title" data-i18n="title">Player Profile</h1>
 		</header>
 
 		<section class="profile-hero" aria-label="Player Profile intro">
@@ -26,18 +75,18 @@ import Layout from '../layouts/Layout.astro';
 				<img class="sprite sprite--charmander" src="/img/profile/14.png" alt="" aria-hidden="true" />
 				<span class="window-dot" aria-hidden="true"></span>
 				<div class="intro-copy">
-					<p>
-						Hi, I&apos;m Liz, a designer, developer, and naturally curious person from Mexico
+					<p data-i18n="intro.p1">
+						Hi, I'm Liz, a designer, developer, and naturally curious person from Mexico
 						City who has always been drawn to creating things.
 					</p>
-					<p>
+					<p data-i18n="intro.p2">
 						Long before I understood what UX/UI or interactive design even meant, I was
 						already fascinated by digital experiences through video games. I loved the
 						feeling of exploring worlds, discovering interfaces, interacting with systems,
 						and seeing how small details could completely shape an experience.
 					</p>
-					<p>
-						Even as a kid, I knew I wanted to create something. I just didn&apos;t know what
+					<p data-i18n="intro.p3">
+						Even as a kid, I knew I wanted to create something. I just didn't know what
 						form that would take yet.
 					</p>
 				</div>
@@ -53,17 +102,17 @@ import Layout from '../layouts/Layout.astro';
 					<span></span>
 				</div>
 				<div class="ds-copy">
-					<p>
+					<p data-i18n="design.p1">
 						What eventually led me to design was realizing that creativity and technology
 						never felt separate to me. I was naturally interested in both.
 					</p>
-					<p>
+					<p data-i18n="design.p2">
 						I loved imagining ideas visually, but I was equally curious about how things
-						actually worked underneath the surface. That&apos;s why interactive design felt so
+						actually worked underneath the surface. That's why interactive design felt so
 						right: it allowed me to combine storytelling, systems, visuals, logic, and human
 						behavior all in one place.
 					</p>
-					<p>
+					<p data-i18n="design.p3">
 						Today, I work across UX/UI, frontend development, and interactive experiences,
 						creating interfaces that aim to feel dynamic, intuitive, and accessible.
 						Accessibility is especially important to me because I believe good design should
@@ -106,17 +155,17 @@ import Layout from '../layouts/Layout.astro';
 					<span></span>
 				</div>
 				<div class="code-window-body">
-					<p>
+					<p data-i18n="code.p1">
 						One thing that deeply shapes the way I design is my programming background. It
 						allows me to move comfortably between both worlds: understanding user needs and
 						creative direction while also understanding the technical side of how products
 						are built. I genuinely enjoy being able to speak both languages and help bridge
 						the gap between design and development.
 					</p>
-					<p>
+					<p data-i18n="code.p2">
 						I love researching competitors, analyzing interfaces, building prototypes, and
 						exploring how different products solve problems. For me, design is not only about
-						aesthetics — it&apos;s about curiosity, experimentation, and creating experiences
+						aesthetics — it's about curiosity, experimentation, and creating experiences
 						that feel alive.
 					</p>
 				</div>
@@ -129,18 +178,18 @@ import Layout from '../layouts/Layout.astro';
 					<span></span>
 				</div>
 				<div class="lore-window-body">
-					<p>
+					<p data-i18n="lore.p1">
 						Outside of work, I spend a lot of time playing video games, listening to music,
 						collecting pins and postcards, and constantly learning new things just because
-						they spark my curiosity. I&apos;m the kind of person who gets excited about
+						they spark my curiosity. I'm the kind of person who gets excited about
 						discovering a clever interaction, a beautifully crafted interface, or a creative
 						concept executed thoughtfully.
 					</p>
-					<p>
+					<p data-i18n="lore.p2">
 						At the core of everything I create is the same thing that inspired me when I was
 						younger: the idea that digital experiences can make people feel something.
 					</p>
-					<p>And honestly, that&apos;s still the part I love the most.</p>
+					<p data-i18n="lore.p3">And honestly, that's still the part I love the most.</p>
 				</div>
 			</article>
 

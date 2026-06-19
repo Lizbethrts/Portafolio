@@ -27,29 +27,42 @@ const contactOptions = [
 ---
 
 <Layout frame>
+	<script is:inline>
+	window.__i18nStrings = {
+		en: {
+			title:'Talk to NPC', subtitle:"You found Lizzy's contact portal",
+			options:{ 0:{title:'LinkedIn Portal',label:'connect professionally',aria:'Open LinkedIn profile'}, 1:{title:'Inventory',label:'view resume',aria:'View resume inventory'}, 2:{title:'Levels',label:'view projects',aria:'View projects levels'} },
+		},
+		es: {
+			title:'Hablar con NPC', subtitle:'Encontraste el portal de contacto de Lizzy',
+			options:{ 0:{title:'Portal de LinkedIn',label:'conectar profesionalmente',aria:'Abrir perfil de LinkedIn'}, 1:{title:'Inventario',label:'ver CV',aria:'Ver inventario de CV'}, 2:{title:'Niveles',label:'ver proyectos',aria:'Ver niveles de proyectos'} },
+		},
+	};
+	</script>
+
 	<main class="contact-screen" aria-labelledby="contact-title">
-		<a class="back-link" href="/" aria-label="Back to Lizzy World menu">Back</a>
+		<a class="back-link" href="/" aria-label="Back to Lizzy World menu" data-i18n="nav.back" data-i18n-aria="nav.backAria">Back</a>
 
 		<header class="contact-header">
 			<div class="screen-icon" aria-hidden="true">
 				<img src="/img/menu/7.png" alt="" width="46" height="46" />
 			</div>
 			<div>
-				<h1 id="contact-title">Talk to NPC</h1>
-				<p>You found Lizzy&apos;s contact portal</p>
+				<h1 id="contact-title" data-i18n="title">Talk to NPC</h1>
+				<p data-i18n="subtitle">You found Lizzy's contact portal</p>
 			</div>
 		</header>
 
 		<section class="contact-layout" aria-label="Contact options">
 			<nav class="contact-menu" aria-label="Contact menu">
 				{
-					contactOptions.map((option) => (
-						<a class="contact-option" href={option.href} aria-label={option.aria}>
+					contactOptions.map((option, i) => (
+						<a class="contact-option" href={option.href} aria-label={option.aria} data-i18n-aria={`options.${i}.aria`}>
 							<span class="contact-option-title">
 								<img src={option.icon} alt="" width="42" height="42" loading="eager" />
-								{option.title}
+								<span data-i18n={`options.${i}.title`}>{option.title}</span>
 							</span>
-							<span class="contact-button">{option.label}</span>
+							<span class="contact-button" data-i18n={`options.${i}.label`}>{option.label}</span>
 						</a>
 					))
 				}

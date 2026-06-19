@@ -91,7 +91,7 @@ import Layout from '../layouts/Layout.astro';
 
 	let currentIndex = 0;
 	let consoleOn = true;
-	let lang: 'en' | 'es' = 'en';
+	let lang: 'en' | 'es' = (localStorage.getItem('lizzy-lang') as 'en' | 'es') || 'en';
 	let panelMode: 'menu' | 'class' = 'menu';
 	let viewActive = false;   // true cuando una view está abierta dentro de la pantalla
 	let animating = false;    // true mientras corre la animación de zoom (entrar/salir)
@@ -129,6 +129,30 @@ import Layout from '../layouts/Layout.astro';
 	const menuTitle  = menuEl.querySelector('.menu-title') as HTMLElement;
 	const menuLabel  = menuEl.querySelector('.menu-label') as HTMLElement;
 	const menuHint   = menuEl.querySelector('.menu-hint') as HTMLElement;
+
+	const CLASS_PANEL = {
+		en: { kicker: 'PLAYER CLASS', class: 'Class', classVal: 'UX/UI Designer', skill: 'Special skill', skillVal: 'UX + Code', mode: 'Current mode', modeVal: 'Creative' },
+		es: { kicker: 'CLASE DEL JUGADOR', class: 'Clase', classVal: 'Diseñadora UX/UI', skill: 'Habilidad especial', skillVal: 'UX + Código', mode: 'Modo actual', modeVal: 'Creativo' },
+	};
+
+	function updateClassPanel() {
+		const p = CLASS_PANEL[lang];
+		const kicker = menuEl.querySelector('.class-kicker') as HTMLElement;
+		const items  = menuEl.querySelectorAll('.class-list li');
+		if (kicker) kicker.textContent = p.kicker;
+		if (items[0]) {
+			(items[0].querySelector('.class-label') as HTMLElement).textContent = p.class;
+			(items[0].querySelector('.class-value') as HTMLElement).textContent = p.classVal;
+		}
+		if (items[1]) {
+			(items[1].querySelector('.class-label') as HTMLElement).textContent = p.skill;
+			(items[1].querySelector('.class-value') as HTMLElement).textContent = p.skillVal;
+		}
+		if (items[2]) {
+			(items[2].querySelector('.class-label') as HTMLElement).textContent = p.mode;
+			(items[2].querySelector('.class-value') as HTMLElement).textContent = p.modeVal;
+		}
+	}
 
 	function updateMenuContent() {
 		if (panelMode === 'class') return;
@@ -536,7 +560,12 @@ import Layout from '../layouts/Layout.astro';
 			case 'mystery box 2':
 				if (!consoleOn) break;
 				lang = lang === 'en' ? 'es' : 'en';
+				localStorage.setItem('lizzy-lang', lang);
 				updateMenuContent();
+				updateClassPanel();
+				if (viewActive) {
+					screenIframe.contentWindow?.postMessage('console:setlang:' + lang, '*');
+				}
 				break;
 		}
 	});

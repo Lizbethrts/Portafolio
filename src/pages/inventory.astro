@@ -134,27 +134,72 @@ const experienceSlots = [
 ---
 
 <Layout title="Inventory | Lizzy World" frame>
+	<script is:inline>
+	window.__i18nStrings = {
+		en: {
+			title:'Inventory', subtitle:'Equipped skills & tools',
+			heroCopy:'A collection of tools, skills, and special items I use to design, prototype, and build interactive digital experiences.',
+			meta:{ 0:{label:'CLASS',value:'UX/UI Designer'}, 1:{label:'BACKGROUND',value:'Animation & Video Games'}, 2:{label:'SPECIALTY',value:'Interactive Design'} },
+			loadoutKicker:'Loadout', loadoutTitle:'Equipped Tools', loadoutDesc:'My main tools for designing, prototyping, and building digital products.',
+			equipped:'equipped',
+			tools:{ 0:{name:'Figma',desc:'Wireframes, prototypes, user flows, and interface design.'}, 1:{name:'React',desc:'Interactive web interfaces and component-based development.'}, 2:{name:'Next.js',desc:'Web experiences, landing pages, and scalable frontend projects.'}, 3:{name:'TypeScript',desc:'Structured, maintainable, and scalable code.'}, 4:{name:'Unity',desc:'Interactive experiences, gameplay systems, and immersive prototypes.'}, 5:{name:'SwiftUI',desc:'Mobile app interfaces and iOS product experiences.'} },
+			abilityKicker:'Ability Path', skillTitle:'Skill Tree', skillDesc:'How my abilities connect.',
+			coreBuild:'Core Build', coreTitle:'Interactive Digital Experiences',
+			branches:{ 0:{name:'UX/UI Design',desc:'Designing clear, accessible, and enjoyable interfaces.',nodes:['Wireframing','Prototyping','User Flows','Interface Design','User Testing','Interaction Design']}, 1:{name:'Frontend Development',desc:'Building digital interfaces with technical understanding.',nodes:['React','Next.js','TypeScript','Responsive Layouts','Landing Pages','Design-to-Code Translation']}, 2:{name:'Interactive Experiences',desc:'Creating digital moments that respond, move, and feel alive.',nodes:['Interactive Prototyping','Microinteractions','Motion Thinking','Experience Design','Playful Interfaces']}, 3:{name:'Game & Immersive Design',desc:'Using game logic, interaction, and storytelling to create engaging experiences.',nodes:['Unity','C#','Gameplay Systems','Object Interaction','Physics-Based Experiences','VR / Haptic Experiences']}, 4:{name:'Research & Strategy',desc:'Understanding users, competitors, and context before designing solutions.',nodes:['User Research','Benchmarking','Problem Framing','Journey Thinking','Usability Improvements','Iterative Design']} },
+			passiveKicker:'Always Active', passiveTitle:'Passive Abilities', passiveDesc:'Soft skills that support the way I collaborate, solve problems, and design with users in mind.',
+			passive:{ 0:{ability:'User-Centered Thinking',bonus:'+ User Empathy'}, 1:{ability:'Clear Communication',bonus:'+ Clear Communication'}, 2:{ability:'Multidisciplinary Collaboration',bonus:'+ Team Sync'}, 3:{ability:'Analytical Thinking',bonus:'+ Analytical Vision'}, 4:{ability:'Problem Solving',bonus:'+ Problem Solver Mode'} },
+			collectedKicker:'Collected', itemsTitle:'Special Items', itemsDesc:'Achievements, certifications, and experience-based items collected along the way.',
+			special:'special',
+			items:{ 0:{name:'Validated Prototype',desc:'Experience creating functional prototypes and improving them through user testing.'}, 1:{name:'Usability Upgrade',desc:'Experience improving usability through design iterations.'}, 2:{name:'UX + Code Bridge',desc:'Ability to connect design decisions with technical feasibility.'}, 3:{name:'Swift Associate Badge',desc:'App Development with Swift Associate certification.'}, 4:{name:'Unity Essentials Badge',desc:'Unity Essentials Pathway certification.'}, 5:{name:'Interactive Design Scroll',desc:'Current specialization in Interactive Design.'} },
+			rolesKicker:'Roles', expTitle:'Experience Slots',
+			exp:{ 0:{label:'Design Class',role:'UX/UI Designer',desc:'Wireframes, user flows, prototypes, user testing, and iterative interface improvements.'}, 1:{label:'Build Class',role:'Frontend Developer',desc:'Web interfaces and landing pages built with React, Next.js, and TypeScript.'}, 2:{label:'Interaction Class',role:'Gameplay Developer',desc:'Interactive experiences and gameplay systems built in Unity.'} },
+			resumeKicker:'Resume Scroll', resumeTitle:'Want the full inventory?',
+			viewResume:'View Resume', backMap:'Back to Map',
+		},
+		es: {
+			title:'Inventario', subtitle:'Habilidades y herramientas equipadas',
+			heroCopy:'Una colección de herramientas, habilidades y elementos especiales que uso para diseñar, prototipear y construir experiencias digitales interactivas.',
+			meta:{ 0:{label:'CLASE',value:'Diseñadora UX/UI'}, 1:{label:'EXPERIENCIA',value:'Animación y Videojuegos'}, 2:{label:'ESPECIALIDAD',value:'Diseño Interactivo'} },
+			loadoutKicker:'Equipo', loadoutTitle:'Herramientas Equipadas', loadoutDesc:'Mis herramientas principales para diseñar, prototipear y construir productos digitales.',
+			equipped:'equipada',
+			tools:{ 0:{name:'Figma',desc:'Wireframes, prototipos, flujos de usuario y diseño de interfaz.'}, 1:{name:'React',desc:'Interfaces web interactivas y desarrollo basado en componentes.'}, 2:{name:'Next.js',desc:'Experiencias web, páginas de destino y proyectos frontend escalables.'}, 3:{name:'TypeScript',desc:'Código estructurado, mantenible y escalable.'}, 4:{name:'Unity',desc:'Experiencias interactivas, sistemas de juego y prototipos inmersivos.'}, 5:{name:'SwiftUI',desc:'Interfaces de apps móviles y experiencias de productos iOS.'} },
+			abilityKicker:'Ruta de Habilidades', skillTitle:'Árbol de Habilidades', skillDesc:'Cómo se conectan mis habilidades.',
+			coreBuild:'Construcción Central', coreTitle:'Experiencias Digitales Interactivas',
+			branches:{ 0:{name:'UX/UI Design',desc:'Diseñar interfaces claras, accesibles y agradables.',nodes:['Wireframing','Prototipado','Flujos de Usuario','Diseño de Interfaz','Pruebas de Usuario','Diseño de Interacción']}, 1:{name:'Frontend Development',desc:'Construir interfaces digitales con comprensión técnica.',nodes:['React','Next.js','TypeScript','Layouts Responsivos','Landing Pages','Traducción Diseño a Código']}, 2:{name:'Experiencias Interactivas',desc:'Crear momentos digitales que respondan, se muevan y se sientan vivos.',nodes:['Prototipado Interactivo','Microinteracciones','Pensamiento de Movimiento','Experience Design','Interfaces Lúdicas']}, 3:{name:'Game & Diseño Inmersivo',desc:'Usar lógica de juego, interacción y narración para crear experiencias atractivas.',nodes:['Unity','C#','Sistemas de Jugabilidad','Interacción con Objetos','Experiencias con Física','VR / Experiencias Hápticas']}, 4:{name:'Investigación & Estrategia',desc:'Entender usuarios, competidores y contexto antes de diseñar soluciones.',nodes:['Investigación de Usuario','Benchmarking','Definición del Problema','Pensamiento de Journey','Mejoras de Usabilidad','Diseño Iterativo']} },
+			passiveKicker:'Siempre Activo', passiveTitle:'Habilidades Pasivas', passiveDesc:'Habilidades blandas que apoyan la forma en que colaboro, resuelvo problemas y diseño pensando en los usuarios.',
+			passive:{ 0:{ability:'Pensamiento Centrado en el Usuario',bonus:'+ Empatía del Usuario'}, 1:{ability:'Comunicación Clara',bonus:'+ Comunicación Clara'}, 2:{ability:'Colaboración Multidisciplinaria',bonus:'+ Sincronía del Equipo'}, 3:{ability:'Pensamiento Analítico',bonus:'+ Visión Analítica'}, 4:{ability:'Resolución de Problemas',bonus:'+ Modo Solucionador'} },
+			collectedKicker:'Recopilado', itemsTitle:'Elementos Especiales', itemsDesc:'Logros, certificaciones y elementos basados en experiencia recopilados en el camino.',
+			special:'especial',
+			items:{ 0:{name:'Prototipo Validado',desc:'Experiencia creando prototipos funcionales y mejorándolos mediante pruebas de usuario.'}, 1:{name:'Mejora de Usabilidad',desc:'Experiencia mejorando la usabilidad a través de iteraciones de diseño.'}, 2:{name:'Puente UX + Código',desc:'Capacidad de conectar decisiones de diseño con la viabilidad técnica.'}, 3:{name:'Insignia Swift Associate',desc:'Certificación App Development with Swift Associate.'}, 4:{name:'Insignia Unity Essentials',desc:'Certificación Unity Essentials Pathway.'}, 5:{name:'Pergamino de Diseño Interactivo',desc:'Especialización actual en Diseño Interactivo.'} },
+			rolesKicker:'Roles', expTitle:'Espacios de Experiencia',
+			exp:{ 0:{label:'Clase de Diseño',role:'Diseñadora UX/UI',desc:'Wireframes, flujos de usuario, prototipos, pruebas de usuario y mejoras iterativas de interfaz.'}, 1:{label:'Clase de Construcción',role:'Desarrolladora Frontend',desc:'Interfaces web y landing pages construidas con React, Next.js y TypeScript.'}, 2:{label:'Clase de Interacción',role:'Desarrolladora de Jugabilidad',desc:'Experiencias interactivas y sistemas de jugabilidad construidos en Unity.'} },
+			resumeKicker:'Pergamino de CV', resumeTitle:'¿Quieres el inventario completo?',
+			viewResume:'Ver CV', backMap:'Volver al Mapa',
+		},
+	};
+	</script>
+
 	<main class="inventory-screen" aria-labelledby="inventory-title">
-		<a class="back-link" href="/" aria-label="Back to Lizzy World menu">Back</a>
+		<a class="back-link" href="/" aria-label="Back to Lizzy World menu" data-i18n="nav.back" data-i18n-aria="nav.backAria">Back</a>
 
 		<header class="inventory-hero">
 			<div class="inventory-icon" aria-hidden="true">
 				<img src="/img/menu/4.png" alt="" width="46" height="46" />
 			</div>
 			<div class="hero-copy">
-				<p class="pixel-kicker">Inventory</p>
-				<h1 id="inventory-title">Inventory</h1>
-				<p class="hero-subtitle">Equipped skills &amp; tools</p>
-				<p>
+				<p class="pixel-kicker" data-i18n="title">Inventory</p>
+				<h1 id="inventory-title" data-i18n="title">Inventory</h1>
+				<p class="hero-subtitle" data-i18n="subtitle">Equipped skills &amp; tools</p>
+				<p data-i18n="heroCopy">
 					A collection of tools, skills, and special items I use to design, prototype,
 					and build interactive digital experiences.
 				</p>
 			</div>
 			<dl class="metadata-panel" aria-label="Player metadata">
-				{metadata.map(([label, value]) => (
+				{metadata.map(([label, value], i) => (
 					<div>
-						<dt>{label}</dt>
-						<dd>{value}</dd>
+						<dt data-i18n={`meta.${i}.label`}>{label}</dt>
+						<dd data-i18n={`meta.${i}.value`}>{value}</dd>
 					</div>
 				))}
 			</dl>
@@ -162,19 +207,19 @@ const experienceSlots = [
 
 		<section class="inventory-section" aria-labelledby="equipped-tools-title">
 			<div class="section-heading">
-				<p class="pixel-kicker">Loadout</p>
-				<h2 id="equipped-tools-title">Equipped Tools</h2>
-				<p>My main tools for designing, prototyping, and building digital products.</p>
+				<p class="pixel-kicker" data-i18n="loadoutKicker">Loadout</p>
+				<h2 id="equipped-tools-title" data-i18n="loadoutTitle">Equipped Tools</h2>
+				<p data-i18n="loadoutDesc">My main tools for designing, prototyping, and building digital products.</p>
 			</div>
 
 			<div class="tool-grid">
-				{equippedTools.map((tool) => (
+				{equippedTools.map((tool, i) => (
 					<article class="inventory-card tool-card">
 						<div class="item-slot" aria-hidden="true">{tool.icon}</div>
 						<div>
-							<span class="status-label">equipped</span>
-							<h3>{tool.name}</h3>
-							<p>{tool.description}</p>
+							<span class="status-label" data-i18n="equipped">equipped</span>
+							<h3 data-i18n={`tools.${i}.name`}>{tool.name}</h3>
+							<p data-i18n={`tools.${i}.desc`}>{tool.description}</p>
 						</div>
 					</article>
 				))}
@@ -183,24 +228,24 @@ const experienceSlots = [
 
 		<section class="inventory-section skill-tree-section" aria-labelledby="skill-tree-title">
 			<div class="section-heading">
-				<p class="pixel-kicker">Ability Path</p>
-				<h2 id="skill-tree-title">Skill Tree</h2>
-				<p>How my abilities connect.</p>
+				<p class="pixel-kicker" data-i18n="abilityKicker">Ability Path</p>
+				<h2 id="skill-tree-title" data-i18n="skillTitle">Skill Tree</h2>
+				<p data-i18n="skillDesc">How my abilities connect.</p>
 			</div>
 
 			<div class="skill-tree-grid">
 				<div class="skill-tree-core">
-					<span>Core Build</span>
-					<strong>Interactive Digital Experiences</strong>
+					<span data-i18n="coreBuild">Core Build</span>
+					<strong data-i18n="coreTitle">Interactive Digital Experiences</strong>
 				</div>
-				{skillBranches.map((branch) => (
+				{skillBranches.map((branch, i) => (
 					<article class:list={['skill-branch', `skill-branch-${branch.accent}`]}>
 						<div class="branch-copy">
-							<h3>{branch.name}</h3>
-							<p>{branch.description}</p>
+							<h3 data-i18n={`branches.${i}.name`}>{branch.name}</h3>
+							<p data-i18n={`branches.${i}.desc`}>{branch.description}</p>
 						</div>
 						<ul class="branch-nodes" aria-label={`${branch.name} nodes`}>
-							{branch.nodes.map((node) => <li>{node}</li>)}
+							{branch.nodes.map((node, j) => <li data-i18n={`branches.${i}.nodes.${j}`}>{node}</li>)}
 						</ul>
 					</article>
 				))}
@@ -209,16 +254,16 @@ const experienceSlots = [
 
 		<section class="inventory-section panel-card passive-panel" aria-labelledby="passive-abilities-title">
 			<div class="section-heading">
-				<p class="pixel-kicker">Always Active</p>
-				<h2 id="passive-abilities-title">Passive Abilities</h2>
-				<p>Soft skills that support the way I collaborate, solve problems, and design with users in mind.</p>
+				<p class="pixel-kicker" data-i18n="passiveKicker">Always Active</p>
+				<h2 id="passive-abilities-title" data-i18n="passiveTitle">Passive Abilities</h2>
+				<p data-i18n="passiveDesc">Soft skills that support the way I collaborate, solve problems, and design with users in mind.</p>
 			</div>
 
 			<div class="passive-list">
-				{passiveAbilities.map(([ability, bonus]) => (
+				{passiveAbilities.map(([ability, bonus], i) => (
 					<article>
-						<span>{bonus}</span>
-						<h3>{ability}</h3>
+						<span data-i18n={`passive.${i}.bonus`}>{bonus}</span>
+						<h3 data-i18n={`passive.${i}.ability`}>{ability}</h3>
 					</article>
 				))}
 			</div>
@@ -226,18 +271,18 @@ const experienceSlots = [
 
 		<section class="inventory-section" aria-labelledby="special-items-title">
 			<div class="section-heading">
-				<p class="pixel-kicker">Collected</p>
-				<h2 id="special-items-title">Special Items</h2>
-				<p>Achievements, certifications, and experience-based items collected along the way.</p>
+				<p class="pixel-kicker" data-i18n="collectedKicker">Collected</p>
+				<h2 id="special-items-title" data-i18n="itemsTitle">Special Items</h2>
+				<p data-i18n="itemsDesc">Achievements, certifications, and experience-based items collected along the way.</p>
 			</div>
 
 			<div class="special-row">
-				{specialItems.map((item) => (
+				{specialItems.map((item, i) => (
 					<article class="inventory-card special-card">
 						<div class="item-slot item-slot-small" aria-hidden="true">{item.icon}</div>
-						<span class="status-label">special</span>
-						<h3>{item.name}</h3>
-						<p>{item.description}</p>
+						<span class="status-label" data-i18n="special">special</span>
+						<h3 data-i18n={`items.${i}.name`}>{item.name}</h3>
+						<p data-i18n={`items.${i}.desc`}>{item.description}</p>
 					</article>
 				))}
 			</div>
@@ -245,16 +290,16 @@ const experienceSlots = [
 
 		<section class="inventory-section" aria-labelledby="experience-slots-title">
 			<div class="section-heading">
-				<p class="pixel-kicker">Roles</p>
-				<h2 id="experience-slots-title">Experience Slots</h2>
+				<p class="pixel-kicker" data-i18n="rolesKicker">Roles</p>
+				<h2 id="experience-slots-title" data-i18n="expTitle">Experience Slots</h2>
 			</div>
 
 			<div class="experience-grid">
-				{experienceSlots.map((slot) => (
+				{experienceSlots.map((slot, i) => (
 					<article class="experience-card">
-						<span class="status-label">{slot.label}</span>
-						<h3>{slot.role}</h3>
-						<p>{slot.description}</p>
+						<span class="status-label" data-i18n={`exp.${i}.label`}>{slot.label}</span>
+						<h3 data-i18n={`exp.${i}.role`}>{slot.role}</h3>
+						<p data-i18n={`exp.${i}.desc`}>{slot.description}</p>
 					</article>
 				))}
 			</div>
@@ -262,8 +307,8 @@ const experienceSlots = [
 
 		<section class="resume-scroll" aria-labelledby="resume-scroll-title">
 			<div>
-				<p class="pixel-kicker">Resume Scroll</p>
-				<h2 id="resume-scroll-title">Want the full inventory?</h2>
+				<p class="pixel-kicker" data-i18n="resumeKicker">Resume Scroll</p>
+				<h2 id="resume-scroll-title" data-i18n="resumeTitle">Want the full inventory?</h2>
 			</div>
 			<div class="cta-actions">
 				<a
@@ -271,10 +316,11 @@ const experienceSlots = [
 					href="/LizbethTujilloCV.pdf"
 					download="Lizbeth-Trujillo-CV.pdf"
 					aria-label="Download resume PDF"
+					data-i18n="viewResume"
 				>
 					View Resume
 				</a>
-				<a class="secondary-button" href="/levels" aria-label="Back to levels map">Back to Map</a>
+				<a class="secondary-button" href="/levels" aria-label="Back to levels map" data-i18n="backMap">Back to Map</a>
 			</div>
 		</section>
 	</main>

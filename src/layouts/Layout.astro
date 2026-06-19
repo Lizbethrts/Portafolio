@@ -59,11 +59,11 @@ const { title = 'Welcome To Lizzy World', frame = false } = Astro.props;
 				<span></span><span></span><span></span>
 			</button>
 			<div class="embed-nav-panel" id="embed-nav-panel">
-				<a class="embed-nav-link" href="/levels" data-console-nav>Levels</a>
-				<a class="embed-nav-link" href="/about" data-console-nav>Player Profile</a>
-				<a class="embed-nav-link" href="/inventory" data-console-nav>Inventory</a>
-				<a class="embed-nav-link" href="/secret-lab" data-console-nav>Secret Lab</a>
-				<a class="embed-nav-link" href="/contact" data-console-nav>Contact</a>
+				<a class="embed-nav-link" href="/levels" data-console-nav data-i18n="nav.levels">Levels</a>
+				<a class="embed-nav-link" href="/about" data-console-nav data-i18n="nav.profile">Player Profile</a>
+				<a class="embed-nav-link" href="/inventory" data-console-nav data-i18n="nav.inventory">Inventory</a>
+				<a class="embed-nav-link" href="/secret-lab" data-console-nav data-i18n="nav.lab">Secret Lab</a>
+				<a class="embed-nav-link" href="/contact" data-console-nav data-i18n="nav.contact">Contact</a>
 			</div>
 		</nav>
 
@@ -101,6 +101,67 @@ const { title = 'Welcome To Lizzy World', frame = false } = Astro.props;
 				});
 			})();
 		</script>
+
+	<script is:inline>
+	(function () {
+		var NAV = {
+			en: { nav: { back: 'Back', backAria: 'Back to Lizzy World menu', levels: 'Levels', profile: 'Player Profile', inventory: 'Inventory', lab: 'Secret Lab', contact: 'Contact' } },
+			es: { nav: { back: 'Volver', backAria: 'Volver al menú de Lizzy World', levels: 'Niveles', profile: 'Perfil del Jugador', inventory: 'Inventario', lab: 'Laboratorio Secreto', contact: 'Contacto' } }
+		};
+		var lang = (typeof localStorage !== 'undefined' && localStorage.getItem('lizzy-lang')) || 'en';
+
+		function get(t, k) {
+			return k.split('.').reduce(function (o, p) { return o && o[p]; }, t);
+		}
+
+		function apply(l) {
+			var navT = NAV[l] || {};
+			var pageT = (window.__i18nStrings && window.__i18nStrings[l]) || {};
+			var t = {};
+			Object.keys(navT).forEach(function (k) { t[k] = navT[k]; });
+			Object.keys(pageT).forEach(function (k) { t[k] = pageT[k]; });
+			t.nav = Object.assign({}, navT.nav || {}, pageT.nav || {});
+
+			document.querySelectorAll('[data-i18n]').forEach(function (e) {
+				var v = get(t, e.getAttribute('data-i18n'));
+				if (v != null) e.textContent = v;
+			});
+			document.querySelectorAll('[data-i18n-html]').forEach(function (e) {
+				var v = get(t, e.getAttribute('data-i18n-html'));
+				if (v != null) e.innerHTML = v;
+			});
+			document.querySelectorAll('[data-i18n-aria]').forEach(function (e) {
+				var v = get(t, e.getAttribute('data-i18n-aria'));
+				if (v != null) e.setAttribute('aria-label', v);
+			});
+			document.dispatchEvent(new CustomEvent('langchange', { detail: { lang: l } }));
+		}
+
+		window.__applyI18n = apply;
+		window.__setLang = function (l) {
+			if (typeof localStorage !== 'undefined') localStorage.setItem('lizzy-lang', l);
+			apply(l);
+		};
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', function () { apply(lang); });
+		} else {
+			apply(lang);
+		}
+
+		window.addEventListener('storage', function (e) {
+			if (e.key === 'lizzy-lang' && e.newValue) apply(e.newValue);
+		});
+
+		window.addEventListener('message', function (e) {
+			if (typeof e.data === 'string' && e.data.startsWith('console:setlang:')) {
+				var l = e.data.slice(16);
+				if (typeof localStorage !== 'undefined') localStorage.setItem('lizzy-lang', l);
+				apply(l);
+			}
+		});
+	})();
+	</script>
 	</body>
 </html>
 
