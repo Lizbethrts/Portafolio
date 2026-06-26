@@ -203,16 +203,63 @@ import Layout from '../layouts/Layout.astro';
 		{
 			id: 'level-6',
 			level: 'LEVEL_06',
-			title: 'Coming Soon',
-			type: 'Locked Project',
-			mission: 'This project level is waiting for its mission brief.',
-			role: 'New quest pending',
-			difficulty: '☆☆☆☆☆',
-			rewards: ['Coming Soon'],
-			href: '',
-			flag: '/img/levels/flag-5.png',
+			title: 'Healthcare Warehouse Management System',
+			type: 'Enterprise UX / Healthcare Logistics',
+			mission:
+				'Design a guided warehouse platform that improves traceability, automates repetitive processes, and reduces operational errors across healthcare supply operations.',
+			role: 'UX/UI Design · User Flows · Wireframing · Client Validation · Product Definition · Vibe Coding',
+			difficulty: '★★★★★',
+			rewards: [
+				'Enterprise UX',
+				'Complex Workflow Design',
+				'Stakeholder Collaboration',
+				'SAP Integration Thinking',
+				'Operational Traceability',
+			],
+			href: '/levels/wms-healthcare-system',
+			flag: '/img/levels/flag-6.png',
 			position: [5.9, -1.95, 0],
-			color: 0xd6c6f5,
+			color: 0x9fd8c9,
+		},
+		{
+			id: 'level-7',
+			level: 'LEVEL_07',
+			title: 'AI Location Intelligence Platform',
+			type: 'SaaS UX / Geospatial Analytics',
+			mission:
+				'Design a self-service platform concept that helps businesses understand store performance, local markets, competitors, and expansion opportunities.',
+			role: 'Product Definition · Benchmark Research · Information Architecture · User Flows · Wireframing',
+			difficulty: '★★★★☆',
+			rewards: [
+				'Product Definition',
+				'Data-Intensive UX',
+				'Geospatial Experience',
+				'Information Architecture',
+			],
+			href: '/levels/ai-location-intelligence-platform',
+			flag: '/img/levels/flag-7.png',
+			position: [7.8, 1.1, 0],
+			color: 0xf2b78c,
+		},
+		{
+			id: 'level-8',
+			level: 'LEVEL_08',
+			title: 'AI Business Valuation Platform',
+			type: 'Financial UX / Product Discovery',
+			mission:
+				'Facilitate a collaborative discovery process and transform financial uncertainty into a guided digital product concept for small business owners.',
+			role: 'Workshop Design · Facilitation · Stakeholder Research · Insight Synthesis',
+			difficulty: '★★★★☆',
+			rewards: [
+				'Workshop Facilitation',
+				'Stakeholder Collaboration',
+				'Research Synthesis',
+				'Opportunity Prioritization',
+			],
+			href: '/levels/ai-business-valuation-platform',
+			flag: '/img/levels/flag-8.png',
+			position: [9.7, -0.6, 0],
+			color: 0xb8c4f0,
 		},
 	];
 
@@ -222,7 +269,9 @@ import Layout from '../layouts/Layout.astro';
 		{ level:'NIVEL_03', title:'Plataforma de Reclutamiento con IA', type:'HR Tech / UX de Reclutamiento Gamificado', mission:'Diseñar y refinar pantallas seleccionadas para una plataforma de reclutamiento gamificada enfocada en coincidencias por habilidades y flujos de contratación más claros.', role:'Diseño de Pantalla UI / Soporte de Flujo UX / Consistencia Visual', rewards:['Iteración de Pantalla','UX de HR Tech','Consistencia Visual','Soporte de Flujo de Plataforma'] },
 		{ level:'NIVEL_04', title:'Sitio Web de Marca de Alimento Tradicional', type:'Diseño Web / Experiencia de Marca', mission:'Crear una experiencia web para una marca de alimento tradicional, apoyando pantallas seleccionadas, disposición visual, ubicaciones y consistencia de marca.', role:'Diseño de Pantalla Web / Soporte de Disposición Visual / Consistencia de Marca', rewards:['Experiencia Web de Marca','Estructura de Página de Ubicaciones','Soporte de Disposición Visual','Pensamiento Web Responsivo'] },
 		{ level:'NIVEL_05', title:'Plataforma de Servicios FIXIA', type:'Servicios del Hogar / UX de Marketplace', mission:'Crear una forma más clara y segura de diagnosticar problemas del hogar, comparar técnicos verificados y reservar servicios de reparación confiables.', role:'Investigación UX / Flujo de Servicio / UI Móvil + Web', rewards:['Diseño de Señales de Confianza','Flujo de Diagnóstico con IA','Tarjetas de Técnicos Verificados','UX de Marketplace de Servicios'] },
-		{ level:'NIVEL_06', title:'Próximamente', type:'Proyecto Bloqueado', mission:'Este nivel de proyecto espera su descripción de misión.', role:'Nueva misión pendiente', rewards:['Próximamente'] },
+		{ level:'NIVEL_06', title:'Sistema de Gestión de Almacén para el Sector Salud', type:'UX Empresarial / Logística de Salud', mission:'Diseñar una plataforma de almacén guiada que mejore la trazabilidad, automatice procesos repetitivos y reduzca errores operativos en operaciones de suministro médico.', role:'Diseño UX/UI · Flujos de Usuario · Wireframing · Validación con Cliente · Definición de Producto · Vibe Coding', rewards:['UX Empresarial','Diseño de Flujos Complejos','Colaboración con Stakeholders','Pensamiento de Integración SAP','Trazabilidad Operativa'] },
+		{ level:'NIVEL_07', title:'Plataforma de Inteligencia de Ubicación con IA', type:'UX SaaS / Analítica Geoespacial', mission:'Diseñar un concepto de plataforma de autoservicio que ayude a las empresas a entender el desempeño de sus tiendas, mercados locales, competidores y oportunidades de expansión.', role:'Definición de Producto · Investigación de Benchmark · Arquitectura de Información · Flujos de Usuario · Wireframing', rewards:['Definición de Producto','UX Intensivo en Datos','Experiencia Geoespacial','Arquitectura de Información'] },
+		{ level:'NIVEL_08', title:'Plataforma de Valuación de Negocios con IA', type:'UX Financiero / Descubrimiento de Producto', mission:'Facilitar un proceso de descubrimiento colaborativo y transformar la incertidumbre financiera en un concepto de producto digital guiado para pequeños negocios.', role:'Diseño de Talleres · Facilitación · Investigación con Stakeholders · Síntesis de Insights', rewards:['Facilitación de Talleres','Colaboración con Stakeholders','Síntesis de Investigación','Priorización de Oportunidades'] },
 	];
 
 	const UI_STR = {

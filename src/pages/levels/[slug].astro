@@ -32,25 +32,213 @@ const keyFeaturesTitle = 'keyFeaturesTitle' in project ? project.keyFeaturesTitl
 const outcomeTitle = 'outcomeTitle' in project ? project.outcomeTitle : 'Outcome / Level Complete';
 const artifactsIntro = 'artifactsIntro' in project ? project.artifactsIntro : null;
 const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifactPlaceholders : null;
+const ctaLabel = 'ctaLabel' in project ? project.ctaLabel : null;
+const statusLabel = 'statusLabel' in project ? project.statusLabel : null;
+const missionHighlight = 'missionHighlight' in project ? project.missionHighlight : null;
+const problemThemes = 'problemThemes' in project ? project.problemThemes : null;
+const systemStatsMain = 'systemStatsMain' in project ? project.systemStatsMain : null;
+const systemScopeSupport = 'systemScopeSupport' in project ? project.systemScopeSupport : null;
+const systemScopeDiagram = 'systemScopeDiagram' in project ? project.systemScopeDiagram : null;
+const usersRoles = 'usersRoles' in project ? project.usersRoles : null;
+const rolePullQuote = 'rolePullQuote' in project ? project.rolePullQuote : null;
+const modules = 'modules' in project ? project.modules : null;
+const workflows = 'workflows' in project ? project.workflows : null;
+const designPrinciples = 'designPrinciples' in project ? project.designPrinciples : null;
+const uxBizTech = 'uxBizTech' in project ? project.uxBizTech : null;
+const artifactThemes = 'artifactThemes' in project ? project.artifactThemes : null;
+const sapTraceability = 'sapTraceability' in project ? project.sapTraceability : null;
+const expectedImpact = 'expectedImpact' in project ? project.expectedImpact : null;
+const mainChallenge = 'mainChallenge' in project ? project.mainChallenge : null;
+const mainChallengeHighlight = 'mainChallengeHighlight' in project ? project.mainChallengeHighlight : null;
+
+const es = ('es' in project ? project.es : null) as Record<string, any> | null;
+const esProject = es ? { ...project, ...es } : project;
+const esMetadata = es && 'metadata' in es ? es.metadata : metadata;
+const esContributionNote = es && 'contributionNote' in es ? es.contributionNote : contributionNote;
+const esProjectContext = es && 'projectContext' in es ? es.projectContext : projectContext;
+const esSystemOverview = es && 'systemOverview' in es ? es.systemOverview : systemOverview;
+const esImpactMetrics = es && 'impactMetrics' in es ? es.impactMetrics : impactMetrics;
+const esClientContext = es && 'clientContext' in es ? es.clientContext : clientContext;
+const esUseCase = es && 'useCase' in es ? es.useCase : useCase;
+const esBlockers = es && 'blockers' in es ? es.blockers : blockers;
+const esDeliveryScope = es && 'deliveryScope' in es ? es.deliveryScope : deliveryScope;
+const esWhyMatters = es && 'whyMatters' in es ? es.whyMatters : whyMatters;
+const esRoleIntro = es && 'roleIntro' in es ? es.roleIntro : roleIntro;
+const esProcessTitle = es && 'processTitle' in es ? es.processTitle : (processTitle === 'Process' ? 'Proceso' : processTitle);
+const esKeyFeaturesTitle = es && 'keyFeaturesTitle' in es ? es.keyFeaturesTitle : (keyFeaturesTitle === 'Key Features' ? 'Funcionalidades Clave' : keyFeaturesTitle);
+const esOutcomeTitle = es && 'outcomeTitle' in es ? es.outcomeTitle : (outcomeTitle === 'Outcome / Level Complete' ? 'Resultado / Nivel Completado' : outcomeTitle);
+const esArtifactsIntro = es && 'artifactsIntro' in es ? es.artifactsIntro : artifactsIntro;
+const esArtifactPlaceholders = es && 'artifactPlaceholders' in es ? es.artifactPlaceholders : artifactPlaceholders;
+const esCtaLabel = es && 'ctaLabel' in es ? es.ctaLabel : ctaLabel;
+const esStatusLabel = es && 'statusLabel' in es ? es.statusLabel : statusLabel;
+const esMissionHighlight = es && 'missionHighlight' in es ? es.missionHighlight : missionHighlight;
+const esProblemThemes = es && 'problemThemes' in es ? es.problemThemes : problemThemes;
+const esSystemStatsMain = es && 'systemStatsMain' in es ? es.systemStatsMain : systemStatsMain;
+const esSystemScopeSupport = es && 'systemScopeSupport' in es ? es.systemScopeSupport : systemScopeSupport;
+const esSystemScopeDiagram = es && 'systemScopeDiagram' in es ? es.systemScopeDiagram : systemScopeDiagram;
+const esUsersRoles = es && 'usersRoles' in es ? es.usersRoles : usersRoles;
+const esRolePullQuote = es && 'rolePullQuote' in es ? es.rolePullQuote : rolePullQuote;
+const esModules = es && 'modules' in es ? es.modules : modules;
+const esWorkflows = es && 'workflows' in es ? es.workflows : workflows;
+const esDesignPrinciples = es && 'designPrinciples' in es ? es.designPrinciples : designPrinciples;
+const esUxBizTech = es && 'uxBizTech' in es ? es.uxBizTech : uxBizTech;
+const esArtifactThemes = es && 'artifactThemes' in es ? es.artifactThemes : artifactThemes;
+const esSapTraceability = es && 'sapTraceability' in es ? es.sapTraceability : sapTraceability;
+const esExpectedImpact = es && 'expectedImpact' in es ? es.expectedImpact : expectedImpact;
+const esMainChallenge = es && 'mainChallenge' in es ? es.mainChallenge : mainChallenge;
+const esMainChallengeHighlight = es && 'mainChallengeHighlight' in es ? es.mainChallengeHighlight : mainChallengeHighlight;
+
+const L = {
+	en: {
+		back: 'Back', backAria: 'Back to Levels map',
+		levelUnlocked: 'Level Unlocked', viewScreens: 'View Screens', backToMap: 'Back to Map',
+		contributionNote: 'Contribution Note', missionBrief: 'Mission Brief', problem: 'Problem',
+		impactSnapshot: 'Impact Snapshot', productImpact: 'Product Impact',
+		useCase: 'Use Case', whyItMatters: 'Why It Matters', myRole: 'My Role',
+		whatWasSlowing: 'What Was Slowing the Operation', whatWasBuilt: 'What Was Built',
+		projectContext: 'Project Context', achievementUnlocked: 'Achievement Unlocked',
+		evidenceCollected: 'Evidence Collected', finalEvidence: 'Final Evidence',
+		questArtifacts: 'Quest Artifacts', designDecisions: 'Design Decisions',
+		previousLevel: 'Previous Level', nextLevel: 'Next Level', contactPlayer: 'Contact Player',
+		imageSlotReady: 'Image slot ready',
+		wireframeScreens: 'Wireframe Screens', selectedLearningFlow: 'Selected Learning Flow Screens',
+		researchArtifact: 'Research Artifact', userPersonasTitle: 'User Personas',
+		customerJourneyMapTitle: 'Customer Journey Map', finalScreensTitle: 'Final Screens',
+		personasCopy: 'User personas helped identify educator profiles based on digital confidence, motivation, access to technology, frustrations, and available time.',
+		journeyCopy: 'The journey map helped identify moments of friction, motivation, and support across the educator’s learning experience.',
+		finalScreensCopy: 'The mockups translated the research into a clearer, more accessible platform experience focused on personalized routes, resources, and progress tracking.',
+		userJourneyMapsTitle: 'User Journey Maps', paymentFlowTitle: 'Payment and Full App Flow',
+		journeyMapsCopy: 'Two journey maps were used to compare the direct game-payment flow with the full experience from opening the app, registering, playing, and needing to load money.',
+		selectedFlowScreens: 'Selected Flow Screens',
+		entertainmentArtifactsIntro: 'Wireframes and mobile mockups showing how the redesign expanded discovery, wallet actions, and casino cross-navigation without breaking the core purchase flow.',
+		fixiaArtifactsIntro: 'Desktop and mobile mockups showing how FIXIA turns service uncertainty into a clearer path: diagnose the problem, compare verified technicians, and request help with more trust.',
+		aiHiringArtifactsIntro: 'Screen design contributions supporting the gamified hiring platform experience.',
+		screenContribution: 'Screen Contribution',
+		operationalChallenge: 'The Operational Challenge', systemScope: 'System Scope',
+		usersAndRoles: 'Users & Roles', internalUsers: 'Internal Users', externalUsers: 'External Users',
+		theSevenModules: 'The Seven Modules', module: 'Module', viewFlow: 'View Flow',
+		featuredWorkflows: 'Featured Workflows', keyUxDecisions: 'Key UX Decisions',
+		connectingTitle: 'Connecting UX, Business & Technology', uxLabel: 'UX', businessLabel: 'Business', technologyLabel: 'Technology',
+		sapAndTraceability: 'SAP & Traceability', expectedImpactTitle: 'Expected Operational Impact',
+		whatILearned: 'What I Learned',
+		definedProfilesTitle: 'Defined User Profiles', empathyMapTitle: 'Empathy Map', painstormingTitle: 'PAINstorming',
+		affinityClusteringTitle: 'Affinity Clustering', matrixTitle: 'Impact × Effort Matrix', interfaceExplorationsTitle: 'Selected Interface Explorations',
+		definedProfilesCopy: 'Workshop-defined archetypes representing the entrepreneurs and stakeholders this concept was designed for.',
+		empathyMapCopy: 'Stakeholders explored what entrepreneurs see, hear, think, feel, say, and do when facing a valuation, sale, or investment decision.',
+		painstormingCopy: 'Participants identified specific frustrations, improvised processes, and risks experienced by small business owners.',
+		affinityClusteringCopy: 'Related observations were grouped into three recurring themes: information gap, time and confidence, and actions and processes.',
+		matrixCopy: 'Opportunities were evaluated by expected user impact and implementation effort to align the team around a shared direction.',
+		interfaceExplorationsCopy: 'Early screens explored how the product could guide users through valuation, scenarios, and financial learning.',
+	},
+	es: {
+		back: 'Volver', backAria: 'Volver al mapa de Niveles',
+		levelUnlocked: 'Nivel Desbloqueado', viewScreens: 'Ver Pantallas', backToMap: 'Volver al Mapa',
+		contributionNote: 'Nota de Contribución', missionBrief: 'Resumen de la Misión', problem: 'Problema',
+		impactSnapshot: 'Resumen de Impacto', productImpact: 'Impacto del Producto',
+		useCase: 'Caso de Uso', whyItMatters: 'Por Qué Importa', myRole: 'Mi Rol',
+		whatWasSlowing: 'Qué Frenaba la Operación', whatWasBuilt: 'Qué se Construyó',
+		projectContext: 'Contexto del Proyecto', achievementUnlocked: 'Logro Desbloqueado',
+		evidenceCollected: 'Evidencia Recolectada', finalEvidence: 'Evidencia Final',
+		questArtifacts: 'Artefactos de la Misión', designDecisions: 'Decisiones de Diseño',
+		previousLevel: 'Nivel Anterior', nextLevel: 'Siguiente Nivel', contactPlayer: 'Contactar Jugador',
+		imageSlotReady: 'Espacio de imagen listo',
+		wireframeScreens: 'Pantallas de Wireframe', selectedLearningFlow: 'Pantallas Seleccionadas del Flujo de Aprendizaje',
+		researchArtifact: 'Artefacto de Investigación', userPersonasTitle: 'Personas de Usuario',
+		customerJourneyMapTitle: 'Customer Journey Map', finalScreensTitle: 'Pantallas Finales',
+		personasCopy: 'Las personas de usuario ayudaron a identificar perfiles docentes según su confianza digital, motivación, acceso a tecnología, frustraciones y tiempo disponible.',
+		journeyCopy: 'El journey map ayudó a identificar momentos de fricción, motivación y apoyo a lo largo de la experiencia de aprendizaje docente.',
+		finalScreensCopy: 'Los mockups tradujeron la investigación en una experiencia de plataforma más clara y accesible, enfocada en rutas personalizadas, recursos y seguimiento de progreso.',
+		userJourneyMapsTitle: 'Mapas de Customer Journey', paymentFlowTitle: 'Flujo de Pago y App Completa',
+		journeyMapsCopy: 'Se usaron dos journey maps para comparar el flujo directo de pago de juego con la experiencia completa desde abrir la app, registrarse, jugar y necesitar cargar dinero.',
+		selectedFlowScreens: 'Pantallas Seleccionadas del Flujo',
+		entertainmentArtifactsIntro: 'Wireframes y mockups móviles que muestran cómo el rediseño amplió el descubrimiento, las acciones de billetera y la navegación cruzada al casino sin romper el flujo principal de compra.',
+		fixiaArtifactsIntro: 'Mockups de escritorio y móvil que muestran cómo FIXIA convierte la incertidumbre del servicio en un camino más claro: diagnosticar el problema, comparar técnicos verificados y solicitar ayuda con más confianza.',
+		aiHiringArtifactsIntro: 'Contribuciones de diseño de pantallas que apoyan la experiencia de la plataforma de contratación gamificada.',
+		screenContribution: 'Contribución de Pantalla',
+		operationalChallenge: 'El Reto Operativo', systemScope: 'Alcance del Sistema',
+		usersAndRoles: 'Usuarios y Roles', internalUsers: 'Usuarios Internos', externalUsers: 'Usuarios Externos',
+		theSevenModules: 'Los Siete Módulos', module: 'Módulo', viewFlow: 'Ver Flujo',
+		featuredWorkflows: 'Flujos Destacados', keyUxDecisions: 'Decisiones Clave de UX',
+		connectingTitle: 'Conectando UX, Negocio y Tecnología', uxLabel: 'UX', businessLabel: 'Negocio', technologyLabel: 'Tecnología',
+		sapAndTraceability: 'SAP y Trazabilidad', expectedImpactTitle: 'Impacto Operativo Esperado',
+		whatILearned: 'Lo Que Aprendí',
+		definedProfilesTitle: 'Perfiles de Usuario Definidos', empathyMapTitle: 'Mapa de Empatía', painstormingTitle: 'PAINstorming',
+		affinityClusteringTitle: 'Agrupación por Afinidad', matrixTitle: 'Matriz de Impacto × Esfuerzo', interfaceExplorationsTitle: 'Exploraciones de Interfaz Seleccionadas',
+		definedProfilesCopy: 'Arquetipos definidos en el taller que representan a los emprendedores y stakeholders para quienes se diseñó este concepto.',
+		empathyMapCopy: 'Los stakeholders exploraron qué ven, escuchan, piensan, sienten, dicen y hacen los emprendedores al enfrentar una decisión de valuación, venta o inversión.',
+		painstormingCopy: 'Los participantes identificaron frustraciones específicas, procesos improvisados y riesgos que experimentan los dueños de pequeños negocios.',
+		affinityClusteringCopy: 'Las observaciones relacionadas se agruparon en tres temas recurrentes: brecha de información, tiempo y confianza, y acciones y procesos.',
+		matrixCopy: 'Las oportunidades se evaluaron según el impacto esperado para el usuario y el esfuerzo de implementación para alinear al equipo en una dirección compartida.',
+		interfaceExplorationsCopy: 'Pantallas tempranas que exploraron cómo el producto podría guiar a los usuarios a través de la valuación, escenarios y aprendizaje financiero.',
+	},
+};
+
+const views = (['en', 'es'] as const).map((lang) => ({
+	lang,
+	t: L[lang],
+	p: lang === 'en' ? project : esProject,
+	metadata: lang === 'en' ? metadata : esMetadata,
+	contributionNote: lang === 'en' ? contributionNote : esContributionNote,
+	projectContext: lang === 'en' ? projectContext : esProjectContext,
+	systemOverview: lang === 'en' ? systemOverview : esSystemOverview,
+	impactMetrics: lang === 'en' ? impactMetrics : esImpactMetrics,
+	clientContext: lang === 'en' ? clientContext : esClientContext,
+	useCase: lang === 'en' ? useCase : esUseCase,
+	blockers: lang === 'en' ? blockers : esBlockers,
+	deliveryScope: lang === 'en' ? deliveryScope : esDeliveryScope,
+	whyMatters: lang === 'en' ? whyMatters : esWhyMatters,
+	roleIntro: lang === 'en' ? roleIntro : esRoleIntro,
+	processTitle: lang === 'en' ? processTitle : esProcessTitle,
+	keyFeaturesTitle: lang === 'en' ? keyFeaturesTitle : esKeyFeaturesTitle,
+	outcomeTitle: lang === 'en' ? outcomeTitle : esOutcomeTitle,
+	artifactsIntro: lang === 'en' ? artifactsIntro : esArtifactsIntro,
+	artifactPlaceholders: lang === 'en' ? artifactPlaceholders : esArtifactPlaceholders,
+	ctaLabel: lang === 'en' ? ctaLabel : esCtaLabel,
+	statusLabel: lang === 'en' ? statusLabel : esStatusLabel,
+	missionHighlight: lang === 'en' ? missionHighlight : esMissionHighlight,
+	problemThemes: lang === 'en' ? problemThemes : esProblemThemes,
+	systemStatsMain: lang === 'en' ? systemStatsMain : esSystemStatsMain,
+	systemScopeSupport: lang === 'en' ? systemScopeSupport : esSystemScopeSupport,
+	systemScopeDiagram: lang === 'en' ? systemScopeDiagram : esSystemScopeDiagram,
+	usersRoles: lang === 'en' ? usersRoles : esUsersRoles,
+	rolePullQuote: lang === 'en' ? rolePullQuote : esRolePullQuote,
+	modules: lang === 'en' ? modules : esModules,
+	workflows: lang === 'en' ? workflows : esWorkflows,
+	designPrinciples: lang === 'en' ? designPrinciples : esDesignPrinciples,
+	uxBizTech: lang === 'en' ? uxBizTech : esUxBizTech,
+	artifactThemes: lang === 'en' ? artifactThemes : esArtifactThemes,
+	sapTraceability: lang === 'en' ? sapTraceability : esSapTraceability,
+	expectedImpact: lang === 'en' ? expectedImpact : esExpectedImpact,
+	mainChallenge: lang === 'en' ? mainChallenge : esMainChallenge,
+	mainChallengeHighlight: lang === 'en' ? mainChallengeHighlight : esMainChallengeHighlight,
+}));
 ---
 
 <Layout title={`${project.title} | Lizzy World`} frame>
-	<main class="level-detail-screen" aria-labelledby="project-title">
-		<a class="back-link" href="/levels" aria-label="Back to Levels map">Back</a>
+	<script is:inline>
+	window.__i18nStrings = {
+		en: { nav: { backAria: 'Back to Levels map' } },
+		es: { nav: { backAria: 'Volver al mapa de Niveles' } },
+	};
+	</script>
+	<main class="level-detail-screen" aria-labelledby="project-title-en">
+		<a class="back-link" href="/levels" aria-label="Back to Levels map" data-i18n="nav.back" data-i18n-aria="nav.backAria">Back</a>
 
+		{views.map(({ lang, t, p, metadata, contributionNote, projectContext, systemOverview, impactMetrics, clientContext, useCase, blockers, deliveryScope, whyMatters, roleIntro, processTitle, keyFeaturesTitle, outcomeTitle, artifactsIntro, artifactPlaceholders, ctaLabel, statusLabel, missionHighlight, problemThemes, systemStatsMain, systemScopeSupport, systemScopeDiagram, usersRoles, rolePullQuote, modules, workflows, designPrinciples, uxBizTech, artifactThemes, sapTraceability, expectedImpact, mainChallenge, mainChallengeHighlight }) => (
+		<div class="lang-pane" data-plang={lang} hidden={lang !== 'en'}>
 		<header class:list={['project-hero', metadata && 'project-hero-grid']}>
 			<div>
-				<p class="level-label">{project.level}</p>
-				<h1 id="project-title">{project.title}</h1>
-				<p>{project.intro}</p>
+				<p class="level-label">{p.level}</p>
+				<h1 id={`project-title-${lang}`}>{p.title}</h1>
+				<p>{p.intro}</p>
 				<ul class="tag-list" aria-label="Project tags">
-					{project.tags.map((tag) => <li>{tag}</li>)}
+					{p.tags.map((tag) => <li>{tag}</li>)}
 				</ul>
 				{
 					metadata && (
 						<div class="hero-actions" aria-label="Project actions">
-							<a href="#quest-artifacts-title">View Screens</a>
-							<a href="/levels">Back to Map</a>
+							<a href="#quest-artifacts-title">{ctaLabel || t.viewScreens}</a>
+							<a href="/levels">{t.backToMap}</a>
 						</div>
 					)
 				}
@@ -58,7 +246,14 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 			{
 				metadata && (
 					<aside class="level-meta-card" aria-label="Level metadata">
-						<p class="unlock-badge">Level Unlocked</p>
+						<p class="unlock-badge">
+							{modules && (
+								<svg class="unlock-badge-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+									<path d="M3 9.5 12 4l9 5.5V20a1 1 0 0 1-1 1h-4v-6H9v6H4a1 1 0 0 1-1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+								</svg>
+							)}
+							{statusLabel || t.levelUnlocked}
+						</p>
 						{metadata.map((item) => (
 							<div>
 								<span>{item.label}</span>
@@ -81,28 +276,113 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 				{
 					contributionNote && (
 						<section class="content-block contribution-note">
-							<h2>Contribution Note</h2>
+							<h2>{t.contributionNote}</h2>
 							{contributionNote.map((paragraph) => <p>{paragraph}</p>)}
 						</section>
 					)
 				}
 
-				<section class="content-block">
-					<h2>Mission Brief</h2>
-					{project.missionBrief.map((paragraph) => <p>{paragraph}</p>)}
-				</section>
+				{
+					missionHighlight ? (
+						<section class="content-block editorial-block">
+							<div class="editorial-heading">
+								<span class="editorial-number">01</span>
+								<h2>{t.missionBrief}</h2>
+							</div>
+							<div class="editorial-copy">
+								<p class="editorial-highlight">{missionHighlight}</p>
+								{p.missionBrief.map((paragraph) => <p>{paragraph}</p>)}
+							</div>
+						</section>
+					) : (
+						<section class="content-block">
+							<h2>{t.missionBrief}</h2>
+							{p.missionBrief.map((paragraph) => <p>{paragraph}</p>)}
+						</section>
+					)
+				}
 
-				<section class="content-block">
-					<h2>Problem</h2>
-					{project.problem.map((paragraph) => <p>{paragraph}</p>)}
-				</section>
+				{
+					problemThemes ? (
+						<section class="content-block">
+							<h2>{t.operationalChallenge}</h2>
+							{p.problem.map((paragraph) => <p>{paragraph}</p>)}
+							<div class="theme-list">
+								{problemThemes.map((group: { theme: string; items: string[] }, themeIndex: number) => (
+									<div class="theme-row">
+										<p class="theme-label">{group.theme}</p>
+										<ul class="theme-items">
+											{group.items.map((item, itemIndex) => (
+												<li><span class="theme-marker">{themeIndex + 1}.{itemIndex + 1}</span>{item}</li>
+											))}
+										</ul>
+									</div>
+								))}
+							</div>
+						</section>
+					) : (
+						<section class="content-block">
+							<h2>{t.problem}</h2>
+							{p.problem.map((paragraph) => <p>{paragraph}</p>)}
+						</section>
+					)
+				}
+
+				{
+					systemStatsMain && (
+						<section class="content-block">
+							<h2>{t.systemScope}</h2>
+							<div class="stat-row">
+								{systemStatsMain.map((stat: { value: string; label: string }) => (
+									<div class="stat-block">
+										<strong>{stat.value}</strong>
+										<span>{stat.label}</span>
+									</div>
+								))}
+							</div>
+							{systemScopeSupport && <p class="stat-support">{systemScopeSupport}</p>}
+							{
+								systemScopeDiagram && (
+									<div class="flow-path" aria-label={t.systemScope}>
+										{systemScopeDiagram.map((step: string) => (
+											<span class="flow-node">{step}</span>
+										))}
+									</div>
+								)
+							}
+						</section>
+					)
+				}
+
+				{
+					usersRoles && (
+						<section class="content-block">
+							<h2>{t.usersAndRoles}</h2>
+							<div class="plain-columns">
+								<div>
+									<h3>{t.internalUsers}</h3>
+									<ul class="plain-list">
+										{usersRoles.internal.map((item) => <li>{item}</li>)}
+									</ul>
+								</div>
+								<div>
+									<h3>{t.externalUsers}</h3>
+									<ul class="plain-list">
+										{usersRoles.external.map((item) => <li>{item}</li>)}
+									</ul>
+								</div>
+							</div>
+							<p class="context-note">{usersRoles.note}</p>
+						</section>
+					)
+				}
 
 				{
 					impactMetrics && (
-						<section class="content-block impact-block" aria-labelledby="impact-title">
+						<section class="content-block impact-block" aria-labelledby={`impact-title-${lang}`}>
 							<div class="artifacts-heading">
-								<p class="artifact-eyebrow">Impact Snapshot</p>
-								<h2 id="impact-title">Product Impact</h2>
+								<p class="artifact-eyebrow">{t.impactSnapshot}</p>
+								<h2 id={`impact-title-${lang}`}>{t.productImpact}</h2>
 							</div>
 							<div class="impact-grid">
 								{impactMetrics.map((metric) => (
@@ -121,26 +401,26 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 					useCase && (
 						<section class="content-block product-context-card">
 							<div class="product-context-copy">
-								<h2>Use Case</h2>
+								<h2>{t.useCase}</h2>
 								<p>{useCase}</p>
 								{whyMatters && (
 									<>
-										<h3>Why It Matters</h3>
+										<h3>{t.whyItMatters}</h3>
 										<p>{whyMatters}</p>
 									</>
 								)}
-								<section class="inline-role-card" aria-labelledby="inline-role-title">
-									<h2 id="inline-role-title">My Role</h2>
+								<section class="inline-role-card" aria-labelledby={`inline-role-title-${lang}`}>
+									<h2 id={`inline-role-title-${lang}`}>{t.myRole}</h2>
 									{roleIntro && <p>{roleIntro}</p>}
 									<ul>
-										{project.role.map((item) => <li>{item}</li>)}
+										{p.role.map((item) => <li>{item}</li>)}
 									</ul>
 								</section>
 							</div>
 							<div class="scope-panels">
 								{blockers && (
 									<article>
-										<h3>What Was Slowing the Operation</h3>
+										<h3>{t.whatWasSlowing}</h3>
 										<ul>
 											{blockers.map((item) => <li>{item}</li>)}
 										</ul>
@@ -148,7 +428,7 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 								)}
 								{deliveryScope && (
 									<article>
-										<h3>What Was Built</h3>
+										<h3>{t.whatWasBuilt}</h3>
 										<ul>
 											{deliveryScope.map((item) => <li>{item}</li>)}
 										</ul>
@@ -163,7 +443,7 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 					projectContext && (
 						<section class="content-block project-context-block">
 							<div>
-								<h2>Project Context</h2>
+								<h2>{t.projectContext}</h2>
 								{projectContext.map((paragraph) => <p>{paragraph}</p>)}
 							</div>
 							{
@@ -179,61 +459,358 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 					)
 				}
 
-				<div class:list={['two-column', useCase && 'two-column-achievement-only']}>
-					{
-						!useCase && (
-							<section class="content-block">
-								<h2>My Role</h2>
+				{
+					rolePullQuote ? (
+						<section class="content-block editorial-block">
+							<div class="editorial-heading">
+								<span class="editorial-number">06</span>
+								<h2>{t.myRole}</h2>
+								<p class="editorial-pull-quote">“{rolePullQuote}”</p>
+							</div>
+							<div class="editorial-copy">
 								{roleIntro && <p>{roleIntro}</p>}
-								<ul>
-									{project.role.map((item) => <li>{item}</li>)}
+								<ul class="tag-list role-tag-list" aria-label={t.myRole}>
+									{p.role.map((item) => <li>{item}</li>)}
 								</ul>
+							</div>
+						</section>
+					) : (
+						<div class:list={['two-column', useCase && 'two-column-achievement-only']}>
+							{
+								!useCase && (
+									<section class="content-block">
+										<h2>{t.myRole}</h2>
+										{roleIntro && <p>{roleIntro}</p>}
+										<ul>
+											{p.role.map((item) => <li>{item}</li>)}
+										</ul>
+									</section>
+								)
+							}
+
+							<section class="content-block achievement-card">
+								<h2>{t.achievementUnlocked}</h2>
+								<p>{p.achievement}</p>
 							</section>
-						)
-					}
+						</div>
+					)
+				}
 
-					<section class="content-block achievement-card">
-						<h2>Achievement Unlocked</h2>
-						<p>{project.achievement}</p>
-					</section>
-				</div>
+				{
+					modules ? (
+						<section class="content-block">
+							<div class="section-heading-row">
+								<h2>{processTitle}</h2>
+							</div>
+							<div class="quest-timeline">
+								{
+									p.process.map((step, index) => (
+										<article class="timeline-stage">
+											<div class="timeline-marker"><span>0{index + 1}</span></div>
+											<div class="timeline-stage-copy">
+												<h3>{step.title}</h3>
+												{step.body.map((paragraph) => <p>{paragraph}</p>)}
+											</div>
+										</article>
+									))
+								}
+							</div>
+						</section>
+					) : (
+						<section class="content-block">
+							<div class="section-heading-row">
+								<h2>{processTitle}</h2>
+							</div>
+							<div class="process-grid process-carousel" data-level-process-carousel tabindex="0">
+								{
+									p.process.map((step, index) => (
+										<article>
+											<p class="step-number">0{index + 1}</p>
+											<h3>{step.title}</h3>
+											{step.body.map((paragraph) => <p>{paragraph}</p>)}
+										</article>
+									))
+								}
+							</div>
+							<div class="carousel-controls" aria-label="Process carousel controls">
+								<button type="button" data-process-prev aria-label="Previous process step"></button>
+								<button type="button" data-process-next aria-label="Next process step"></button>
+							</div>
+						</section>
+					)
+				}
 
-				<section class="content-block">
-					<div class="section-heading-row">
-						<h2>{processTitle}</h2>
-					</div>
-					<div id="level-process-carousel" class="process-grid process-carousel" tabindex="0">
-						{
-							project.process.map((step, index) => (
-								<article>
-									<p class="step-number">0{index + 1}</p>
-									<h3>{step.title}</h3>
-									{step.body.map((paragraph) => <p>{paragraph}</p>)}
+				{
+					modules && (
+						<section class="content-block">
+							<h2>{t.theSevenModules}</h2>
+							<div class="module-directory">
+								{modules.map((mod: { number: string; title: string; description: string }, index: number) => (
+									<article class:list={['module-row', `module-accent-${index % 5}`]}>
+										<p class="module-number">{mod.number}</p>
+										<div class="module-row-copy">
+											<h3>{mod.title}</h3>
+											<p>{mod.description}</p>
+										</div>
+									</article>
+								))}
+							</div>
+						</section>
+					)
+				}
+
+				{
+					workflows && (
+						<section class="content-block">
+							<h2>{t.featuredWorkflows}</h2>
+							<div class="workflow-list">
+								{workflows.map((flow: { title: string; steps: string[]; description: string }) => (
+									<article class="workflow-card">
+										<h3>{flow.title}</h3>
+										<div class="flow-path" aria-label={flow.title}>
+											{flow.steps.map((step: string) => (
+												<span class="flow-node">{step}</span>
+											))}
+										</div>
+										<p>{flow.description}</p>
+									</article>
+								))}
+							</div>
+						</section>
+					)
+				}
+
+				{
+					designPrinciples && (
+						<section class="content-block">
+							<h2>{t.keyUxDecisions}</h2>
+							<ol class="principle-list">
+								{designPrinciples.map((dec: { title: string; description: string }, index: number) => (
+									<li class="principle-row">
+										<span class="principle-number">0{index + 1}</span>
+										<div>
+											<h3>{dec.title}</h3>
+											<p>{dec.description}</p>
+										</div>
+									</li>
+								))}
+							</ol>
+						</section>
+					)
+				}
+
+				{
+					uxBizTech && (
+						<section class="content-block">
+							<h2>{t.connectingTitle}</h2>
+							<div class="triad-diagram">
+								<article class="triad-node triad-center">
+									<h3>{uxBizTech.centerLabel}</h3>
 								</article>
-							))
-						}
-					</div>
-					<div class="carousel-controls" aria-label="Process carousel controls">
-						<button type="button" data-process-prev aria-label="Previous process step"></button>
-						<button type="button" data-process-next aria-label="Next process step"></button>
-					</div>
-				</section>
+								<div class="triad-row">
+									<article class="triad-node">
+										<h3>{t.uxLabel}</h3>
+										<p>{uxBizTech.ux}</p>
+									</article>
+									<article class="triad-node">
+										<h3>{t.businessLabel}</h3>
+										<p>{uxBizTech.business}</p>
+									</article>
+									<article class="triad-node">
+										<h3>{t.technologyLabel}</h3>
+										<p>{uxBizTech.technology}</p>
+									</article>
+								</div>
+							</div>
+						</section>
+					)
+				}
+
+				{
+					project.slug === 'ai-business-valuation-platform' && artifactThemes && (
+						<section class="content-block quest-artifacts" aria-labelledby={`quest-artifacts-title-${lang}`}>
+							<div class="artifacts-heading">
+								<p class="artifact-eyebrow">{t.evidenceCollected}</p>
+								<h2 id={`quest-artifacts-title-${lang}`}>{t.questArtifacts}</h2>
+								<p>{artifactsIntro}</p>
+							</div>
+
+							{
+								artifactThemes[0]?.images?.length > 0 && (
+									<article class="artifact-card artifact-card-wide">
+										<span class="artifact-label">{t.researchArtifact}</span>
+										<h3>{t.definedProfilesTitle}</h3>
+										<p>{t.definedProfilesCopy}</p>
+										<div class="workshop-persona-grid">
+											{artifactThemes[0].images.map((img: { src: string; alt: string }) => (
+												<button type="button" class="workshop-persona-tile artifact-lightbox-trigger" data-lightbox-src={img.src} data-lightbox-alt={img.alt} data-lightbox-caption={t.definedProfilesTitle}>
+													<img src={img.src} alt={img.alt} loading="lazy" />
+												</button>
+											))}
+										</div>
+									</article>
+								)
+							}
+
+							<div class="artifact-feature-grid">
+								{
+									artifactThemes[1]?.images?.length > 0 && (
+										<article class="artifact-card">
+											<span class="artifact-label">{t.researchArtifact}</span>
+											<h3>{t.empathyMapTitle}</h3>
+											<p>{t.empathyMapCopy}</p>
+											<button type="button" class="artifact-image-frame journey-frame artifact-lightbox-trigger" data-lightbox-src={artifactThemes[1].images[0].src} data-lightbox-alt={artifactThemes[1].images[0].alt} data-lightbox-caption={t.empathyMapTitle}>
+												<img src={artifactThemes[1].images[0].src} alt={artifactThemes[1].images[0].alt} loading="lazy" />
+											</button>
+										</article>
+									)
+								}
+								{
+									artifactThemes[2]?.images?.length > 0 && (
+										<article class="artifact-card">
+											<span class="artifact-label">{t.researchArtifact}</span>
+											<h3>{t.painstormingTitle}</h3>
+											<p>{t.painstormingCopy}</p>
+											<button type="button" class="artifact-image-frame journey-frame artifact-lightbox-trigger" data-lightbox-src={artifactThemes[2].images[0].src} data-lightbox-alt={artifactThemes[2].images[0].alt} data-lightbox-caption={t.painstormingTitle}>
+												<img src={artifactThemes[2].images[0].src} alt={artifactThemes[2].images[0].alt} loading="lazy" />
+											</button>
+										</article>
+									)
+								}
+							</div>
+
+							{
+								artifactThemes[3]?.images?.length > 0 && (
+									<article class="artifact-card artifact-card-wide">
+										<span class="artifact-label">{t.researchArtifact}</span>
+										<h3>{t.affinityClusteringTitle}</h3>
+										<p>{t.affinityClusteringCopy}</p>
+										<div class="cluster-stack">
+											{artifactThemes[3].images.map((img: { src: string; alt: string }) => (
+												<button type="button" class="cluster-stack-frame artifact-lightbox-trigger" data-lightbox-src={img.src} data-lightbox-alt={img.alt} data-lightbox-caption={t.affinityClusteringTitle}>
+													<img src={img.src} alt={img.alt} loading="lazy" />
+												</button>
+											))}
+										</div>
+									</article>
+								)
+							}
+
+							{
+								artifactThemes[4]?.images?.length > 0 && (
+									<article class="artifact-card artifact-card-wide">
+										<span class="artifact-label">{t.researchArtifact}</span>
+										<h3>{t.matrixTitle}</h3>
+										<p>{t.matrixCopy}</p>
+										<button type="button" class="artifact-image-frame journey-frame artifact-lightbox-trigger" data-lightbox-src={artifactThemes[4].images[0].src} data-lightbox-alt={artifactThemes[4].images[0].alt} data-lightbox-caption={t.matrixTitle}>
+											<img src={artifactThemes[4].images[0].src} alt={artifactThemes[4].images[0].alt} loading="lazy" />
+										</button>
+									</article>
+								)
+							}
+
+							{
+								artifactThemes[5]?.images?.length > 0 && (
+									<article class="artifact-card artifact-card-wide">
+										<span class="artifact-label">{t.finalEvidence}</span>
+										<h3>{t.interfaceExplorationsTitle}</h3>
+										<p>{t.interfaceExplorationsCopy}</p>
+										<div class="mockup-plain-stack">
+											{artifactThemes[5].images.map((img: { src: string; alt: string }) => (
+												<button type="button" class="mockup-plain-frame artifact-lightbox-trigger" data-lightbox-src={img.src} data-lightbox-alt={img.alt} data-lightbox-caption={t.interfaceExplorationsTitle}>
+													<img src={img.src} alt={img.alt} loading="lazy" />
+												</button>
+											))}
+										</div>
+									</article>
+								)
+							}
+						</section>
+					)
+				}
+
+				{
+					artifactThemes && artifactThemes.some((group) => group.images && group.images.length > 0) && project.slug !== 'ai-business-valuation-platform' && (
+						<section class="content-block quest-artifacts" aria-labelledby={`quest-artifacts-title-${lang}`}>
+							<h2 id={`quest-artifacts-title-${lang}`}>{t.questArtifacts}</h2>
+							<p>{artifactsIntro}</p>
+							<div class="artifact-gallery-grid">
+								{artifactThemes
+									.flatMap((group) => group.images || [])
+									.map((img: { src: string; alt: string; caption?: string }) => (
+										<button type="button" class="artifact-gallery-tile artifact-lightbox-trigger" data-lightbox-src={img.src} data-lightbox-alt={img.alt} data-lightbox-caption={img.caption}>
+											<img src={img.src} alt={img.alt} loading="lazy" />
+										</button>
+									))}
+							</div>
+						</section>
+					)
+				}
+
+				{
+					sapTraceability && (
+						<section class="content-block split-block">
+							<div class="split-copy">
+								<h2>{t.sapAndTraceability}</h2>
+								<p>{sapTraceability.intro}</p>
+							</div>
+							<div class="split-visual">
+								<div class="flow-path flow-path-vertical" aria-label={t.sapAndTraceability}>
+									{sapTraceability.steps.map((step: string) => (
+										<span class="flow-node">{step}</span>
+									))}
+								</div>
+							</div>
+						</section>
+					)
+				}
+
+				{
+					expectedImpact && (
+						<section class="content-block">
+							<h2>{t.expectedImpactTitle}</h2>
+							<p class="impact-disclaimer">{expectedImpact.disclaimer}</p>
+							<div class="impact-theme-columns">
+								{expectedImpact.themes.map((group: { theme: string; items: string[] }) => (
+									<div class="impact-theme-column">
+										<h3>{group.theme}</h3>
+										<ul class="plain-list">
+											{group.items.map((item: string) => <li>{item}</li>)}
+										</ul>
+									</div>
+								))}
+							</div>
+						</section>
+					)
+				}
+
+				{
+					mainChallenge && (
+						<section class="content-block reflection-block">
+							{mainChallengeHighlight && <p class="editorial-highlight">{mainChallengeHighlight}</p>}
+							<h2>{t.whatILearned}</h2>
+							{mainChallenge.map((paragraph: string) => <p>{paragraph}</p>)}
+						</section>
+					)
+				}
 
 				{
 					project.slug === 'learning-path-platform' && (
-						<section class="content-block quest-artifacts" aria-labelledby="quest-artifacts-title">
+						<section class="content-block quest-artifacts" aria-labelledby={`quest-artifacts-title-${lang}`}>
 							<div class="artifacts-heading">
-								<p class="artifact-eyebrow">Evidence Collected</p>
-								<h2 id="quest-artifacts-title">Quest Artifacts</h2>
+								<p class="artifact-eyebrow">{t.evidenceCollected}</p>
+								<h2 id={`quest-artifacts-title-${lang}`}>{t.questArtifacts}</h2>
 								<p>
-									Research and design artifacts that shaped the learning experience.
+									{lang === 'en'
+										? 'Research and design artifacts that shaped the learning experience.'
+										: 'Artefactos de investigación y diseño que dieron forma a la experiencia de aprendizaje.'}
 								</p>
 							</div>
 
 							<div class="wireframe-gallery" aria-label="Learning path platform wireframe screens">
 								<div class="wireframe-heading">
-									<span class="artifact-label">Wireframe Screens</span>
-									<h3>Selected Learning Flow Screens</h3>
+									<span class="artifact-label">{t.wireframeScreens}</span>
+									<h3>{t.selectedLearningFlow}</h3>
 								</div>
 								<div class="wireframe-strip">
 									<a
@@ -267,12 +844,10 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 
 							<div class="artifact-feature-grid">
 								<article class="artifact-card personas-artifact-card">
-									<span class="artifact-label">Research Artifact</span>
-									<h3>User Personas</h3>
+									<span class="artifact-label">{t.researchArtifact}</span>
+									<h3>{t.userPersonasTitle}</h3>
 									<p>
-										User personas helped identify educator profiles based on digital
-										confidence, motivation, access to technology, frustrations, and available
-										time.
+										{t.personasCopy}
 									</p>
 									<div class="persona-gallery" aria-label="User persona research artifacts">
 										<a
@@ -305,11 +880,10 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 								</article>
 
 								<article class="artifact-card journey-artifact-card">
-									<span class="artifact-label">Research Artifact</span>
-									<h3>Customer Journey Map</h3>
+									<span class="artifact-label">{t.researchArtifact}</span>
+									<h3>{t.customerJourneyMapTitle}</h3>
 									<p>
-										The journey map helped identify moments of friction, motivation, and
-										support across the educator's learning experience.
+										{t.journeyCopy}
 									</p>
 									<a
 										class="artifact-image-frame journey-frame"
@@ -328,11 +902,10 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 							</div>
 
 							<article class="artifact-card artifact-card-wide final-screens-card">
-								<span class="artifact-label">Final Evidence</span>
-								<h3>Final Screens</h3>
+								<span class="artifact-label">{t.finalEvidence}</span>
+								<h3>{t.finalScreensTitle}</h3>
 								<p>
-									The mockups translated the research into a clearer, more accessible platform
-									experience focused on personalized routes, resources, and progress tracking.
+									{t.finalScreensCopy}
 								</p>
 								<div class="mockup-showcase">
 									<a
@@ -382,25 +955,21 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 
 				{
 					project.slug === 'digital-entertainment-redesign' && (
-						<section class="content-block quest-artifacts entertainment-artifacts" aria-labelledby="entertainment-artifacts-title">
+						<section class="content-block quest-artifacts entertainment-artifacts" aria-labelledby={`entertainment-artifacts-title-${lang}`}>
 							<div class="artifacts-heading">
-								<p class="artifact-eyebrow">Final Evidence</p>
-								<h2 id="entertainment-artifacts-title">Quest Artifacts</h2>
+								<p class="artifact-eyebrow">{t.finalEvidence}</p>
+								<h2 id={`entertainment-artifacts-title-${lang}`}>{t.questArtifacts}</h2>
 								<p>
-									Wireframes and mobile mockups showing how the redesign expanded discovery,
-									wallet actions, and casino cross-navigation without breaking the core
-									purchase flow.
+									{t.entertainmentArtifactsIntro}
 								</p>
 							</div>
 
 							<div class="journey-map-gallery" aria-label="Digital entertainment user journey maps">
 								<div class="journey-map-heading">
-									<span class="artifact-label">User Journey Maps</span>
-									<h3>Payment and Full App Flow</h3>
+									<span class="artifact-label">{t.userJourneyMapsTitle}</span>
+									<h3>{t.paymentFlowTitle}</h3>
 									<p>
-										Two journey maps were used to compare the direct game-payment flow with the
-										full experience from opening the app, registering, playing, and needing to
-										load money.
+										{t.journeyMapsCopy}
 									</p>
 								</div>
 								<div class="journey-map-strip">
@@ -435,8 +1004,8 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 
 							<div class="wireframe-gallery" aria-label="Digital entertainment wireframes">
 								<div class="wireframe-heading">
-									<span class="artifact-label">Wireframe Screens</span>
-									<h3>Selected Flow Screens</h3>
+									<span class="artifact-label">{t.wireframeScreens}</span>
+									<h3>{t.selectedFlowScreens}</h3>
 								</div>
 								<div class="wireframe-strip">
 									<a
@@ -502,12 +1071,12 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 
 				{
 					project.slug === 'fixia-service-platform' && (
-						<section class="content-block quest-artifacts fixia-artifacts" aria-labelledby="fixia-artifacts-title">
+						<section class="content-block quest-artifacts fixia-artifacts" aria-labelledby={`fixia-artifacts-title-${lang}`}>
 							<div class="artifacts-heading">
-								<p class="artifact-eyebrow">Final Evidence</p>
-								<h2 id="fixia-artifacts-title">Quest Artifacts</h2>
+								<p class="artifact-eyebrow">{t.finalEvidence}</p>
+								<h2 id={`fixia-artifacts-title-${lang}`}>{t.questArtifacts}</h2>
 								<p>
-									Desktop and mobile mockups showing how FIXIA turns service uncertainty into a clearer path: diagnose the problem, compare verified technicians, and request help with more trust.
+									{t.fixiaArtifactsIntro}
 								</p>
 							</div>
 
@@ -545,11 +1114,11 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 
 				{
 					project.slug === 'ai-hiring-platform' && (
-						<section class="content-block quest-artifacts ai-hiring-artifacts" aria-labelledby="ai-hiring-artifacts-title">
+						<section class="content-block quest-artifacts ai-hiring-artifacts" aria-labelledby={`ai-hiring-artifacts-title-${lang}`}>
 							<div class="artifacts-heading">
-								<p class="artifact-eyebrow">Evidence Collected</p>
-								<h2 id="ai-hiring-artifacts-title">Quest Artifacts</h2>
-								<p>Screen design contributions supporting the gamified hiring platform experience.</p>
+								<p class="artifact-eyebrow">{t.evidenceCollected}</p>
+								<h2 id={`ai-hiring-artifacts-title-${lang}`}>{t.questArtifacts}</h2>
+								<p>{t.aiHiringArtifactsIntro}</p>
 							</div>
 
 							<div class="ai-hiring-showcase" aria-label="AI Hiring Platform mockup">
@@ -573,11 +1142,11 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 
 				{
 					project.slug === 'traditional-food-brand-website' && (
-						<section class="content-block quest-artifacts brand-web-showcase-artifacts" aria-labelledby="brand-web-artifacts-title">
+						<section class="content-block quest-artifacts brand-web-showcase-artifacts" aria-labelledby={`brand-web-artifacts-title-${lang}`}>
 							<div class="artifacts-heading">
-								<p class="artifact-eyebrow">Evidence Collected</p>
-								<h2 id="brand-web-artifacts-title">Quest Artifacts</h2>
-								<p>Web screens and visual layouts supporting the traditional food brand digital experience.</p>
+								<p class="artifact-eyebrow">{t.evidenceCollected}</p>
+								<h2 id={`brand-web-artifacts-title-${lang}`}>{t.questArtifacts}</h2>
+								<p>{lang === 'en' ? 'Web screens and visual layouts supporting the traditional food brand digital experience.' : 'Pantallas web y layouts visuales que apoyan la experiencia digital de la marca de comida tradicional.'}</p>
 							</div>
 
 							<div class="brand-web-mockup-grid" aria-label="Traditional food brand website screens">
@@ -614,10 +1183,10 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 
 				{
 					artifactPlaceholders && project.slug !== 'ai-hiring-platform' && project.slug !== 'traditional-food-brand-website' && (
-						<section class:list={['content-block quest-artifacts hiring-artifacts', project.slug === 'traditional-food-brand-website' && 'brand-web-artifacts']} aria-labelledby="quest-artifacts-title">
+						<section class:list={['content-block quest-artifacts hiring-artifacts', project.slug === 'traditional-food-brand-website' && 'brand-web-artifacts']} aria-labelledby={`quest-artifacts-title-${lang}`}>
 							<div class="artifacts-heading">
-								<p class="artifact-eyebrow">Evidence Collected</p>
-								<h2 id="quest-artifacts-title">Quest Artifacts</h2>
+								<p class="artifact-eyebrow">{t.evidenceCollected}</p>
+								<h2 id={`quest-artifacts-title-${lang}`}>{t.questArtifacts}</h2>
 								<p>{artifactsIntro}</p>
 							</div>
 
@@ -629,7 +1198,7 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 										<p>{artifact.description}</p>
 										<div class="artifact-placeholder" role="img" aria-label={artifact.alt}>
 											<span>{artifact.title}</span>
-											<small>Image slot ready</small>
+											<small>{t.imageSlotReady}</small>
 										</div>
 									</article>
 								))}
@@ -638,73 +1207,131 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 					)
 				}
 
-				<div class="two-column decision-feature-grid">
-					<section class="content-block decision-summary-card">
-						<h2>Design Decisions</h2>
-						<ul class="decision-list">
-							{project.designDecisions.map((item) => <li>{item}</li>)}
-						</ul>
-					</section>
+				{
+					!designPrinciples && (
+						<div class="two-column decision-feature-grid">
+							<section class="content-block decision-summary-card">
+								<h2>{t.designDecisions}</h2>
+								<ul class="decision-list">
+									{p.designDecisions.map((item) => <li>{item}</li>)}
+								</ul>
+							</section>
 
-					<section class="content-block feature-summary-card">
-						<h2>{keyFeaturesTitle}</h2>
-						<ul class="feature-chip-list">
-							{project.keyFeatures.map((item) => <li>{item}</li>)}
-						</ul>
-					</section>
-				</div>
+							<section class="content-block feature-summary-card">
+								<h2>{keyFeaturesTitle}</h2>
+								<ul class="feature-chip-list">
+									{p.keyFeatures.map((item) => <li>{item}</li>)}
+								</ul>
+							</section>
+						</div>
+					)
+				}
 
 				<section class="content-block outcome">
 					<h2>{outcomeTitle}</h2>
-					{project.outcome.map((paragraph) => <p>{paragraph}</p>)}
+					{p.outcome.map((paragraph) => <p>{paragraph}</p>)}
+					{
+						rolePullQuote && (
+							<div class="achievement-panel">
+								<p class="achievement-panel-label">{t.achievementUnlocked}</p>
+								<p class="achievement-panel-value">{p.achievement}</p>
+							</div>
+						)
+					}
 				</section>
 
 				<nav class="level-nav" aria-label="Level navigation">
-					<a href="/levels">Back to Map</a>
+					<a href="/levels">{t.backToMap}</a>
 					{
 						previousProject && (
 							<a href={`/levels/${previousProject.slug}`}>
 								<span class="nav-arrow" aria-hidden="true">&lt;</span>
-								Previous Level
+								{t.previousLevel}
 							</a>
 						)
 					}
 					{
 						nextProject && (
 							<a href={`/levels/${nextProject.slug}`}>
-								Next Level
+								{t.nextLevel}
 								<span class="nav-arrow" aria-hidden="true">&gt;</span>
 							</a>
 						)
 					}
-					<a href="/contact">Contact Player</a>
+					<a href="/contact">{t.contactPlayer}</a>
 				</nav>
 			</div>
 		</section>
+		</div>
+		))}
+
+		{artifactThemes && (
+			<dialog class="lightbox-dialog" aria-label="Artifact preview">
+				<button type="button" class="lightbox-close" data-lightbox-close aria-label="Close preview">×</button>
+				<figure>
+					<img data-lightbox-image src="" alt="" />
+					<figcaption data-lightbox-caption></figcaption>
+				</figure>
+			</dialog>
+		)}
 	</main>
 
 </Layout>
 
 <script>
-	const processCarousel = document.getElementById('level-process-carousel');
-	const processPrevButton = document.querySelector('[data-process-prev]');
-	const processNextButton = document.querySelector('[data-process-next]');
-
-	const scrollProcessCarousel = (direction: number) => {
+	document.querySelectorAll('[data-level-process-carousel]').forEach((processCarousel) => {
 		if (!(processCarousel instanceof HTMLElement)) return;
+		const controls = processCarousel.parentElement?.querySelector('.carousel-controls');
+		const processPrevButton = controls?.querySelector('[data-process-prev]');
+		const processNextButton = controls?.querySelector('[data-process-next]');
 
-		const firstCard = processCarousel.querySelector('article');
-		const cardWidth = firstCard instanceof HTMLElement ? firstCard.offsetWidth : 360;
-		const gap = parseFloat(getComputedStyle(processCarousel).columnGap || '0');
+		const scrollProcessCarousel = (direction: number) => {
+			const firstCard = processCarousel.querySelector('article');
+			const cardWidth = firstCard instanceof HTMLElement ? firstCard.offsetWidth : 360;
+			const gap = parseFloat(getComputedStyle(processCarousel).columnGap || '0');
 
-		processCarousel.scrollBy({
-			left: direction * (cardWidth + gap),
-			behavior: 'smooth',
+			processCarousel.scrollBy({
+				left: direction * (cardWidth + gap),
+				behavior: 'smooth',
+			});
+		};
+
+		processPrevButton?.addEventListener('click', () => scrollProcessCarousel(-1));
+		processNextButton?.addEventListener('click', () => scrollProcessCarousel(1));
+	});
+
+	function applyProjectLang(lang: string) {
+		document.querySelectorAll('[data-plang]').forEach((el) => {
+			if (el instanceof HTMLElement) el.hidden = el.getAttribute('data-plang') !== lang;
 		});
-	};
+	}
+	const savedProjectLang = (typeof localStorage !== 'undefined' && localStorage.getItem('lizzy-lang')) || 'en';
+	applyProjectLang(savedProjectLang);
+	document.addEventListener('langchange', (e) => applyProjectLang((e as CustomEvent).detail.lang));
 
-	processPrevButton?.addEventListener('click', () => scrollProcessCarousel(-1));
-	processNextButton?.addEventListener('click', () => scrollProcessCarousel(1));
+	const lightboxDialog = document.querySelector('.lightbox-dialog');
+	const lightboxImage = lightboxDialog?.querySelector('[data-lightbox-image]');
+	const lightboxCaption = lightboxDialog?.querySelector('[data-lightbox-caption]');
+
+	document.querySelectorAll('[data-lightbox-trigger], .artifact-lightbox-trigger').forEach((trigger) => {
+		trigger.addEventListener('click', () => {
+			if (!(lightboxDialog instanceof HTMLDialogElement) || !(lightboxImage instanceof HTMLImageElement)) return;
+			lightboxImage.src = trigger.getAttribute('data-lightbox-src') || '';
+			lightboxImage.alt = trigger.getAttribute('data-lightbox-alt') || '';
+			if (lightboxCaption instanceof HTMLElement) {
+				lightboxCaption.textContent = trigger.getAttribute('data-lightbox-caption') || '';
+			}
+			lightboxDialog.showModal();
+		});
+	});
+
+	document.querySelector('[data-lightbox-close]')?.addEventListener('click', () => {
+		if (lightboxDialog instanceof HTMLDialogElement) lightboxDialog.close();
+	});
+
+	lightboxDialog?.addEventListener('click', (event) => {
+		if (event.target === lightboxDialog && lightboxDialog instanceof HTMLDialogElement) lightboxDialog.close();
+	});
 </script>
 
 <style is:global>
@@ -769,8 +1396,10 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		margin: 0;
 		color: #b8977a;
 		font-family: 'Pixelify Sans', 'Courier New', monospace;
-		font-size: clamp(3rem, 7vw, 5.8rem);
+		font-size: clamp(2.4rem, 5.5vw, 5.8rem);
 		line-height: 0.92;
+		overflow-wrap: break-word;
+		hyphens: auto;
 	}
 
 	.project-hero p:not(.level-label):not(.unlock-badge) {
@@ -1994,9 +2623,712 @@ const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifac
 		padding-top: 26px;
 	}
 
+	/* ── Healthcare WMS: new component patterns ───────────────── */
+	.unlock-badge-icon {
+		display: inline-block;
+		margin-right: 6px;
+		vertical-align: -2px;
+		color: #b8977a;
+	}
+
+	/* ── Editorial blocks (Mission Brief, What I Learned) ────── */
+	.editorial-block {
+		display: grid;
+		grid-template-columns: minmax(160px, 0.32fr) minmax(0, 0.68fr);
+		gap: clamp(20px, 4vw, 40px);
+	}
+
+	.editorial-heading {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
+
+	.editorial-number {
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 2.4rem;
+		font-weight: 800;
+		color: #d6c6f5;
+		line-height: 1;
+	}
+
+	.editorial-heading h2 {
+		margin: 0;
+	}
+
+	.editorial-pull-quote {
+		margin: 10px 0 0;
+		color: #6b625d;
+		font-size: 1rem;
+		font-style: italic;
+		line-height: 1.6;
+	}
+
+	.editorial-highlight {
+		margin: 0 0 16px;
+		color: #4a403a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+		font-weight: 700;
+		line-height: 1.35;
+	}
+
+	.reflection-block {
+		max-width: 720px;
+	}
+
+	.reflection-block h2 {
+		margin-top: 6px;
+	}
+
+	/* ── Themed problem list (Operational Challenge) ─────────── */
+	.theme-list {
+		display: grid;
+		gap: 18px;
+		margin-top: 22px;
+		border-top: 2px dashed #d6c6f5;
+		padding-top: 18px;
+	}
+
+	.theme-row {
+		display: grid;
+		grid-template-columns: minmax(120px, 0.25fr) minmax(0, 0.75fr);
+		gap: 14px;
+		padding-bottom: 16px;
+		border-bottom: 1px dashed rgba(214, 198, 245, 0.6);
+	}
+
+	.theme-row:last-child {
+		border-bottom: 0;
+		padding-bottom: 0;
+	}
+
+	.theme-label {
+		margin: 0;
+		color: #b8977a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 0.92rem;
+		font-weight: 800;
+		text-transform: uppercase;
+	}
+
+	ul.theme-items {
+		display: grid;
+		gap: 8px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.theme-items li {
+		display: flex;
+		align-items: baseline;
+		gap: 10px;
+		border: 0;
+		border-radius: 0;
+		background: none;
+		padding: 0;
+		color: #4a403a;
+		font-size: 0.96rem;
+		font-weight: 400;
+		line-height: 1.5;
+	}
+
+	.theme-marker {
+		flex: none;
+		color: #bfd7ed;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 0.78rem;
+		font-weight: 800;
+	}
+
+	/* ── System Scope statistics ──────────────────────────────── */
+	.stat-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: clamp(24px, 5vw, 56px);
+		margin-top: 18px;
+	}
+
+	.stat-block {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.stat-block strong {
+		color: #f4a6bd;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: clamp(2.4rem, 5vw, 3.4rem);
+		font-weight: 800;
+		line-height: 1;
+	}
+
+	.stat-block span {
+		color: #6b625d;
+		font-size: 0.86rem;
+		font-weight: 700;
+	}
+
+	.stat-support {
+		max-width: 640px;
+		margin-top: 16px !important;
+	}
+
+	/* ── Plain lists (Users & Roles, Impact themes) ──────────── */
+	.plain-columns {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: clamp(20px, 4vw, 40px);
+		margin-top: 18px;
+	}
+
+	.plain-columns h3 {
+		margin: 0 0 10px;
+		color: #4a403a;
+		font-size: 1rem;
+	}
+
+	ul.plain-list {
+		display: grid;
+		gap: 8px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.plain-list li {
+		position: relative;
+		border: 0;
+		border-radius: 0;
+		background: none;
+		padding: 0 0 0 16px;
+		color: #4a403a;
+		font-size: 0.94rem;
+		font-weight: 400;
+		line-height: 1.6;
+	}
+
+	.plain-list li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.65em;
+		width: 6px;
+		height: 6px;
+		border-radius: 999px;
+		background: #d6c6f5;
+	}
+
+	.role-tag-list {
+		margin-top: 18px !important;
+	}
+
+	/* ── Quest Progress timeline ──────────────────────────────── */
+	.quest-timeline {
+		position: relative;
+		display: grid;
+		gap: 28px;
+		margin-top: 22px;
+		padding-left: 36px;
+		border-left: 2px dashed #d6c6f5;
+	}
+
+	.timeline-stage {
+		position: relative;
+		display: grid;
+		gap: 6px;
+	}
+
+	.timeline-marker {
+		position: absolute;
+		left: -54px;
+		top: 0;
+		display: grid;
+		place-items: center;
+		width: 36px;
+		height: 36px;
+		border: 2px solid #f4a6bd;
+		border-radius: 999px;
+		background: #fff7f1;
+	}
+
+	.timeline-marker span {
+		color: #f4a6bd;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 0.78rem;
+		font-weight: 800;
+	}
+
+	.timeline-stage-copy h3 {
+		margin: 0 0 6px;
+		color: #4a403a;
+		font-size: 1.1rem;
+	}
+
+	/* ── Module directory (numbered editorial list) ──────────── */
+	.module-directory {
+		display: grid;
+		margin-top: 18px;
+		border-top: 2px dashed #d6c6f5;
+	}
+
+	.module-row {
+		display: grid;
+		grid-template-columns: 64px minmax(0, 1fr);
+		gap: 18px;
+		align-items: start;
+		padding: 18px 14px;
+		border-bottom: 1px dashed rgba(214, 198, 245, 0.6);
+		border-left: 4px solid transparent;
+	}
+
+	.module-number {
+		margin: 0;
+		color: #f4a6bd !important;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 1.5rem !important;
+		font-weight: 800;
+		line-height: 1;
+	}
+
+	.module-row-copy h3 {
+		margin: 0 0 6px;
+		color: #4a403a;
+		font-size: 1.05rem;
+	}
+
+	.module-row-copy p {
+		margin: 0;
+	}
+
+	.module-accent-0 { border-left-color: #f4a6bd; }
+	.module-accent-1 { border-left-color: #a8d870; }
+	.module-accent-2 { border-left-color: #d6c6f5; }
+	.module-accent-3 { border-left-color: #f9e7a3; }
+	.module-accent-4 { border-left-color: #bfd7ed; }
+
+	/* ── Featured workflows ───────────────────────────────────── */
+	.workflow-list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 18px;
+		margin-top: 18px;
+	}
+
+	.workflow-card {
+		border: 3px solid #bfd7ed;
+		border-radius: 22px;
+		background: #f7fbff;
+		padding: 20px;
+	}
+
+	.flow-path {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0;
+		margin: 14px 0;
+	}
+
+	.flow-node {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		color: #4a403a;
+		font-size: 0.82rem;
+		font-weight: 700;
+		padding: 4px 0;
+	}
+
+	.flow-node::before {
+		content: '';
+		flex: none;
+		width: 9px;
+		height: 9px;
+		border-radius: 999px;
+		background: #f4a6bd;
+	}
+
+	.flow-node:not(:last-child)::after {
+		content: '';
+		display: inline-block;
+		width: 26px;
+		margin: 0 6px;
+		border-top: 2px dashed #d6c6f5;
+		vertical-align: middle;
+	}
+
+	.flow-path-vertical {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.flow-path-vertical .flow-node:not(:last-child)::after {
+		display: block;
+		width: 2px;
+		height: 18px;
+		margin: 2px 0 2px 18px;
+		border-top: 0;
+		border-left: 2px dashed #d6c6f5;
+	}
+
+	/* ── Key UX Decisions (numbered principles) ───────────────── */
+	.principle-list {
+		display: grid;
+		gap: 20px;
+		margin: 18px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	li.principle-row {
+		display: grid;
+		grid-template-columns: 48px minmax(0, 1fr);
+		gap: 16px;
+		border: 0;
+		border-radius: 0;
+		background: none;
+		padding: 0 0 18px;
+		font-weight: 400;
+		border-bottom: 1px dashed rgba(214, 198, 245, 0.6);
+	}
+
+	li.principle-row:last-child {
+		border-bottom: 0;
+		padding-bottom: 0;
+	}
+
+	.principle-number {
+		color: #d6c6f5;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 1.4rem;
+		font-weight: 800;
+	}
+
+	.principle-row h3 {
+		margin: 0 0 6px;
+		color: #4a403a;
+		font-size: 1.1rem;
+	}
+
+	.principle-row p {
+		margin: 0;
+	}
+
+	/* ── Split layout (SAP & Traceability) ────────────────────── */
+	.split-block {
+		display: grid;
+		grid-template-columns: minmax(0, 0.55fr) minmax(0, 0.45fr);
+		gap: clamp(20px, 4vw, 40px);
+		align-items: start;
+	}
+
+	.split-copy h2 {
+		margin-top: 0;
+	}
+
+	.split-visual {
+		padding-top: 6px;
+	}
+
+	/* ── Quest Artifacts: single gallery frame ─────────────────── */
+	.artifact-gallery-grid {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: clamp(18px, 3vw, 32px);
+		margin-top: 18px;
+		padding: clamp(20px, 3vw, 30px);
+		border: 2px solid #d6c6f5;
+		border-radius: 20px;
+		background: #ffffff;
+	}
+
+	.artifact-gallery-tile {
+		position: relative;
+		height: clamp(160px, 22vw, 220px);
+		border: 0;
+		border-radius: 10px;
+		background: transparent;
+		padding: 0;
+	}
+
+	.artifact-gallery-tile img {
+		display: block;
+		height: 100%;
+		width: auto;
+		max-width: 100%;
+		object-fit: contain;
+		border-radius: 10px;
+		transition: transform 180ms ease;
+	}
+
+	.artifact-gallery-tile:hover img {
+		transform: translateY(-3px);
+	}
+
+	.artifact-lightbox-trigger {
+		cursor: pointer;
+		font: inherit;
+		border: 0;
+		text-align: inherit;
+		color: inherit;
+	}
+
+	.workshop-persona-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+		gap: 14px;
+		margin-top: 4px;
+	}
+
+	.workshop-persona-tile {
+		display: grid;
+		place-items: center;
+		overflow: hidden;
+		border: 2px solid rgba(214, 198, 245, 0.88);
+		border-radius: 18px;
+		background: #ffffff;
+		box-shadow: 0 10px 22px rgba(214, 198, 245, 0.16);
+		padding: 8px;
+		transition: box-shadow 180ms ease, transform 180ms ease;
+	}
+
+	.workshop-persona-tile:hover {
+		box-shadow: 0 14px 28px rgba(214, 198, 245, 0.24);
+		transform: translateY(-3px);
+	}
+
+	.workshop-persona-tile img {
+		display: block;
+		width: 100%;
+		height: clamp(140px, 16vw, 200px);
+		object-fit: cover;
+		border-radius: 12px;
+	}
+
+	.cluster-stack {
+		display: grid;
+		gap: 16px;
+		margin-top: 14px;
+	}
+
+	.cluster-stack-frame {
+		display: block;
+		overflow: hidden;
+		border: 2px solid rgba(214, 198, 245, 0.7);
+		border-radius: 16px;
+		background: #ffffff;
+		padding: 10px;
+	}
+
+	.cluster-stack-frame img {
+		display: block;
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+		border-radius: 10px;
+	}
+
+	.mockup-plain-stack {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 28px;
+		margin-top: 18px;
+		align-items: center;
+		justify-items: center;
+	}
+
+	.mockup-plain-frame {
+		display: block;
+		background: none;
+		border: 0;
+		padding: 0;
+		max-width: 100%;
+	}
+
+	.mockup-plain-frame img {
+		display: block;
+		width: 100%;
+		max-width: 380px;
+		height: auto;
+		object-fit: contain;
+	}
+
+	/* ── Expected Impact: three columns ────────────────────────── */
+	.impact-disclaimer {
+		margin: 0 0 14px;
+		color: #7b716c;
+		font-size: 0.84rem;
+		font-style: italic;
+	}
+
+	.impact-theme-columns {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: clamp(18px, 3vw, 32px);
+	}
+
+	.impact-theme-column h3 {
+		margin: 0 0 12px;
+		color: #4a403a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 1.05rem;
+	}
+
+	/* ── Achievement panel (Level Complete only) ──────────────── */
+	.achievement-panel {
+		margin-top: 22px;
+		border: 3px solid #a8d870;
+		border-radius: 20px;
+		background: #fbfff5;
+		padding: 20px 24px;
+	}
+
+	.achievement-panel-label {
+		margin: 0 0 6px;
+		color: #7b9e4a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 0.8rem;
+		font-weight: 800;
+		text-transform: uppercase;
+	}
+
+	.achievement-panel-value {
+		margin: 0;
+		color: #4a403a;
+		font-weight: 800;
+	}
+
+	.triad-diagram {
+		display: grid;
+		gap: 16px;
+		margin-top: 18px;
+	}
+
+	.triad-row {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 16px;
+		align-items: stretch;
+	}
+
+	.triad-node {
+		border: 3px solid #a8d870;
+		border-radius: 20px;
+		background: #fbfff5;
+		padding: 18px;
+		text-align: center;
+	}
+
+	.triad-node h3 {
+		margin: 0 0 8px;
+		color: #4a403a;
+		font-family: 'Pixelify Sans', 'Courier New', monospace;
+		font-size: 1.05rem;
+	}
+
+	.triad-node p {
+		margin: 0;
+		font-size: 0.88rem;
+	}
+
+	.triad-center {
+		border-color: #f4a6bd;
+		background: #fff7f1;
+	}
+
+	.lightbox-dialog {
+		width: min(900px, calc(100vw - 32px));
+		max-width: none;
+		max-height: 90vh;
+		padding: 0;
+		border: 0;
+		border-radius: 20px;
+		background: #fff7f1;
+		box-shadow: 0 30px 70px rgba(74, 64, 58, 0.3);
+	}
+
+	.lightbox-dialog::backdrop {
+		background: rgba(74, 64, 58, 0.5);
+	}
+
+	.lightbox-dialog figure {
+		margin: 0;
+		padding: 20px;
+	}
+
+	.lightbox-dialog img {
+		display: block;
+		width: 100%;
+		max-height: 70vh;
+		object-fit: contain;
+	}
+
+	.lightbox-dialog figcaption {
+		margin-top: 10px;
+		color: #4a403a;
+		font-weight: 700;
+		text-align: center;
+	}
+
+	.lightbox-close {
+		position: absolute;
+		top: 12px;
+		right: 12px;
+		z-index: 2;
+		width: 36px;
+		height: 36px;
+		border: 0;
+		border-radius: 999px;
+		background: #f4a6bd;
+		color: #4a403a;
+		font-size: 1.2rem;
+		cursor: pointer;
+	}
+
 	@media (max-width: 760px) {
 		.level-detail-screen {
 			padding-inline: 14px;
+		}
+
+		.editorial-block,
+		.theme-row,
+		.plain-columns,
+		.workflow-list,
+		.module-row,
+		.split-block,
+		.impact-theme-columns,
+		.triad-row {
+			grid-template-columns: 1fr;
+		}
+
+		.quest-timeline {
+			padding-left: 28px;
+		}
+
+		.timeline-marker {
+			left: -42px;
+			width: 30px;
+			height: 30px;
+		}
+
+		.flow-path {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.flow-node:not(:last-child)::after {
+			display: block;
+			width: 2px;
+			height: 18px;
+			margin: 2px 0 2px 18px;
+			border-top: 0;
+			border-left: 2px dashed #d6c6f5;
 		}
 
 		.project-hero-grid,
