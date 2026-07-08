@@ -2342,6 +2342,308 @@ export const levelProjects = [
 			achievement: 'Facilitación de Talleres + Investigación con Stakeholders + Descubrimiento de Producto',
 		},
 	},
+	{
+		level: 'LEVEL_09',
+		slug: 'whatsapp-taxi-booking-experience',
+		title: 'WhatsApp Taxi Booking Experience',
+		intro:
+			'A conversational booking flow designed to help users request a taxi through WhatsApp while connecting customer information, locations, confirmations, and operational follow-up.',
+		tags: [
+			'Conversational UX',
+			'WhatsApp',
+			'Transportation',
+			'UX Testing',
+		],
+		metadata: [
+			{ label: 'Type', value: 'Conversational UX / Transportation Platform' },
+			{ label: 'Platform', value: 'WhatsApp + Mobile Application' },
+			{ label: 'Role', value: 'Conversation Flow Design · Chatbot Testing · UX/UI Support · Developer Collaboration' },
+			{ label: 'Project Stage', value: 'Existing Product Contribution' },
+			{ label: 'Team', value: 'Design & Development Collaboration' },
+			{ label: 'Difficulty', value: '★★★★☆' },
+		],
+		ctaLabel: 'Explore Experience',
+		statusLabel: 'Live Tested Flow',
+		missionBrief: [
+			'The mission was to make requesting a taxi through WhatsApp feel clear, guided, and reliable.',
+			'Instead of asking users to complete a long form, the chatbot collected the necessary information through a step-by-step conversation.',
+			'The experience needed to guide users through personal information, passenger details, pickup and destination data, location selection, confirmation, and possible corrections without creating confusion or conversational dead ends.',
+			'“Turn a complex service request into a simple guided conversation.”',
+		],
+		problem: [
+			'A chatbot does not have the same visual structure as a traditional application. The user cannot see every field or step at once, so each question must clearly communicate what information is needed, why it is needed, what type of response is expected, what happens next, and how to correct a mistake.',
+			'The flow also needed to handle multiple decision paths, location inputs, confirmations, and unexpected responses while preserving a sense of progress — helping users understand where they were in the booking process at every step.',
+			'A useful conversation needed clear recovery paths for negative responses, corrections, invalid information, and returning to previous decisions, so a single unexpected answer would never create a dead end.',
+		],
+		useCase:
+			'The flow guided users through building a ride request step by step: identity and contact information, passenger details, pickup location, destination, geographic area, and a final review before confirmation. The wider platform also considered ride assignment, available drivers, notifications, and operational follow-up — though my contribution focused specifically on the conversational booking flow and selected application screens, not the assignment or backend logic.',
+		whyMatters:
+			'I joined the project after its initial definition. My contribution focused on designing and testing the WhatsApp booking flow and supporting the design of selected application screens — not on building the platform, the dispatch logic, or the mobile app as a whole.',
+		blockers: [
+			'Users had to communicate complex trip details without a visual form to reference.',
+			'A single unclear question could break the flow of the conversation.',
+			'Without visible progress, users could lose track of where they were in the booking process.',
+			'Negative responses and corrections needed a clear way back into the flow.',
+		],
+		deliveryScope: [
+			'A structured WhatsApp conversation covering identity, passenger, pickup, destination, and area selection.',
+			'Decision branches for affirmative, negative, and alternate responses.',
+			'Confirmation checkpoints before key actions and before final submission.',
+			'Functional testing of the bot directly inside WhatsApp.',
+			'Selected screens supporting the wider transportation application.',
+		],
+		role: [
+			'Conversation Flow',
+			'Decision Branches',
+			'Response Review',
+			'WhatsApp Testing',
+			'Developer Collaboration',
+			'App UI Support',
+		],
+		roleIntro:
+			'I joined the project after the product had already been defined. My work focused on designing the chatbot flow shared in this case study, including its questions, decision branches, confirmations, and alternate paths. I also tested the bot directly in WhatsApp, reviewing its responses and checking that the conversation moved through the expected paths. The process involved collaboration with developers for the chatbot behavior and with the design team for selected screens of the companion application.',
+		processTitle: 'Quest Progress',
+		process: [
+			{
+				title: 'Understanding the Existing Experience',
+				body: [
+					'I joined after the project had started and reviewed the existing transportation experience, service-request requirements, and chatbot behavior.',
+				],
+			},
+			{
+				title: 'Mapping the Request',
+				body: [
+					'The information needed for a taxi request was organized into a logical conversational sequence.',
+				],
+			},
+			{
+				title: 'Designing Decision Paths',
+				body: [
+					'The flow was expanded to include confirmations, alternate responses, and routes for different user choices.',
+				],
+			},
+			{
+				title: 'Collaborating with Development',
+				body: [
+					'The conversation design was discussed with developers so the intended questions and paths could be translated into chatbot behavior.',
+				],
+			},
+			{
+				title: 'Testing in WhatsApp',
+				body: [
+					'The bot was tested directly in WhatsApp to review its responses and confirm that the expected conversational paths worked.',
+				],
+			},
+			{
+				title: 'Reviewing Responses',
+				body: [
+					'Bot messages were checked for clarity, sequence, and consistency as the user moved through the ride request.',
+				],
+			},
+			{
+				title: 'Supporting App Screens',
+				body: [
+					'I also contributed to selected screens of the companion application as part of the wider transportation experience.',
+				],
+			},
+		],
+		designDecisions: [
+			'One question at a time: breaking the request into smaller conversational steps reduced the amount of information shown at once.',
+			'Explicit expectations: each message made clear what type of answer the user should provide.',
+			'Confirm before submitting: important details were reviewed before the ride request was sent.',
+			'Support alternate paths: the chatbot handled different choices rather than assuming every user follows the happy path.',
+			'Design for recovery: users needed a clear way to correct information, reject a selection, or return to an earlier step.',
+		],
+		keyFeaturesTitle: 'Information Collected',
+		keyFeatures: [
+			'User identity',
+			'Email contact',
+			'Passenger confirmation',
+			'Pickup location',
+			'Destination',
+			'Geographic area',
+			'Final confirmation',
+		],
+		artifactsIntro: 'Selected application screens that supported the wider WhatsApp booking experience.',
+		artifactThemes: [
+			{
+				theme: 'Service Overview & Evidence',
+				images: [
+					{ src: '/img/levels/arribo/Group%2068.png', alt: 'Selected app screens showing chat handoff, service information, and evidence capture' },
+				],
+			},
+			{
+				theme: 'Operations Dashboard',
+				images: [
+					{ src: '/img/levels/arribo/Group%2069.png', alt: 'Operations dashboard showing scheduled activities and a map view' },
+				],
+			},
+			{
+				theme: 'Service Detail & Tracking',
+				images: [
+					{ src: '/img/levels/arribo/Mask%20group%20(1).png', alt: 'Service detail screen showing visit information and a tracking map' },
+				],
+			},
+		],
+		outcomeTitle: 'Level Complete',
+		outcome: [
+			'The project produced a complete conversational flow for requesting a taxi through WhatsApp, mapping the required information, decision branches, confirmations, alternate paths, and final request state.',
+			'The chatbot was tested directly in WhatsApp to review its responses and confirm the behavior of the designed conversation. I also contributed to selected application screens within the wider transportation platform.',
+			'This project helped me understand that conversational UX requires a different way of organizing information. In a traditional interface, users can see multiple fields, labels, and actions at the same time — in a chatbot, every message becomes part of the interface and every response can change the path.',
+			'Designing and testing the flow strengthened my ability to think about sequence, context, alternate responses, confirmation, and recovery. Working with developers also helped me understand how a conversational diagram is translated into functional bot behavior: in conversational UX, every question, response, and pause becomes part of the interface.',
+		],
+		achievement: 'Conversational UX + WhatsApp Testing + Cross-Functional Collaboration',
+		es: {
+			title: 'Experiencia de Reserva de Taxi por WhatsApp',
+			intro:
+				'Un flujo de reserva conversacional diseñado para ayudar a los usuarios a solicitar un taxi por WhatsApp, conectando información del cliente, ubicaciones, confirmaciones y seguimiento operativo.',
+			tags: [
+				'UX Conversacional',
+				'WhatsApp',
+				'Transporte',
+				'Pruebas UX',
+			],
+			metadata: [
+				{ label: 'Tipo', value: 'UX Conversacional / Plataforma de Transporte' },
+				{ label: 'Plataforma', value: 'WhatsApp + Aplicación Móvil' },
+				{ label: 'Rol', value: 'Diseño de Flujo Conversacional · Pruebas de Chatbot · Apoyo UX/UI · Colaboración con Desarrollo' },
+				{ label: 'Etapa del Proyecto', value: 'Contribución a Producto Existente' },
+				{ label: 'Equipo', value: 'Colaboración de Diseño y Desarrollo' },
+				{ label: 'Dificultad', value: '★★★★☆' },
+			],
+			ctaLabel: 'Explorar Experiencia',
+			statusLabel: 'Flujo Probado en Vivo',
+			missionBrief: [
+				'La misión era hacer que solicitar un taxi por WhatsApp se sintiera claro, guiado y confiable.',
+				'En lugar de pedir a los usuarios que llenaran un formulario largo, el chatbot recopilaba la información necesaria a través de una conversación paso a paso.',
+				'La experiencia necesitaba guiar a los usuarios a través de información personal, datos del pasajero, información de origen y destino, selección de ubicación, confirmación y posibles correcciones, sin crear confusión ni callejones conversacionales sin salida.',
+				'“Convertir una solicitud de servicio compleja en una conversación simple y guiada.”',
+			],
+			problem: [
+				'Un chatbot no tiene la misma estructura visual que una aplicación tradicional. El usuario no puede ver todos los campos o pasos a la vez, así que cada pregunta debe comunicar claramente qué información se necesita, por qué se necesita, qué tipo de respuesta se espera, qué sucede después y cómo corregir un error.',
+				'El flujo también necesitaba manejar múltiples rutas de decisión, entradas de ubicación, confirmaciones y respuestas inesperadas, preservando al mismo tiempo una sensación de progreso — ayudando a los usuarios a entender en qué punto del proceso de reserva se encontraban en cada momento.',
+				'Una conversación útil necesitaba rutas claras de recuperación para respuestas negativas, correcciones, información inválida y regreso a decisiones anteriores, de modo que una sola respuesta inesperada nunca creara un callejón sin salida.',
+			],
+			useCase:
+				'El flujo guiaba a los usuarios a través de la construcción de una solicitud de viaje paso a paso: identidad e información de contacto, datos del pasajero, ubicación de origen, destino, área geográfica y una revisión final antes de la confirmación. La plataforma más amplia también consideraba la asignación de viajes, conductores disponibles, notificaciones y seguimiento operativo — aunque mi contribución se enfocó específicamente en el flujo conversacional de reserva y en pantallas seleccionadas de la aplicación, no en la asignación ni en la lógica de backend.',
+			whyMatters:
+				'Me uní al proyecto después de su definición inicial. Mi contribución se enfocó en diseñar y probar el flujo de reserva en WhatsApp y en apoyar el diseño de pantallas seleccionadas de la aplicación — no en construir la plataforma, la lógica de despacho, ni la aplicación móvil completa.',
+			blockers: [
+				'Los usuarios tenían que comunicar detalles de viaje complejos sin un formulario visual de referencia.',
+				'Una sola pregunta poco clara podía romper el flujo de la conversación.',
+				'Sin progreso visible, los usuarios podían perder de vista en qué punto del proceso de reserva se encontraban.',
+				'Las respuestas negativas y las correcciones necesitaban un camino claro de regreso al flujo.',
+			],
+			deliveryScope: [
+				'Una conversación estructurada de WhatsApp cubriendo identidad, pasajero, origen, destino y selección de área.',
+				'Ramas de decisión para respuestas afirmativas, negativas y alternativas.',
+				'Puntos de confirmación antes de acciones clave y antes del envío final.',
+				'Pruebas funcionales del bot directamente dentro de WhatsApp.',
+				'Pantallas seleccionadas que apoyan la aplicación de transporte más amplia.',
+			],
+			role: [
+				'Flujo Conversacional',
+				'Ramas de Decisión',
+				'Revisión de Respuestas',
+				'Pruebas en WhatsApp',
+				'Colaboración con Desarrollo',
+				'Apoyo UI de App',
+			],
+			roleIntro:
+				'Me uní al proyecto después de que el producto ya había sido definido. Mi trabajo se enfocó en diseñar el flujo del chatbot compartido en este caso de estudio, incluyendo sus preguntas, ramas de decisión, confirmaciones y rutas alternas. También probé el bot directamente en WhatsApp, revisando sus respuestas y verificando que la conversación avanzara por las rutas esperadas. El proceso involucró colaboración con desarrolladores para el comportamiento del chatbot y con el equipo de diseño para pantallas seleccionadas de la aplicación complementaria.',
+			processTitle: 'Avance de la Misión',
+			process: [
+				{
+					title: 'Entendiendo la Experiencia Existente',
+					body: [
+						'Me uní después de que el proyecto había comenzado y revisé la experiencia de transporte existente, los requisitos de solicitud de servicio y el comportamiento del chatbot.',
+					],
+				},
+				{
+					title: 'Mapeando la Solicitud',
+					body: [
+						'La información necesaria para una solicitud de taxi se organizó en una secuencia conversacional lógica.',
+					],
+				},
+				{
+					title: 'Diseñando Rutas de Decisión',
+					body: [
+						'El flujo se amplió para incluir confirmaciones, respuestas alternas y rutas para diferentes elecciones del usuario.',
+					],
+				},
+				{
+					title: 'Colaborando con Desarrollo',
+					body: [
+						'El diseño de la conversación se discutió con desarrolladores para que las preguntas y rutas previstas pudieran traducirse en comportamiento del chatbot.',
+					],
+				},
+				{
+					title: 'Probando en WhatsApp',
+					body: [
+						'El bot se probó directamente en WhatsApp para revisar sus respuestas y confirmar que las rutas conversacionales esperadas funcionaran.',
+					],
+				},
+				{
+					title: 'Revisando Respuestas',
+					body: [
+						'Los mensajes del bot se revisaron en cuanto a claridad, secuencia y consistencia mientras el usuario avanzaba en la solicitud de viaje.',
+					],
+				},
+				{
+					title: 'Apoyando Pantallas de la App',
+					body: [
+						'También contribuí a pantallas seleccionadas de la aplicación complementaria como parte de la experiencia de transporte más amplia.',
+					],
+				},
+			],
+			designDecisions: [
+				'Una pregunta a la vez: dividir la solicitud en pasos conversacionales más pequeños redujo la cantidad de información mostrada a la vez.',
+				'Expectativas explícitas: cada mensaje dejaba claro qué tipo de respuesta debía dar el usuario.',
+				'Confirmar antes de enviar: los detalles importantes se revisaban antes de enviar la solicitud de viaje.',
+				'Apoyar rutas alternas: el chatbot manejaba distintas elecciones en lugar de asumir que todos los usuarios siguen el camino ideal.',
+				'Diseñar para la recuperación: los usuarios necesitaban una forma clara de corregir información, rechazar una selección o regresar a un paso anterior.',
+			],
+			keyFeaturesTitle: 'Información Recopilada',
+			keyFeatures: [
+				'Identidad del usuario',
+				'Contacto por correo',
+				'Confirmación de pasajero',
+				'Ubicación de origen',
+				'Destino',
+				'Área geográfica',
+				'Confirmación final',
+			],
+			artifactsIntro: 'Pantallas seleccionadas de la aplicación que apoyaron la experiencia de reserva por WhatsApp más amplia.',
+			artifactThemes: [
+				{
+					theme: 'Resumen de Servicio y Evidencia',
+					images: [
+						{ src: '/img/levels/arribo/Group%2068.png', alt: 'Pantallas seleccionadas mostrando la transición del chat, información del servicio y captura de evidencia' },
+					],
+				},
+				{
+					theme: 'Panel de Operaciones',
+					images: [
+						{ src: '/img/levels/arribo/Group%2069.png', alt: 'Panel de operaciones mostrando actividades programadas y una vista de mapa' },
+					],
+				},
+				{
+					theme: 'Detalle de Servicio y Seguimiento',
+					images: [
+						{ src: '/img/levels/arribo/Mask%20group%20(1).png', alt: 'Pantalla de detalle de servicio mostrando información de la visita y un mapa de seguimiento' },
+					],
+				},
+			],
+			outcomeTitle: 'Misión Completada',
+			outcome: [
+				'El proyecto produjo un flujo conversacional completo para solicitar un taxi por WhatsApp, mapeando la información requerida, las ramas de decisión, las confirmaciones, las rutas alternas y el estado final de la solicitud.',
+				'El chatbot se probó directamente en WhatsApp para revisar sus respuestas y confirmar el comportamiento de la conversación diseñada. También contribuí a pantallas seleccionadas de la aplicación dentro de la plataforma de transporte más amplia.',
+				'Este proyecto me ayudó a entender que el UX conversacional requiere una forma distinta de organizar la información. En una interfaz tradicional, los usuarios pueden ver múltiples campos, etiquetas y acciones al mismo tiempo — en un chatbot, cada mensaje se convierte en parte de la interfaz y cada respuesta puede cambiar la ruta.',
+				'Diseñar y probar el flujo fortaleció mi capacidad para pensar en secuencia, contexto, respuestas alternas, confirmación y recuperación. Trabajar con desarrolladores también me ayudó a entender cómo un diagrama conversacional se traduce en comportamiento funcional del bot: en el UX conversacional, cada pregunta, respuesta y pausa se convierte en parte de la interfaz.',
+			],
+			achievement: 'UX Conversacional + Pruebas en WhatsApp + Colaboración Multifuncional',
+		},
+	},
 ] as const;
 
 export type LevelProject = (typeof levelProjects)[number];
