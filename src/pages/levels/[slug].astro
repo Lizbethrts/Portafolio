@@ -33,6 +33,8 @@ const outcomeTitle = 'outcomeTitle' in project ? project.outcomeTitle : 'Outcome
 const artifactsIntro = 'artifactsIntro' in project ? project.artifactsIntro : null;
 const artifactPlaceholders = 'artifactPlaceholders' in project ? project.artifactPlaceholders : null;
 const ctaLabel = 'ctaLabel' in project ? project.ctaLabel : null;
+const ctaHref = 'ctaHref' in project ? project.ctaHref : null;
+const prototypeEmbed = 'prototypeEmbed' in project ? project.prototypeEmbed : null;
 const statusLabel = 'statusLabel' in project ? project.statusLabel : null;
 const missionHighlight = 'missionHighlight' in project ? project.missionHighlight : null;
 const problemThemes = 'problemThemes' in project ? project.problemThemes : null;
@@ -70,6 +72,7 @@ const esOutcomeTitle = es && 'outcomeTitle' in es ? es.outcomeTitle : (outcomeTi
 const esArtifactsIntro = es && 'artifactsIntro' in es ? es.artifactsIntro : artifactsIntro;
 const esArtifactPlaceholders = es && 'artifactPlaceholders' in es ? es.artifactPlaceholders : artifactPlaceholders;
 const esCtaLabel = es && 'ctaLabel' in es ? es.ctaLabel : ctaLabel;
+const esCtaHref = es && 'ctaHref' in es ? es.ctaHref : ctaHref;
 const esStatusLabel = es && 'statusLabel' in es ? es.statusLabel : statusLabel;
 const esMissionHighlight = es && 'missionHighlight' in es ? es.missionHighlight : missionHighlight;
 const esProblemThemes = es && 'problemThemes' in es ? es.problemThemes : problemThemes;
@@ -194,6 +197,8 @@ const views = (['en', 'es'] as const).map((lang) => ({
 	artifactsIntro: lang === 'en' ? artifactsIntro : esArtifactsIntro,
 	artifactPlaceholders: lang === 'en' ? artifactPlaceholders : esArtifactPlaceholders,
 	ctaLabel: lang === 'en' ? ctaLabel : esCtaLabel,
+	ctaHref: lang === 'en' ? ctaHref : esCtaHref,
+	prototypeEmbed,
 	statusLabel: lang === 'en' ? statusLabel : esStatusLabel,
 	missionHighlight: lang === 'en' ? missionHighlight : esMissionHighlight,
 	problemThemes: lang === 'en' ? problemThemes : esProblemThemes,
@@ -224,7 +229,7 @@ const views = (['en', 'es'] as const).map((lang) => ({
 	<main class="level-detail-screen" aria-labelledby="project-title-en">
 		<a class="back-link" href="/levels" aria-label="Back to Levels map" data-i18n="nav.back" data-i18n-aria="nav.backAria">Back</a>
 
-		{views.map(({ lang, t, p, metadata, contributionNote, projectContext, systemOverview, impactMetrics, clientContext, useCase, blockers, deliveryScope, whyMatters, roleIntro, processTitle, keyFeaturesTitle, outcomeTitle, artifactsIntro, artifactPlaceholders, ctaLabel, statusLabel, missionHighlight, problemThemes, systemStatsMain, systemScopeSupport, systemScopeDiagram, usersRoles, rolePullQuote, modules, workflows, designPrinciples, uxBizTech, artifactThemes, sapTraceability, expectedImpact, mainChallenge, mainChallengeHighlight }) => (
+		{views.map(({ lang, t, p, metadata, contributionNote, projectContext, systemOverview, impactMetrics, clientContext, useCase, blockers, deliveryScope, whyMatters, roleIntro, processTitle, keyFeaturesTitle, outcomeTitle, artifactsIntro, artifactPlaceholders, ctaLabel, ctaHref, prototypeEmbed, statusLabel, missionHighlight, problemThemes, systemStatsMain, systemScopeSupport, systemScopeDiagram, usersRoles, rolePullQuote, modules, workflows, designPrinciples, uxBizTech, artifactThemes, sapTraceability, expectedImpact, mainChallenge, mainChallengeHighlight }) => (
 		<div class="lang-pane" data-plang={lang} hidden={lang !== 'en'}>
 		<header class:list={['project-hero', metadata && 'project-hero-grid']}>
 			<div>
@@ -237,7 +242,7 @@ const views = (['en', 'es'] as const).map((lang) => ({
 				{
 					metadata && (
 						<div class="hero-actions" aria-label="Project actions">
-							<a href="#quest-artifacts-title">{ctaLabel || t.viewScreens}</a>
+							<a href={ctaHref || '#quest-artifacts-title'} {...(ctaHref ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{ctaLabel || t.viewScreens}</a>
 							<a href="/levels">{t.backToMap}</a>
 						</div>
 					)
@@ -734,14 +739,73 @@ const views = (['en', 'es'] as const).map((lang) => ({
 						<section class="content-block quest-artifacts" aria-labelledby={`quest-artifacts-title-${lang}`}>
 							<h2 id={`quest-artifacts-title-${lang}`}>{t.questArtifacts}</h2>
 							<p>{artifactsIntro}</p>
-							<div class="artifact-gallery-grid">
-								{artifactThemes
-									.flatMap((group) => group.images || [])
-									.map((img: { src: string; alt: string; caption?: string }) => (
-										<button type="button" class="artifact-gallery-tile artifact-lightbox-trigger" data-lightbox-src={img.src} data-lightbox-alt={img.alt} data-lightbox-caption={img.caption}>
-											<img src={img.src} alt={img.alt} loading="lazy" />
-										</button>
-									))}
+							{artifactThemes.map((group: { theme?: string; images?: { src: string; alt: string; caption?: string }[] }) =>
+								group.images && group.images.length > 0 && (
+									<div class="artifact-theme-group">
+										{group.theme && <p class="artifact-theme-label">{group.theme}</p>}
+										<div class="artifact-gallery-grid">
+											{group.images.map((img: { src: string; alt: string; caption?: string }) => (
+												<button type="button" class="artifact-gallery-tile artifact-lightbox-trigger" data-lightbox-src={img.src} data-lightbox-alt={img.alt} data-lightbox-caption={img.caption}>
+													<img src={img.src} alt={img.alt} loading="lazy" />
+												</button>
+											))}
+										</div>
+									</div>
+								)
+							)}
+						</section>
+					)
+				}
+
+				{
+					prototypeEmbed && lang === 'en' && (
+						<section class="content-block prototype-embed-block">
+							<div class="prototype-embed-header">
+								<span class="prototype-embed-eyebrow">Live Build</span>
+								<h2>Interactive Prototype</h2>
+								<p>The redesigned LMS experience deployed on Vercel — navigate the real interface, explore screens, and test the full interaction flow.</p>
+								<a href={prototypeEmbed} target="_blank" rel="noopener noreferrer" class="prototype-open-link">
+									Open full prototype ↗
+								</a>
+							</div>
+							<div class="prototype-iframe-wrap">
+								<iframe
+									src={prototypeEmbed}
+									title="Learning Platform Reimagined — Interactive Prototype"
+									loading="lazy"
+									allowfullscreen
+								></iframe>
+								<div class="prototype-iframe-fallback">
+									<p>Preview not available in this browser context.</p>
+									<a href={prototypeEmbed} target="_blank" rel="noopener noreferrer">Open prototype in new tab ↗</a>
+								</div>
+							</div>
+						</section>
+					)
+				}
+
+				{
+					prototypeEmbed && lang === 'es' && (
+						<section class="content-block prototype-embed-block">
+							<div class="prototype-embed-header">
+								<span class="prototype-embed-eyebrow">Build en Vivo</span>
+								<h2>Prototipo Interactivo</h2>
+								<p>La experiencia del LMS rediseñada y desplegada en Vercel — navega la interfaz real, explora las pantallas y prueba el flujo de interacción completo.</p>
+								<a href={prototypeEmbed} target="_blank" rel="noopener noreferrer" class="prototype-open-link">
+									Abrir prototipo completo ↗
+								</a>
+							</div>
+							<div class="prototype-iframe-wrap">
+								<iframe
+									src={prototypeEmbed}
+									title="Plataforma de Aprendizaje Reimaginada — Prototipo Interactivo"
+									loading="lazy"
+									allowfullscreen
+								></iframe>
+								<div class="prototype-iframe-fallback">
+									<p>Vista previa no disponible en este contexto del navegador.</p>
+									<a href={prototypeEmbed} target="_blank" rel="noopener noreferrer">Abrir prototipo en pestaña nueva ↗</a>
+								</div>
 							</div>
 						</section>
 					)
@@ -2838,6 +2902,29 @@ const views = (['en', 'es'] as const).map((lang) => ({
 		padding-top: 6px;
 	}
 
+	/* ── Quest Artifacts: themed sections ──────────────────────── */
+	.artifact-theme-group {
+		margin-top: 32px;
+	}
+
+	.artifact-theme-group:first-of-type {
+		margin-top: 8px;
+	}
+
+	.artifact-theme-label {
+		display: inline-block;
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: #a084ca;
+		background: #f3eeff;
+		border: 1.5px solid #d6c6f5;
+		border-radius: 20px;
+		padding: 4px 14px;
+		margin-bottom: 12px;
+	}
+
 	/* ── Quest Artifacts: single gallery frame ─────────────────── */
 	.artifact-gallery-grid {
 		display: flex;
@@ -2881,6 +2968,109 @@ const views = (['en', 'es'] as const).map((lang) => ({
 		border: 0;
 		text-align: inherit;
 		color: inherit;
+	}
+
+	/* ── Prototype embed section ─────────────────────────────── */
+	.prototype-embed-block {
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+
+	.prototype-embed-header {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.prototype-embed-eyebrow {
+		display: inline-block;
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: #a084ca;
+		background: #f3eeff;
+		border: 1.5px solid #d6c6f5;
+		border-radius: 20px;
+		padding: 4px 14px;
+		width: fit-content;
+	}
+
+	.prototype-embed-header h2 {
+		margin: 0;
+	}
+
+	.prototype-embed-header p {
+		max-width: 60ch;
+		margin: 0;
+		color: #6b5c4e;
+	}
+
+	.prototype-open-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: #a084ca;
+		text-decoration: none;
+		padding: 8px 18px;
+		border: 2px solid #d6c6f5;
+		border-radius: 50px;
+		width: fit-content;
+		transition: background 160ms ease, color 160ms ease;
+	}
+
+	.prototype-open-link:hover {
+		background: #f3eeff;
+		color: #7c5cbf;
+	}
+
+	.prototype-iframe-wrap {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 16 / 10;
+		border-radius: 16px;
+		overflow: hidden;
+		border: 2px solid #d6c6f5;
+		background: #f8f5ff;
+	}
+
+	.prototype-iframe-wrap iframe {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
+
+	.prototype-iframe-fallback {
+		display: none;
+		position: absolute;
+		inset: 0;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		gap: 12px;
+		text-align: center;
+		padding: 24px;
+		background: #f8f5ff;
+	}
+
+	.prototype-iframe-fallback p {
+		color: #9b8aaa;
+		font-size: 0.9rem;
+	}
+
+	.prototype-iframe-fallback a {
+		color: #a084ca;
+		font-weight: 600;
+	}
+
+	iframe:not([src]) ~ .prototype-iframe-fallback,
+	iframe[src=""] ~ .prototype-iframe-fallback {
+		display: flex;
 	}
 
 	.workshop-persona-grid {

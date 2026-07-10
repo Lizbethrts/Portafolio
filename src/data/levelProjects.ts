@@ -2644,6 +2644,377 @@ export const levelProjects = [
 			achievement: 'UX Conversacional + Pruebas en WhatsApp + Colaboración Multifuncional',
 		},
 	},
+	{
+		level: 'LEVEL_10',
+		slug: 'learning-platform-reimagined',
+		title: 'Learning Platform Reimagined',
+		intro:
+			'A complete end-to-end UX case study redesigning a university Learning Management System — from qualitative research and strategy to high-fidelity interface design and a deployed interactive prototype.',
+		tags: [
+			'UX Research',
+			'UI Design',
+			'Education Technology',
+			'Next.js',
+			'Interactive Prototype',
+		],
+		metadata: [
+			{ label: 'Type', value: 'Academic UX Case Study' },
+			{ label: 'Industry', value: 'Education Technology' },
+			{ label: 'Platform', value: 'Learning Management System' },
+			{ label: 'Role', value: 'Lead UX Research · UI Design · Prototype Development · Frontend Prototype' },
+			{ label: 'Prototype', value: 'Next.js · React · Tailwind · Vercel' },
+			{ label: 'Difficulty', value: '★★★★★' },
+		],
+		ctaLabel: 'Explore Project',
+		ctaHref: 'https://proyecto-ux.vercel.app/home',
+		prototypeEmbed: 'https://proyecto-ux.vercel.app/home',
+		statusLabel: 'Interactive Prototype',
+		missionHighlight: 'Good educational platforms should help students focus on learning — not on figuring out how the interface works.',
+		missionBrief: [
+			'The goal was to redesign the experience of an existing university Learning Management System.',
+			'Rather than creating a new educational platform from scratch, the objective was to understand why students struggled with the current experience and redesign it using a complete User-Centered Design process.',
+			'The final outcome included qualitative research, quantitative analysis, UX strategy, interface design, an interactive prototype and a deployed version built with Next.js, React and Tailwind, accessible at proyecto-ux.vercel.app/home.',
+		],
+		problem: [
+			'Students interacted with the LMS almost every day, yet many routine tasks felt unnecessarily difficult. Research revealed recurring frustrations around finding assignments, checking grades, understanding announcements, navigating courses and locating important information.',
+			'The challenge was to redesign the experience without changing the core educational workflows students already depended on.',
+		],
+		problemThemes: [
+			{ theme: 'Navigation Complexity', items: ['Students struggled to quickly locate important information across the platform.'] },
+			{ theme: 'Information Overload', items: ['Announcements, assignments and grades competed for attention without clear hierarchy.'] },
+			{ theme: 'Daily Friction', items: ['Simple repetitive tasks required more effort than expected for an everyday tool.'] },
+		],
+		useCase:
+			'The LMS was the central academic platform where students checked assignments, tracked grades, read course announcements and submitted work every day. Despite daily use, students reported that even familiar tasks required unnecessary navigation, and that the volume of information shown at once made it difficult to identify what was most urgent.',
+		whyMatters:
+			'Although this was a collaborative academic project, I led the research, UX strategy, interface design, interactive prototyping and implementation while teammates primarily supported presentations and project documentation.',
+		blockers: [
+			'Students could not quickly surface their most important tasks without navigating through multiple sections.',
+			'The visual hierarchy did not distinguish between urgent, recent and archived information.',
+			'Navigation patterns were inconsistent across different course and resource views.',
+			'The platform did not provide clear status signals for assignments, deadlines or grading.',
+		],
+		deliveryScope: [
+			'Semi-structured interviews exploring daily LMS usage, frustrations and expectations.',
+			'A Google Forms survey identifying recurring patterns across the student population.',
+			'Heuristic evaluation of the existing platform against Nielsen\'s ten usability heuristics.',
+			'Research synthesis including personas, empathy maps, Journey Maps and Jobs To Be Done.',
+			'High-fidelity interface designs covering Dashboard, Assignments, Courses, Grades, Announcements and Profile.',
+			'An interactive Next.js prototype deployed on Vercel for live usability validation.',
+		],
+		rolePullQuote: 'I transformed research insights into an interactive learning experience.',
+		role: [
+			'UX Research',
+			'Interaction Design',
+			'UI Design',
+			'Next.js Prototype',
+			'Usability Testing',
+			'Research Synthesis',
+		],
+		roleIntro:
+			'I led most stages of the UX process, including planning and conducting research, creating research artifacts, synthesizing findings, designing the interface, building the interactive prototype and validating the final experience. The project was completed collaboratively, with teammates supporting presentations and project documentation.',
+		processTitle: 'Quest Progress',
+		process: [
+			{
+				title: 'Understanding the Existing LMS',
+				body: ['Reviewing the current platform and identifying common frustrations through direct observation and platform walkthroughs.'],
+			},
+			{
+				title: 'Planning Research',
+				body: ['Preparing interview scripts and survey questions to guide qualitative and quantitative data collection.'],
+			},
+			{
+				title: 'Conducting Interviews',
+				body: ['Interviewing students to understand daily behaviors, frustrations and expectations when using the LMS.'],
+			},
+			{
+				title: 'Launching the Survey',
+				body: ['Collecting quantitative data through a Google Forms survey to identify recurring patterns across a broader population.'],
+			},
+			{
+				title: 'Research Synthesis',
+				body: ['Creating personas, empathy maps, Jobs To Be Done and Journey Maps to translate raw findings into actionable design direction.'],
+			},
+			{
+				title: 'Heuristic Evaluation',
+				body: ['Comparing research findings with Nielsen\'s ten usability heuristics to identify and classify specific interface issues.'],
+			},
+			{
+				title: 'Redesign Strategy',
+				body: ['Improving navigation, visual hierarchy and information architecture based on consolidated research insights.'],
+			},
+			{
+				title: 'Interface Design',
+				body: ['Designing high-fidelity interfaces covering Dashboard, Assignments, Courses, Grades, Announcements and Profile sections.'],
+			},
+			{
+				title: 'Interactive Prototype',
+				body: ['Building the prototype using Next.js, React and Tailwind and deploying it on Vercel to communicate interaction details beyond static mockups.'],
+			},
+			{
+				title: 'Usability Validation',
+				body: ['Testing the redesigned experience with users, identifying interaction improvements and confirming that the new navigation reduced daily friction.'],
+			},
+		],
+		designPrinciples: [
+			{ title: 'Prioritize Daily Tasks', description: 'Surface assignments, deadlines and grades at the first point of contact so students can act immediately.' },
+			{ title: 'Reduce Cognitive Load', description: 'Eliminate visual noise and group related information logically to reduce the effort needed to read and process each page.' },
+			{ title: 'Create Consistent Navigation', description: 'Apply predictable structural patterns across all sections so students can move confidently without relearning each view.' },
+			{ title: 'Highlight What Matters Most', description: 'Use visual hierarchy, status signals and color intentionally to direct attention to urgent and actionable information.' },
+			{ title: 'Support Faster Decision Making', description: 'Provide clear labels, summary views and status indicators that allow students to assess their situation and act without deep navigation.' },
+		],
+		keyFeaturesTitle: 'Research Approach',
+		keyFeatures: [
+			'Semi-Structured Interviews',
+			'Google Forms Survey',
+			'Heuristic Evaluation',
+			'Personas & Empathy Maps',
+			'Journey Maps',
+			'Jobs To Be Done',
+			'Usability Validation',
+		],
+		artifactsIntro: 'Research artifacts, interface designs and prototype screens produced across the full UX process — from user research to deployed product.',
+		artifactThemes: [
+			{
+				theme: 'User Personas',
+				images: [
+					{ src: '/img/levels/blackboard/User%20persona%20Light%20Theme.png', alt: 'User persona artifact showing student profile, motivations, frustrations and LMS usage patterns' },
+					{ src: '/img/levels/blackboard/User%20persona%20Light%20Theme-1.png', alt: 'User persona artifact showing a second student profile with distinct academic context and expectations' },
+					{ src: '/img/levels/blackboard/User%20persona%20Light%20Theme-2.png', alt: 'User persona artifact showing a third student profile with different course load and digital habits' },
+					{ src: '/img/levels/blackboard/User%20persona%20Light%20Theme-3.png', alt: 'User persona artifact showing a fourth student profile with specific navigation pain points and daily routines' },
+				],
+			},
+			{
+				theme: 'Design System',
+				images: [
+					{ src: '/img/levels/blackboard/Desing%20system.png', alt: 'Design system overview showing typography, color palette, component library and spacing guidelines for the redesigned LMS' },
+				],
+			},
+			{
+				theme: 'Journey Map',
+				images: [
+					{ src: '/img/levels/blackboard/8.png', alt: 'Customer journey map visualizing the student experience across the main LMS tasks — from login to assignment submission' },
+				],
+			},
+			{
+				theme: 'Empathy Map',
+				images: [
+					{ src: '/img/levels/blackboard/9.png', alt: 'Empathy map synthesizing what students say, think, feel and do when using the university LMS daily' },
+				],
+			},
+			{
+				theme: 'Jobs To Be Done',
+				images: [
+					{ src: '/img/levels/blackboard/10.png', alt: 'Jobs To Be Done framework mapping the core functional, emotional and social needs students bring to the LMS' },
+				],
+			},
+			{
+				theme: 'Prototype in Context',
+				images: [
+					{ src: '/img/levels/blackboard/iMac%2024%20inch.png', alt: 'Deployed Next.js prototype displayed on a desktop screen showing the redesigned LMS dashboard' },
+					{ src: '/img/levels/blackboard/iMac%2024%20inch-1.png', alt: 'Deployed Next.js prototype displayed on a desktop screen showing the assignments view' },
+					{ src: '/img/levels/blackboard/iMac%2024%20inch-2.png', alt: 'Deployed Next.js prototype displayed on a desktop screen showing the courses section' },
+				],
+			},
+		],
+		mainChallengeHighlight: 'Research creates confidence. Building creates understanding.',
+		mainChallenge: [
+			'This project reinforced the value of combining research with implementation. Rather than stopping at interface design, building the prototype exposed interaction details that static mockups could not reveal.',
+			'Working through every stage — from interviews to coded prototype — strengthened my understanding of end-to-end UX. Research provides direction; building tests whether that direction actually works in practice.',
+			'The project also showed that usability validation is most meaningful when testers can interact with a real prototype rather than navigate static screens. The live implementation produced more honest and useful feedback.',
+		],
+		outcomeTitle: 'Level Complete',
+		outcome: [
+			'The project produced a complete UX process applied to a real academic platform: qualitative research through interviews, quantitative data through a survey, heuristic evaluation, research synthesis, high-fidelity interface design and an interactive prototype deployed on Vercel.',
+			'Usability validation confirmed that the redesigned navigation reduced the effort required to find assignments, check grades and read course announcements. Students could complete common tasks more quickly without needing to explore multiple sections.',
+			'The interactive prototype is live and accessible. Deploying it on Vercel allowed validation to happen in a real browsing context rather than through static screen reviews — producing more realistic and actionable observations.',
+		],
+		achievement: 'Research → Strategy → Design → Code',
+		es: {
+			title: 'Plataforma de Aprendizaje Reimaginada',
+			intro:
+				'Un caso de estudio UX de principio a fin que rediseña un Sistema de Gestión de Aprendizaje universitario — desde investigación cualitativa y estrategia hasta diseño de interfaz de alta fidelidad y un prototipo interactivo desplegado.',
+			tags: [
+				'Investigación UX',
+				'Diseño UI',
+				'Tecnología Educativa',
+				'Next.js',
+				'Prototipo Interactivo',
+			],
+			metadata: [
+				{ label: 'Tipo', value: 'Caso de Estudio Académico UX' },
+				{ label: 'Industria', value: 'Tecnología Educativa' },
+				{ label: 'Plataforma', value: 'Sistema de Gestión de Aprendizaje' },
+				{ label: 'Rol', value: 'Investigación UX Líder · Diseño UI · Desarrollo de Prototipo · Prototipo Frontend' },
+				{ label: 'Prototipo', value: 'Next.js · React · Tailwind · Vercel' },
+				{ label: 'Dificultad', value: '★★★★★' },
+			],
+			ctaLabel: 'Explorar Proyecto',
+			ctaHref: 'https://proyecto-ux.vercel.app/home',
+			statusLabel: 'Prototipo Interactivo',
+			missionHighlight: 'Las buenas plataformas educativas deben ayudar a los estudiantes a enfocarse en aprender — no en descifrar cómo funciona la interfaz.',
+			missionBrief: [
+				'El objetivo era rediseñar la experiencia de un Sistema de Gestión de Aprendizaje universitario existente.',
+				'En lugar de crear una nueva plataforma educativa desde cero, el objetivo era entender por qué los estudiantes tenían dificultades con la experiencia actual y rediseñarla usando un proceso completo de Diseño Centrado en el Usuario.',
+				'El resultado final incluyó investigación cualitativa, análisis cuantitativo, estrategia UX, diseño de interfaz, un prototipo interactivo y una versión desplegada desarrollada con Next.js, React y Tailwind, accesible en proyecto-ux.vercel.app/home.',
+			],
+			problem: [
+				'Los estudiantes interactuaban con el LMS casi todos los días, pero muchas tareas rutinarias se sentían innecesariamente difíciles. La investigación reveló frustraciones recurrentes al buscar tareas, revisar calificaciones, entender anuncios, navegar cursos y localizar información importante.',
+				'El reto era rediseñar la experiencia sin cambiar los flujos de trabajo educativos principales de los que los estudiantes ya dependían.',
+			],
+			problemThemes: [
+				{ theme: 'Complejidad de Navegación', items: ['Los estudiantes tenían dificultades para localizar rápidamente la información importante en la plataforma.'] },
+				{ theme: 'Sobrecarga de Información', items: ['Los anuncios, tareas y calificaciones competían por la atención sin una jerarquía visual clara.'] },
+				{ theme: 'Fricción Diaria', items: ['Las tareas repetitivas simples requerían más esfuerzo del esperado para una herramienta de uso cotidiano.'] },
+			],
+			useCase:
+				'El LMS era la plataforma académica central donde los estudiantes revisaban tareas, seguían calificaciones, leían anuncios de cursos y enviaban trabajos todos los días. A pesar del uso diario, los estudiantes reportaron que incluso las tareas familiares requerían navegación innecesaria, y que el volumen de información mostrada a la vez dificultaba identificar qué era más urgente.',
+			whyMatters:
+				'Aunque fue un proyecto académico colaborativo, lideré la investigación, la estrategia UX, el diseño de interfaz, el prototipado interactivo y la implementación, mientras que mis compañeros apoyaron principalmente con las presentaciones y la documentación del proyecto.',
+			blockers: [
+				'Los estudiantes no podían ver rápidamente sus tareas más importantes sin navegar por múltiples secciones.',
+				'La jerarquía visual no diferenciaba entre información urgente, reciente y archivada.',
+				'Los patrones de navegación eran inconsistentes entre las diferentes vistas de cursos y recursos.',
+				'La plataforma no proporcionaba señales de estado claras para tareas, fechas límite o calificaciones.',
+			],
+			deliveryScope: [
+				'Entrevistas semiestructuradas explorando el uso diario del LMS, frustraciones y expectativas.',
+				'Una encuesta de Google Forms para identificar patrones recurrentes en la población estudiantil.',
+				'Evaluación heurística de la plataforma existente contra las diez heurísticas de usabilidad de Nielsen.',
+				'Síntesis de investigación con personas, mapas de empatía, Journey Maps y Jobs To Be Done.',
+				'Diseños de interfaz de alta fidelidad que cubren Dashboard, Tareas, Cursos, Calificaciones, Anuncios y Perfil.',
+				'Un prototipo interactivo desarrollado en Next.js y desplegado en Vercel para validación de usabilidad en vivo.',
+			],
+			rolePullQuote: 'Transformé los insights de investigación en una experiencia de aprendizaje interactiva.',
+			role: [
+				'Investigación UX',
+				'Diseño de Interacción',
+				'Diseño UI',
+				'Prototipo Next.js',
+				'Pruebas de Usabilidad',
+				'Síntesis de Investigación',
+			],
+			roleIntro:
+				'Lideré la mayoría de las etapas del proceso UX, incluyendo la planificación y realización de la investigación, la creación de artefactos de investigación, la síntesis de hallazgos, el diseño de la interfaz, la construcción del prototipo interactivo y la validación de la experiencia final. El proyecto se completó de forma colaborativa, con compañeros de equipo apoyando las presentaciones y la documentación del proyecto.',
+			processTitle: 'Progreso de la Misión',
+			keyFeaturesTitle: 'Enfoque de Investigación',
+			keyFeatures: [
+				'Entrevistas Semiestructuradas',
+				'Encuesta Google Forms',
+				'Evaluación Heurística',
+				'Personas y Mapas de Empatía',
+				'Journey Maps',
+				'Jobs To Be Done',
+				'Validación de Usabilidad',
+			],
+			process: [
+				{
+					title: 'Entender el LMS Existente',
+					body: ['Revisión de la plataforma actual e identificación de frustraciones comunes mediante observación directa y recorridos por la plataforma.'],
+				},
+				{
+					title: 'Planificación de la Investigación',
+					body: ['Preparación de guías de entrevista y preguntas de encuesta para guiar la recolección de datos cualitativos y cuantitativos.'],
+				},
+				{
+					title: 'Conducción de Entrevistas',
+					body: ['Entrevistas con estudiantes para entender comportamientos diarios, frustraciones y expectativas al usar el LMS.'],
+				},
+				{
+					title: 'Lanzamiento de la Encuesta',
+					body: ['Recolección de datos cuantitativos mediante una encuesta de Google Forms para identificar patrones recurrentes en una población más amplia.'],
+				},
+				{
+					title: 'Síntesis de Investigación',
+					body: ['Creación de personas, mapas de empatía, Jobs To Be Done y Journey Maps para traducir los hallazgos en una dirección de diseño accionable.'],
+				},
+				{
+					title: 'Evaluación Heurística',
+					body: ['Comparación de los hallazgos de investigación con las diez heurísticas de usabilidad de Nielsen para identificar y clasificar problemas específicos de interfaz.'],
+				},
+				{
+					title: 'Estrategia de Rediseño',
+					body: ['Mejora de la navegación, jerarquía visual y arquitectura de información basada en los insights consolidados de la investigación.'],
+				},
+				{
+					title: 'Diseño de Interfaz',
+					body: ['Diseño de interfaces de alta fidelidad que cubren Dashboard, Tareas, Cursos, Calificaciones, Anuncios y Perfil.'],
+				},
+				{
+					title: 'Prototipo Interactivo',
+					body: ['Construcción del prototipo con Next.js, React y Tailwind y despliegue en Vercel para comunicar detalles de interacción más allá de los mockups estáticos.'],
+				},
+				{
+					title: 'Validación de Usabilidad',
+					body: ['Pruebas de la experiencia rediseñada con usuarios, identificando mejoras de interacción y confirmando que la nueva navegación redujo la fricción diaria.'],
+				},
+			],
+			designPrinciples: [
+				{ title: 'Priorizar las Tareas Diarias', description: 'Mostrar tareas, fechas límite y calificaciones en el primer punto de contacto para que los estudiantes puedan actuar de inmediato.' },
+				{ title: 'Reducir la Carga Cognitiva', description: 'Eliminar el ruido visual y agrupar la información relacionada lógicamente para reducir el esfuerzo necesario para leer y procesar cada página.' },
+				{ title: 'Crear Navegación Consistente', description: 'Aplicar patrones estructurales predecibles en todas las secciones para que los estudiantes puedan moverse con confianza sin reaprender cada vista.' },
+				{ title: 'Destacar lo Más Importante', description: 'Usar la jerarquía visual, las señales de estado y el color de forma intencional para dirigir la atención hacia la información urgente y accionable.' },
+				{ title: 'Apoyar la Toma de Decisiones', description: 'Proporcionar etiquetas claras, vistas de resumen e indicadores de estado que permitan a los estudiantes evaluar su situación y actuar sin navegación profunda.' },
+			],
+			artifactsIntro: 'Artefactos de investigación, diseños de interfaz y pantallas del prototipo producidos a lo largo del proceso UX completo — desde la investigación hasta el producto desplegado.',
+			artifactThemes: [
+				{
+					theme: 'Personas de Usuario',
+					images: [
+						{ src: '/img/levels/blackboard/User%20persona%20Light%20Theme.png', alt: 'Artefacto de persona de usuario mostrando perfil estudiantil, motivaciones, frustraciones y patrones de uso del LMS' },
+						{ src: '/img/levels/blackboard/User%20persona%20Light%20Theme-1.png', alt: 'Artefacto de persona de usuario mostrando un segundo perfil estudiantil con contexto académico y expectativas distintas' },
+						{ src: '/img/levels/blackboard/User%20persona%20Light%20Theme-2.png', alt: 'Artefacto de persona de usuario mostrando un tercer perfil estudiantil con diferente carga de cursos y hábitos digitales' },
+						{ src: '/img/levels/blackboard/User%20persona%20Light%20Theme-3.png', alt: 'Artefacto de persona de usuario mostrando un cuarto perfil estudiantil con puntos de dolor específicos en la navegación' },
+					],
+				},
+				{
+					theme: 'Sistema de Diseño',
+					images: [
+						{ src: '/img/levels/blackboard/Desing%20system.png', alt: 'Visión general del sistema de diseño mostrando tipografía, paleta de colores, biblioteca de componentes y guías de espaciado para el LMS rediseñado' },
+					],
+				},
+				{
+					theme: 'Journey Map',
+					images: [
+						{ src: '/img/levels/blackboard/8.png', alt: 'Mapa de viaje del usuario que visualiza la experiencia estudiantil a través de las principales tareas del LMS — desde el inicio de sesión hasta la entrega de tareas' },
+					],
+				},
+				{
+					theme: 'Mapa de Empatía',
+					images: [
+						{ src: '/img/levels/blackboard/9.png', alt: 'Mapa de empatía que sintetiza lo que los estudiantes dicen, piensan, sienten y hacen al usar el LMS universitario diariamente' },
+					],
+				},
+				{
+					theme: 'Jobs To Be Done',
+					images: [
+						{ src: '/img/levels/blackboard/10.png', alt: 'Framework de Jobs To Be Done que mapea las necesidades funcionales, emocionales y sociales que los estudiantes traen al LMS' },
+					],
+				},
+				{
+					theme: 'Prototipo en Contexto',
+					images: [
+						{ src: '/img/levels/blackboard/iMac%2024%20inch.png', alt: 'Prototipo Next.js desplegado en pantalla de escritorio mostrando el dashboard del LMS rediseñado' },
+						{ src: '/img/levels/blackboard/iMac%2024%20inch-1.png', alt: 'Prototipo Next.js desplegado en pantalla de escritorio mostrando la vista de tareas' },
+						{ src: '/img/levels/blackboard/iMac%2024%20inch-2.png', alt: 'Prototipo Next.js desplegado en pantalla de escritorio mostrando la sección de cursos' },
+					],
+				},
+			],
+			mainChallengeHighlight: 'La investigación crea confianza. Construir crea comprensión.',
+			mainChallenge: [
+				'Este proyecto reforzó el valor de combinar la investigación con la implementación. En lugar de detenerse en el diseño de interfaz, construir el prototipo expuso detalles de interacción que los mockups estáticos no podían revelar.',
+				'Trabajar en cada etapa — desde las entrevistas hasta el prototipo codificado — fortaleció mi comprensión del UX de principio a fin. La investigación proporciona dirección; construir pone a prueba si esa dirección realmente funciona en la práctica.',
+				'El proyecto también demostró que la validación de usabilidad es más significativa cuando los usuarios pueden interactuar con un prototipo real en lugar de navegar pantallas estáticas. La implementación en vivo produjo retroalimentación más honesta y útil.',
+			],
+			outcomeTitle: 'Misión Completada',
+			outcome: [
+				'El proyecto produjo un proceso UX completo aplicado a una plataforma académica real: investigación cualitativa mediante entrevistas, datos cuantitativos mediante encuesta, evaluación heurística, síntesis de investigación, diseño de interfaz de alta fidelidad y un prototipo interactivo desplegado en Vercel.',
+				'La validación de usabilidad confirmó que la navegación rediseñada redujo el esfuerzo necesario para encontrar tareas, revisar calificaciones y leer anuncios de cursos. Los estudiantes pudieron completar tareas comunes más rápidamente sin necesidad de explorar múltiples secciones.',
+				'El prototipo interactivo está activo y accesible. Desplegarlo en Vercel permitió que la validación se realizara en un contexto de navegación real en lugar de revisiones estáticas — produciendo observaciones más realistas y accionables.',
+			],
+			achievement: 'Investigación → Estrategia → Diseño → Código',
+		},
+	},
 ] as const;
 
 export type LevelProject = (typeof levelProjects)[number];
